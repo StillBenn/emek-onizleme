@@ -16,6 +16,9 @@
   var html = document.documentElement;
   var D = window.EMEK || { depts: [], docs: [] };
   var BASE = html.getAttribute("data-base") || "/";
+  /* the words this script says, in the page's language (js/data.<lang>.js; the Turkish is the key) */
+  var I18N = (window.EMEK && window.EMEK.i18n) || {};
+  var T = function (s, v) { var t = I18N[s] || s; if (v) Object.keys(v).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; };
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
@@ -43,7 +46,7 @@
   var hdr = $(".hdr");
   if (hdr) { var line = document.createElement("span"); line.className = "hdr__line"; line.setAttribute("aria-hidden", "true"); hdr.appendChild(line); }
   var up = document.createElement("button");
-  up.type = "button"; up.className = "totop"; up.setAttribute("aria-label", "Sayfanın başına dön");
+  up.type = "button"; up.className = "totop"; up.setAttribute("aria-label", T("Sayfanın başına dön"));
   up.innerHTML = '<svg class="ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" pathLength="100"/></svg>' + icon("i-up");
   document.body.appendChild(up);
   up.addEventListener("click", function () { scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" }); });
@@ -91,6 +94,11 @@
             s.textContent = part; s.style.setProperty("--wi", i++);
             w.appendChild(s); frag.appendChild(w);
           });
+          /* right to left, a run of Latin words (a doctor's name) is laid out as one left-to-right island:
+             split into inline blocks, it would otherwise be read in reverse */
+          if (html.dir === "rtl" && /[A-Za-zÇĞİÖŞÜçğıöşü]/.test(n.textContent) && !/[؀-ۿ]/.test(n.textContent)) {
+            var b = document.createElement("bdi"); b.className = "wl"; b.dir = "ltr"; b.appendChild(frag); frag = b;
+          }
           n.parentNode.replaceChild(frag, n);
         } else if (n.nodeType === 1 && !/^(svg|img|br)$/i.test(n.tagName)) walk(n);
       });
@@ -114,15 +122,23 @@
   }
 
   /* ---- the light under the pointer, on cards ---- */
-  var SPOT = ".dept, .qa, .hubc, .feature, .way";
+  var SPOT = ".dept, .qa, .hubc, .guide__list a, .way, .lrow, .arow, .pcard, .opt, .feature, .mini";
   if (fine) {
-    $$(SPOT).forEach(function (c) { var s = document.createElement("span"); s.className = "spot"; s.setAttribute("aria-hidden", "true"); c.appendChild(s); });
+    /* where the pointer is on a card: its light gathers there, and the card leans a degree toward it
+       (only cards narrow enough to read as objects; a full-width row only lights) */
+    var lean = null;
     document.addEventListener("pointermove", function (e) {
       var c = e.target.closest && e.target.closest(SPOT);
+      if (lean && lean !== c) { lean.style.removeProperty("--rx"); lean.style.removeProperty("--ry"); lean = null; }
       if (!c) return;
-      var r = c.getBoundingClientRect();
+      var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
       c.style.setProperty("--mx", (e.clientX - r.left).toFixed(0) + "px");
       c.style.setProperty("--my", (e.clientY - r.top).toFixed(0) + "px");
+      if (!reduced() && r.width < 480) {
+        c.style.setProperty("--rx", ((0.5 - y) * 3.2).toFixed(2) + "deg");
+        c.style.setProperty("--ry", ((x - 0.5) * 3.2).toFixed(2) + "deg");
+        lean = c;
+      }
     }, { passive: true });
 
     /* the main buttons lean toward the pointer */
@@ -203,15 +219,16 @@
     if (!track) return;
     var gap = function () { return parseFloat(getComputedStyle(track).columnGap) || 16; };
     var stepW = function () { var c = $(".doc:not([hidden])", track); return c ? c.offsetWidth + gap() : 300; };
+    var rtl = getComputedStyle(track).direction === "rtl", sgn = rtl ? -1 : 1;
     function upd() {
-      var max = track.scrollWidth - track.clientWidth, p = max > 0 ? track.scrollLeft / max : 0;
+      var max = track.scrollWidth - track.clientWidth, at = Math.abs(track.scrollLeft), p = max > 0 ? at / max : 0;
       var w = track.scrollWidth ? Math.min(1, track.clientWidth / track.scrollWidth) : 1;
-      if (bar) { bar.style.width = (w * 100).toFixed(2) + "%"; bar.style.transform = "translateX(" + ((p * (1 - w)) / w * 100).toFixed(2) + "%)"; }
-      if (prev) prev.disabled = track.scrollLeft < 4;
-      if (next) next.disabled = track.scrollLeft > max - 4;
+      if (bar) { bar.style.width = (w * 100).toFixed(2) + "%"; bar.style.transform = "translateX(" + (sgn * (p * (1 - w)) / w * 100).toFixed(2) + "%)"; }
+      if (prev) prev.disabled = at < 4;
+      if (next) next.disabled = at > max - 4;
     }
-    if (prev) prev.addEventListener("click", function () { track.scrollBy({ left: -stepW() * 2, behavior: reduced() ? "auto" : "smooth" }); });
-    if (next) next.addEventListener("click", function () { track.scrollBy({ left: stepW() * 2, behavior: reduced() ? "auto" : "smooth" }); });
+    if (prev) prev.addEventListener("click", function () { track.scrollBy({ left: -sgn * stepW() * 2, behavior: reduced() ? "auto" : "smooth" }); });
+    if (next) next.addEventListener("click", function () { track.scrollBy({ left: sgn * stepW() * 2, behavior: reduced() ? "auto" : "smooth" }); });
     track.addEventListener("scroll", function () { requestAnimationFrame(upd); }, { passive: true });
     addEventListener("resize", upd);
     /* drag with the mouse (touch scrolls by itself) */
@@ -280,9 +297,9 @@
       var faces = (d.faces || []).map(function (f) { return '<img src="' + esc(abs(f)) + '" alt="" width="240" height="276">'; }).join("");
       peek.innerHTML = '<span class="mega__i">' + icon(d.icon) + "</span>" +
         '<p class="h3">' + esc(d.name) + "</p>" + (d.sum ? "<p>" + esc(d.sum) + "</p>" : "") +
-        '<div class="faces faces--night">' + faces + "<span>" + (d.count ? d.count + " hekim" : "Tıbbi birim") + "</span></div>" +
-        '<div class="mega__acts"><a class="btn btn--light btn--sm" href="' + esc(abs(d.href)) + '">Bölümü incele</a>' +
-        (d.count ? '<a class="btn btn--bright btn--sm" href="' + esc(abs("randevu/?bolum=" + d.slug)) + '">' + icon("i-calendar") + "Randevu</a>" : "") + "</div>";
+        '<div class="faces faces--night">' + faces + "<span>" + (d.count ? T("{n} hekim", { n: d.count }) : T("Tıbbi birim")) + "</span></div>" +
+        '<div class="mega__acts"><a class="btn btn--light btn--sm" href="' + esc(abs(d.href)) + '">' + T("Bölümü incele") + "</a>" +
+        (d.count ? '<a class="btn btn--bright btn--sm" href="' + esc(abs("randevu/?bolum=" + d.slug)) + '">' + icon("i-calendar") + T("Randevu") + "</a>" : "") + "</div>";
       peek.hidden = false; plain.hidden = true;
       if (!reduced() && peek.animate) peek.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 320, easing: "cubic-bezier(.22,1,.36,1)" });
     };

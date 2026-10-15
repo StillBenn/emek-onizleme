@@ -23,17 +23,25 @@
   var $$ = function (s, r) { return [].slice.call((r || root).querySelectorAll(s)); };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var BASE = html.getAttribute("data-base") || "/";
+  /* the words this script says, in the page's language (js/data.<lang>.js; the Turkish is the key) */
+  var I18N = (window.EMEK && window.EMEK.i18n) || {};
+  var T = function (s, v) { var t = I18N[s] || s; if (v) Object.keys(v).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; };
   var icon = function (id, cls) { return '<svg class="icon ' + (cls || "") + '" aria-hidden="true"><use href="' + BASE + 'img/icons.svg#' + id + '"/></svg>'; };
   var fold = function (s) {
     return String(s || "").replace(/İ/g, "i").replace(/I/g, "ı").toLocaleLowerCase("tr")
-      .replace(/ı/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g").replace(/ç/g, "c").replace(/ö/g, "o").replace(/ü/g, "u");
+      .replace(/ı/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g").replace(/ç/g, "c").replace(/ö/g, "o").replace(/ü/g, "u")
+      .replace(/[\u064B-\u0652\u0670\u0640]/g, "").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي")
+      .replace(/(^|\s)ال(?=[\u0621-\u064A]{3})/g, "$1");   /* the article ال: "الركبة" finds "ركبة" */
   };
   var reduced = function () { return html.getAttribute("data-motion") === "reduced" || matchMedia("(prefers-reduced-motion: reduce)").matches; };
   var toast = function (m, i) { if (window.EMEKtoast) window.EMEKtoast(m, i); };
   var EASE = "cubic-bezier(.22,1,.36,1)";
-  var MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-  var WEEK = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
-  var DAYNAME = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+  /* dates in the page's own language, from the browser (Arabic with the digits on the phone's keypad) */
+  var LOC = { en: "en-GB", ar: "ar-u-nu-latn" }[html.lang] || "tr-TR";
+  var fmt = function (o) { try { return new Intl.DateTimeFormat(LOC, o); } catch (e) { return new Intl.DateTimeFormat("tr-TR", o); } };
+  var fLong = fmt({ weekday: "long", day: "numeric", month: "long" }), fMonth = fmt({ month: "long" }), fMon = fmt({ month: "short" }), fWeek = fmt({ weekday: "short" });
+  var monthName = function (d) { return fMonth.format(d); }, monShort = function (d) { return fMon.format(d).replace(".", ""); };
+  var WEEK = [0, 1, 2, 3, 4, 5, 6].map(function (i) { return fWeek.format(new Date(2024, 0, 1 + i)).replace(".", ""); });   /* 1 Jan 2024 was a Monday */
 
   /* the departments one books (the emergency needs no appointment; a unit with no doctor listed cannot be chosen) */
   var depts = (D.depts || []).filter(function (d) { return d.count > 0 && d.slug !== "acil-tip"; });
@@ -45,7 +53,7 @@
   var keyOf = function (d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); };
   var fromKey = function (k) { var p = k.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); };
   var FIRST = addDays(today, 1), LAST = addDays(today, 21);
-  var dayName = function (d) { return d.getDate() + " " + MONTHS[d.getMonth()] + " " + DAYNAME[d.getDay()]; };
+  var dayName = function (d) { return fLong.format(d); };
 
   /* ---- the state ---- */
   var st = { dept: null, doc: null, any: false, day: null, slot: null };
@@ -80,9 +88,9 @@
 
   /* ---- the form: rules, the phone written as it is read, the insurer checked ---- */
   var RULES = {
-    name: function (v) { return v.trim().length >= 3 || "Lütfen adınızı ve soyadınızı yazın"; },
-    phone: function (v) { var n = v.replace(/\D/g, ""); return (n.length >= 10 && n.length <= 12) || "Lütfen size ulaşabileceğimiz bir telefon numarası yazın"; },
-    consent: function (v, el) { return el.checked || "Devam etmek için aydınlatma metnini onaylayın"; }
+    name: function (v) { return v.trim().length >= 3 || T("Lütfen adınızı ve soyadınızı yazın"); },
+    phone: function (v) { var n = v.replace(/\D/g, ""); return (n.length >= 10 && n.length <= 12) || T("Lütfen size ulaşabileceğimiz bir telefon numarası yazın"); },
+    consent: function (v, el) { return el.checked || T("Devam etmek için aydınlatma metnini onaylayın"); }
   };
   function check(n, quiet) {
     var el = form.elements[n], r = RULES[n](el.value, el), f = el.closest(".field, .check");
@@ -111,6 +119,7 @@
     el.addEventListener(n === "consent" ? "change" : "input", function () { var f = el.closest(".field, .check"); if (f && (f.classList.contains("is-bad") || f.classList.contains("is-ok"))) check(n); render(); });
     if (n !== "consent") el.addEventListener("blur", function () { if (el.value.trim()) check(n); });
   });
+  var PRIVATE = T("Özel sağlık sigortası");
   var insField = $("[data-insfield]"), insState = $("[data-insstate]"), insurers = D.insurers || [], insHit = null;
   function insCheck() {
     var v = fold(form.elements.insurer.value).trim();
@@ -119,13 +128,13 @@
     var hit = insurers.filter(function (n) { return fold(n).indexOf(v) >= 0 || v.indexOf(fold(n)) >= 0; })[0];
     insHit = hit || null;
     insState.className = "ins-state " + (hit ? "is-yes" : "is-no");
-    insState.textContent = hit ? "✓ " + hit + " anlaşmalı kurumlarımız arasında" : "Listemizde görünmüyor — kapsam için çağrı merkezimize danışın";
+    insState.textContent = hit ? "✓ " + T("{x} anlaşmalı kurumlarımız arasında", { x: hit }) : T("Listemizde görünmüyor — kapsam için çağrı merkezimize danışın");
   }
   form.elements.insurer.addEventListener("input", function () { insCheck(); render(); });
   form.elements.insurer.addEventListener("blur", function () { if (insHit) { form.elements.insurer.value = insHit; render(); } });
   $$('input[name="pay"]', form).forEach(function (r) {
     r.addEventListener("change", function () {
-      var on = form.elements.pay.value === "Özel sağlık sigortası";
+      var on = form.elements.pay.value === PRIVATE;
       if (on && insField.hidden) { insField.hidden = false; if (!reduced() && insField.animate) insField.animate([{ opacity: 0, transform: "translateY(-6px)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: EASE }); }
       if (!on) insField.hidden = true;
       render();
@@ -159,8 +168,8 @@
     deptBox.innerHTML = list.map(function (o) {
       var d = o.d, faces = (d.faces || []).slice(0, 3).map(function (f) { return '<img src="' + esc(BASE + f) + '" alt="" width="240" height="276">'; }).join("");
       return '<button class="opt opt--dept" type="button" data-dept="' + d.slug + '" aria-pressed="' + (st.dept === d) + '"><span class="di">' + icon(d.icon) + '</span><span class="opt__t"><b>' + esc(d.name) +
-        '</b><small><span class="opt__faces">' + faces + "</span>" + (o.why ? "“" + esc(o.why) + "” için önerilen" : d.count + " hekim") + "</small></span></button>";
-    }).join("") || '<p class="pick__empty">“' + esc(find.value) + '” ile eşleşen bir bölüm bulamadık. Başka bir kelime deneyin ya da <a href="tel:+903423200202">çağrı merkezimizi arayın</a>.</p>';
+        '</b><small><span class="opt__faces">' + faces + "</span>" + (o.why ? T("“{w}” için önerilen", { w: esc(o.why) }) : T("{n} hekim", { n: d.count })) + "</small></span></button>";
+    }).join("") || '<p class="pick__empty">' + T("“{q}” ile eşleşen bir bölüm bulamadık. Başka bir kelime deneyin ya da <a href=\"tel:+903423200202\">çağrı merkezimizi arayın</a>.", { q: esc(find.value) }) + "</p>";
   }
   find.addEventListener("input", drawDepts);
   find.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); var b = $("[data-dept]", deptBox); if (b) b.click(); } });
@@ -182,7 +191,7 @@
         (d.pic ? '<img src="' + esc(BASE + d.pic) + '" alt="" width="800" height="920" loading="lazy">' : icon("i-doctor")) +
         '</span><span class="pcard__t"><small>' + esc(d.title) + "</small><b>" + esc(d.name) + "</b></span></button>";
     }).join("") + '<button class="pcard pcard--any" type="button" data-doc="" aria-pressed="' + (!!st.any) + '"><span class="pcard__pic">' + icon("i-users") +
-      '</span><span class="pcard__t"><small>İlk uygun hekim</small><b>Fark etmez</b></span></button>';
+      '</span><span class="pcard__t"><small>' + T("İlk uygun hekim") + "</small><b>" + T("Fark etmez") + "</b></span></button>";
     $("[data-docnote]").hidden = list.length > 0;
   }
   docBox.addEventListener("click", function (e) {
@@ -197,16 +206,16 @@
   var cal = $("[data-cal]"), soon = $("[data-earliest]");
   function drawCal() {
     var start = addDays(today, -((today.getDay() + 6) % 7)), end = addDays(LAST, (7 - LAST.getDay()) % 7);
-    var m1 = MONTHS[FIRST.getMonth()], m2 = MONTHS[LAST.getMonth()];
+    var m1 = monthName(FIRST), m2 = monthName(LAST);
     var title = (m1 === m2 ? m1 : m1 + " – " + m2) + " " + LAST.getFullYear();
     var cells = "";
     for (var d = new Date(start); d <= end; d = addDays(d, 1)) {
       var off = d < FIRST || d > LAST, sel = st.day instanceof Date && keyOf(st.day) === keyOf(d), isToday = keyOf(d) === keyOf(today);
       var cls = "cal__d" + (off ? " is-off" : "") + (isToday ? " is-today" : "") + (d.getDay() === 0 || d.getDay() === 6 ? " is-we" : "");
-      cells += '<button class="' + cls + '" type="button" data-day="' + keyOf(d) + '"' + (off ? " disabled" : "") + ' aria-pressed="' + sel + '" aria-label="' + dayName(d) + (isToday ? " (bugün)" : "") + '">' +
-        (d.getDate() === 1 ? '<small class="cal__m">' + MONTHS[d.getMonth()].slice(0, 3) + "</small>" : "") + "<b>" + d.getDate() + "</b>" + (isToday ? "<small>Bugün</small>" : "") + "</button>";
+      cells += '<button class="' + cls + '" type="button" data-day="' + keyOf(d) + '"' + (off ? " disabled" : "") + ' aria-pressed="' + sel + '" aria-label="' + dayName(d) + (isToday ? " (" + T("bugün") + ")" : "") + '">' +
+        (d.getDate() === 1 ? '<small class="cal__m">' + monShort(d) + "</small>" : "") + "<b>" + d.getDate() + "</b>" + (isToday ? "<small>" + T("Bugün") + "</small>" : "") + "</button>";
     }
-    cal.innerHTML = '<div class="cal__head"><b>' + title + '</b><span>Yarından itibaren üç hafta</span></div><div class="cal__week" aria-hidden="true">' +
+    cal.innerHTML = '<div class="cal__head"><b>' + title + '</b><span>' + T("Yarından itibaren üç hafta") + '</span></div><div class="cal__week" aria-hidden="true">' +
       WEEK.map(function (w) { return "<span>" + w + "</span>"; }).join("") + '</div><div class="cal__grid" role="group" aria-label="Gün">' + cells + "</div>";
     soon.setAttribute("aria-pressed", String(st.day === "earliest"));
   }
@@ -242,7 +251,7 @@
     n = Math.max(0, Math.min(steps.length - 1, n));
     if (!can(n)) return;
     if (n === at && !opts.force) return;
-    var dir = n >= at ? 1 : -1, to = steps[n], h0 = view.offsetHeight;
+    var dir = (n >= at ? 1 : -1) * (html.dir === "rtl" ? -1 : 1), to = steps[n], h0 = view.offsetHeight;
     steps.forEach(function (s, i) { s.hidden = i !== n; });
     at = n; reach = Math.max(reach, n);
     if (n === 4) finish();
@@ -272,23 +281,23 @@
     return { name: form.elements.name.value.trim(), phone: form.elements.phone.value.trim(), pay: form.elements.pay.value,
       insurer: form.elements.insurer.value.trim(), first: form.elements.first.value, note: form.elements.note.value.trim() };
   }
-  var docText = function () { return st.doc ? st.doc.title + " " + st.doc.name : st.any ? "Fark etmez (ilk uygun hekim)" : ""; };
-  var dayText = function () { return st.day === "earliest" ? "En erken uygun gün" : st.day ? dayName(st.day) : ""; };
+  var docText = function () { return st.doc ? st.doc.title + " " + st.doc.name : st.any ? T("Fark etmez (ilk uygun hekim)") : ""; };
+  var dayText = function () { return st.day === "earliest" ? T("En erken uygun gün") : st.day ? dayName(st.day) : ""; };
   function text() {
     var w = who();
-    return ["Randevu talebi — " + (S.name || "Emek Hastanesi"), "",
-      "Bölüm: " + (st.dept ? st.dept.name : "—"),
-      "Doktor: " + (docText() || "—"),
-      "Tercih edilen gün: " + (dayText() || "—"),
-      "Zaman: " + (st.slot || "—"), "",
-      "Ad soyad: " + w.name,
-      "Telefon: " + w.phone,
-      w.pay ? "Ödeme: " + w.pay + (w.pay === "Özel sağlık sigortası" && w.insurer ? " (" + (insHit || w.insurer) + ")" : "") : "",
-      w.first ? "Hastaneye gelme: " + w.first : "",
-      w.note ? "Not: " + w.note : ""].filter(function (x, i) { return x !== "" || i === 1 || i === 6; }).join("\n");
+    return [T("Randevu talebi") + " — " + (S.name || "Emek Hastanesi"), "",
+      T("Bölüm") + ": " + (st.dept ? st.dept.name : "—"),
+      T("Doktor") + ": " + (docText() || "—"),
+      T("Tercih edilen gün") + ": " + (dayText() || "—"),
+      T("Zaman") + ": " + (st.slot || "—"), "",
+      T("Ad soyad") + ": " + w.name,
+      T("Telefon") + ": " + w.phone,
+      w.pay ? T("Ödeme") + ": " + w.pay + (w.pay === PRIVATE && w.insurer ? " (" + (insHit || w.insurer) + ")" : "") : "",
+      w.first ? T("Hastaneye gelme") + ": " + w.first : "",
+      w.note ? T("Not") + ": " + w.note : ""].filter(function (x, i) { return x !== "" || i === 1 || i === 6; }).join("\n");
   }
   function finish() {
-    var t = document.querySelector("[data-state]"); if (t) t.textContent = "Hazır";
+    var t = document.querySelector("[data-state]"); if (t) t.textContent = T("Hazır");
     root.classList.add("is-done");
   }
 
@@ -296,10 +305,10 @@
   var set = function (k, v, empty) { $$('[data-sum="' + k + '"]').forEach(function (el) { el.textContent = v || empty || "—"; el.classList.toggle("is-empty", !v); }); };
   function render() {
     var w = who();
-    set("dept", st.dept && st.dept.name, "Bölüm seçilmedi"); set("dept2", st.dept && st.dept.name);
-    set("doc", docText(), "Doktor seçilmedi"); set("doc2", st.doc ? st.doc.title + " " + st.doc.name : st.any ? "Fark etmez" : "");
-    set("day", dayText(), "Gün seçilmedi"); set("day2", dayText() + (dayText() && st.slot ? " · " + st.slot : ""));
-    set("slot", st.slot, "Zaman seçilmedi"); set("name", w.name);
+    set("dept", st.dept && st.dept.name, T("Bölüm seçilmedi")); set("dept2", st.dept && st.dept.name);
+    set("doc", docText(), T("Doktor seçilmedi")); set("doc2", st.doc ? st.doc.title + " " + st.doc.name : st.any ? T("Fark etmez") : "");
+    set("day", dayText(), T("Gün seçilmedi")); set("day2", dayText() + (dayText() && st.slot ? " · " + st.slot : ""));
+    set("slot", st.slot, T("Zaman seçilmedi")); set("name", w.name);
     var pic = $("[data-sumpic]");
     if (pic) {
       var want = st.doc && st.doc.pic ? "doc:" + st.doc.slug : st.dept ? "dept:" + st.dept.slug : "none";
@@ -311,10 +320,10 @@
       }
     }
     var num = $("[data-sumnum]");
-    if (num) num.innerHTML = st.day instanceof Date ? "<b>" + st.day.getDate() + "</b><small>" + MONTHS[st.day.getMonth()].slice(0, 3) + "</small>" : st.day === "earliest" ? icon("i-bolt") : "—";
+    if (num) num.innerHTML = st.day instanceof Date ? "<b>" + st.day.getDate() + "</b><small>" + monShort(st.day) + "</small>" : st.day === "earliest" ? icon("i-bolt") : "—";
     var done = [!!st.dept, !!(st.doc || st.any), !!(st.day && st.slot), formOk(true)], n = done.filter(Boolean).length;
     var prog = $("[data-prog]"); if (prog) prog.style.transform = "scaleX(" + (n / 4) + ")";
-    var progt = $("[data-progt]"); if (progt) progt.textContent = n + " / 4 adım";
+    var progt = $("[data-progt]"); if (progt) progt.textContent = T("{n} / 4 adım", { n: n });
     $$(".stepper li").forEach(function (li, i) {
       li.classList.toggle("is-now", i === at);
       li.classList.toggle("is-done", i < 4 ? done[i] && i !== at : at === 4);
@@ -325,18 +334,18 @@
     /* the bar under the step */
     bar.hidden = at === 4;
     back.style.visibility = at === 0 ? "hidden" : "";
-    next.querySelector("span").textContent = at === 3 ? "Talebimi hazırla" : "Devam";
+    next.querySelector("span").textContent = at === 3 ? T("Talebimi hazırla") : T("Devam");
     next.disabled = at < 3 ? !can(at + 1) : false;
     next.classList.toggle("is-ready", at < 3 && can(at + 1));
-    mini.textContent = [st.dept && st.dept.name, st.doc ? st.doc.name : st.any ? "Fark etmez" : "", st.day instanceof Date ? st.day.getDate() + " " + MONTHS[st.day.getMonth()].slice(0, 3) : st.day ? "En erken" : "", st.slot]
-      .filter(Boolean).join(" · ") || "Bir bölüm seçin";
+    mini.textContent = [st.dept && st.dept.name, st.doc ? st.doc.name : st.any ? T("Fark etmez") : "", st.day instanceof Date ? st.day.getDate() + " " + monShort(st.day) : st.day ? T("En erken") : "", st.slot]
+      .filter(Boolean).join(" · ") || T("Bir bölüm seçin");
     var out = $("[data-request]"); if (out) out.textContent = text();
-    var mail = $("[data-mail]"); if (mail) mail.href = "mailto:" + (S.email || "") + "?subject=" + encodeURIComponent("Randevu talebi — " + (st.dept ? st.dept.name : "")) + "&body=" + encodeURIComponent(text());
+    var mail = $("[data-mail]"); if (mail) mail.href = "mailto:" + (S.email || "") + "?subject=" + encodeURIComponent(T("Randevu talebi") + " — " + (st.dept ? st.dept.name : "")) + "&body=" + encodeURIComponent(text());
   }
 
   /* ---- the last step's tools ---- */
   var copy = $("[data-copyreq]");
-  if (copy) copy.addEventListener("click", function () { if (navigator.clipboard) navigator.clipboard.writeText(text()).then(function () { toast("Randevu özeti kopyalandı"); }); });
+  if (copy) copy.addEventListener("click", function () { if (navigator.clipboard) navigator.clipboard.writeText(text()).then(function () { toast(T("Randevu özeti kopyalandı")); }); });
   var pr = $("[data-print]"); if (pr) pr.addEventListener("click", function () { var d = $(".reqbox"); if (d) d.open = true; print(); });
   var again = $("[data-restart]");
   if (again) again.addEventListener("click", function () {
@@ -345,7 +354,7 @@
     form.reset(); insField.hidden = true; insCheck(); counter.textContent = "0 / 300"; find.value = "";
     $$(".field, .check", form).forEach(function (f) { f.classList.remove("is-bad", "is-ok"); var em = f.querySelector("em"); if (em) em.textContent = ""; });
     $$("[data-slot]").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
-    root.classList.remove("is-done"); var t = document.querySelector("[data-state]"); if (t) t.textContent = "Hazırlanıyor";
+    root.classList.remove("is-done"); var t = document.querySelector("[data-state]"); if (t) t.textContent = T("Hazırlanıyor");
     reach = 0; drawDepts(); drawDocs(); drawCal();
     go(0, { force: true });
   });
@@ -357,5 +366,5 @@
   reach = start;
   steps.forEach(function (s, i) { s.hidden = i !== start; }); at = start;
   render();
-  if (restored) setTimeout(function () { toast("Kaldığınız yerden devam ediyorsunuz", "i-restart"); }, 500);
+  if (restored) setTimeout(function () { toast(T("Kaldığınız yerden devam ediyorsunuz"), "i-restart"); }, 500);
 })();

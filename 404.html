@@ -19,11 +19,12 @@
 <link rel="apple-touch-icon" href="/emek-onizleme/img/apple-touch-icon.png">
 <link rel="preload" href="/emek-onizleme/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/emek-onizleme/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/emek-onizleme/css/main.css?v=2">
-<link rel="stylesheet" href="/emek-onizleme/css/parts.css?v=2">
-<link rel="stylesheet" href="/emek-onizleme/css/home.css?v=2">
-<link rel="stylesheet" href="/emek-onizleme/css/pages.css?v=2">
-<link rel="stylesheet" href="/emek-onizleme/css/motion.css?v=2">
+<link rel="stylesheet" href="/emek-onizleme/css/main.css?v=4">
+<link rel="stylesheet" href="/emek-onizleme/css/parts.css?v=4">
+<link rel="stylesheet" href="/emek-onizleme/css/home.css?v=4">
+<link rel="stylesheet" href="/emek-onizleme/css/pages.css?v=4">
+<link rel="stylesheet" href="/emek-onizleme/css/motion.css?v=4">
+<link rel="stylesheet" href="/emek-onizleme/css/i18n.css?v=4">
 <script>try{var d=document.documentElement,s=localStorage.getItem("emek-size"),c=localStorage.getItem("emek-contrast"),m=localStorage.getItem("emek-motion");if(s)d.setAttribute("data-size",s);if(c==="high")d.setAttribute("data-contrast","high");if(m==="reduced")d.setAttribute("data-motion","reduced")}catch(e){}</script>
 </head>
 <body>
@@ -35,6 +36,7 @@
     <div class="tools">
       <button class="tool tool--kbd" type="button" data-finder aria-label="Ara"><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-search"/></svg><span>Ara</span><kbd>/</kbd></button>
       <button class="tool tool--aa" type="button" data-a11y aria-expanded="false" aria-controls="a11y" aria-label="Yazı boyutu ve kontrast" data-tip="Yazı boyutu ve kontrast"><span class="aa" aria-hidden="true">A<small>a</small></span></button>
+      <nav class="lang" aria-label="Dil · Language · اللغة" translate="no"><a href="/emek-onizleme/" hreflang="tr" lang="tr" aria-current="true">TR</a><a href="/emek-onizleme/en/" hreflang="en" lang="en">EN</a><a href="/emek-onizleme/ar/" hreflang="ar" lang="ar">AR</a></nav>
       <a class="er" href="tel:+903423200202"><span class="pulse" aria-hidden="true"></span>Acil 7/24 <small>0342 320 02 02</small></a>
       <a class="btn btn--appt" href="/emek-onizleme/randevu/" data-magnet><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-calendar"/></svg>Randevu Al</a>
       <button class="tool burger" type="button" data-menu aria-label="Menü"><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-menu"/></svg></button>
@@ -66,8 +68,10 @@
   </div>
 </header>
 <main id="main"><section class="phead phead--404"><div class="wrap"><div class="phead__in">
-  <p class="label">Sayfa bulunamadı</p><h1>Aradığınız sayfa <em>burada değil</em></h1>
+  <p class="label">Sayfa bulunamadı · Page not found · الصفحة غير موجودة</p><h1>Aradığınız sayfa <em>burada değil</em></h1>
   <p class="lead">Adres değişmiş ya da sayfa kaldırılmış olabilir. Aradığınızı bulmanıza yardımcı olalım.</p>
+  <p class="lead" lang="en" dir="ltr" translate="no">The address may have changed. <a class="link" href="/emek-onizleme/en/">Go to the English site</a></p>
+  <p class="lead" lang="ar" dir="rtl" translate="no">ربما تغيّر العنوان. <a class="link" href="/emek-onizleme/ar/">انتقل إلى الموقع العربي</a></p>
   <div class="phead__acts"><button class="btn" type="button" data-finder><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-search"/></svg>Sitede ara</button><a class="btn btn--ghost" href="/emek-onizleme/">Ana sayfa</a><a class="btn btn--ghost" href="/emek-onizleme/randevu/"><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-calendar"/></svg>Randevu al</a></div>
 </div></div></section></main><footer class="site-foot">
   <div class="wrap">
@@ -101,7 +105,7 @@
   </div>
 </div>
 <div class="sheet" aria-hidden="true">
-  <div class="sheet__top"><img src="/emek-onizleme/img/logo.webp" alt="" width="373" height="179"><button class="tool" type="button" data-close aria-label="Menüyü kapat"><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-close"/></svg></button></div>
+  <div class="sheet__top"><img src="/emek-onizleme/img/logo.webp" alt="" width="373" height="179"><nav class="lang" aria-label="Dil · Language · اللغة" translate="no"><a href="/emek-onizleme/" hreflang="tr" lang="tr" aria-current="true">TR</a><a href="/emek-onizleme/en/" hreflang="en" lang="en">EN</a><a href="/emek-onizleme/ar/" hreflang="ar" lang="ar">AR</a></nav><button class="tool" type="button" data-close aria-label="Menüyü kapat"><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-close"/></svg></button></div>
   <div class="sheet__body">
     <nav class="sheet__nav" aria-label="Menü"><a href="/emek-onizleme/tibbi-birimlerimiz/">Bölümlerimiz<svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-arrow"/></svg></a><a href="/emek-onizleme/doktorlarimiz/">Doktorlarımız<svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-arrow"/></svg></a><a href="/emek-onizleme/hasta-rehberi/">Hasta Rehberi<svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-arrow"/></svg></a><a href="/emek-onizleme/hakkimizda/">Kurumsal<svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-arrow"/></svg></a><a href="/emek-onizleme/iletisim/">İletişim<svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-arrow"/></svg></a></nav>
     <div class="sheet__quick">
@@ -118,8 +122,8 @@
   <a class="dock__main" href="/emek-onizleme/randevu/"><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-calendar"/></svg>Randevu Al</a>
   <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" target="_blank" rel="noopener"><svg class="icon " aria-hidden="true"><use href="/emek-onizleme/img/icons.svg#i-route"/></svg>Yol Tarifi</a>
 </nav>
-<script src="/emek-onizleme/js/data.js?v=2" defer></script>
-<script src="/emek-onizleme/js/app.js?v=2" defer></script>
-<script src="/emek-onizleme/js/motion.js?v=2" defer></script>
+<script src="/emek-onizleme/js/data.js?v=4" defer></script>
+<script src="/emek-onizleme/js/app.js?v=4" defer></script>
+<script src="/emek-onizleme/js/motion.js?v=4" defer></script>
 </body>
 </html>

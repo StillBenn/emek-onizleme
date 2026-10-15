@@ -8,6 +8,9 @@
 (function () {
   "use strict";
   var S = (window.EMEK || {}).site || {};
+  /* the words this script says, in the page's language (js/data.<lang>.js; the Turkish is the key) */
+  var I18N = (window.EMEK && window.EMEK.i18n) || {};
+  var T = function (s, v) { var t = I18N[s] || s; if (v) Object.keys(v).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; };
   [].forEach.call(document.querySelectorAll("[data-mailform]"), function (form) {
     var done = form.querySelector(".formdone");
     /* a question: a field, a set of choices, the consent box */
@@ -22,9 +25,9 @@
     function required(g) { return g.hasAttribute("data-required") || !!g.querySelector("[required]"); }
     function check(g) {
       var v = value(g), el = g.querySelector("input, select, textarea"), msg = "";
-      if (required(g) && !v) msg = g.classList.contains("check") ? "Devam etmek için onaylayın" : g.tagName === "FIELDSET" ? "Lütfen bir seçenek işaretleyin" : "Lütfen bu alanı doldurun";
-      else if (el && el.type === "email" && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = "Geçerli bir e-posta adresi yazın";
-      else if (el && el.type === "tel" && v && v.replace(/\D/g, "").length < 10) msg = "Geçerli bir telefon numarası yazın";
+      if (required(g) && !v) msg = g.classList.contains("check") ? T("Devam etmek için onaylayın") : g.tagName === "FIELDSET" ? T("Lütfen bir seçenek işaretleyin") : T("Lütfen bu alanı doldurun");
+      else if (el && el.type === "email" && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = T("Geçerli bir e-posta adresi yazın");
+      else if (el && el.type === "tel" && v && v.replace(/\D/g, "").length < 10) msg = T("Geçerli bir telefon numarası yazın");
       g.classList.toggle("is-bad", !!msg);
       var em = g.querySelector("em"); if (em) em.textContent = msg;
       return !msg;
@@ -51,7 +54,7 @@
     var copy = form.querySelector("[data-formcopy]");
     if (copy) copy.addEventListener("click", function () {
       if (!navigator.clipboard) return;
-      navigator.clipboard.writeText(text()).then(function () { var o = copy.innerHTML; copy.textContent = "Kopyalandı"; setTimeout(function () { copy.innerHTML = o; }, 1600); });
+      navigator.clipboard.writeText(text()).then(function () { var o = copy.innerHTML; copy.textContent = T("Kopyalandı"); setTimeout(function () { copy.innerHTML = o; }, 1600); });
     });
   });
 })();

@@ -15,6 +15,9 @@
   var html = document.documentElement;
   var D = window.EMEK || { depts: [], docs: [], pages: [], signs: [], insurers: [] };
   var BASE = html.getAttribute("data-base") || "/";
+  /* the words this script says, in the page's language (js/data.<lang>.js; the Turkish is the key) */
+  var I18N = (window.EMEK && window.EMEK.i18n) || {};
+  var T = function (s, v) { var t = I18N[s] || s; if (v) Object.keys(v).forEach(function (k) { t = t.split("{" + k + "}").join(v[k]); }); return t; };
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var store = {
@@ -26,7 +29,9 @@
   var fold = function (s) {
     return String(s || "").replace(/İ/g, "i").replace(/I/g, "ı").toLocaleLowerCase("tr")
       .replace(/ı/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g").replace(/ç/g, "c").replace(/ö/g, "o").replace(/ü/g, "u")
-      .normalize("NFD").replace(/[̀-ͯ]/g, "");
+      .normalize("NFD").replace(/[̀-ͯ]/g, "")
+      .replace(/[\u064B-\u0652\u0670\u0640]/g, "").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي")   /* Arabic: no vowel marks, one alef */
+      .replace(/(^|\s)ال(?=[\u0621-\u064A]{3})/g, "$1");   /* the article ال: "الركبة" finds "ركبة" */
   };
   /* the data's addresses are relative to the site's root: the page says where that is (data-base) */
   var abs = function (h) { return !h || /^(https?:|tel:|mailto:|#)/.test(h) ? h : BASE + h; };
@@ -137,39 +142,44 @@
     spans.forEach(function (sp) { if (sp[0] < i) return; out += esc(text.slice(i, sp[0])) + "<mark>" + esc(text.slice(sp[0], sp[1])) + "</mark>"; i = sp[1]; });
     return out + esc(text.slice(i));
   }
+  var STOP = {};
+  ["ve", "ile", "bir", "cok", "var", "benim", "bende", "icin", "i", "im", "my", "a", "an", "the", "in", "on", "of", "and", "with", "at", "is", "am", "have", "has", "got", "for", "me",
+   "في", "من", "على", "و", "عند", "عندي", "لدي", "مع", "أشعر", "انا", "لي"].forEach(function (w) { STOP[fold(w)] = 1; });
   var RED = /(gogus agri|nefes al|nefes darl|bilinc|bayil|felc|inme|kalp kriz|siddetli kanama|zehirlen|intihar|kaza)/;
   function search(raw) {
-    var q = fold(raw).split(/\s+/).filter(Boolean);
+    /* the little words of a sentence ("my", "in", "ve", "في") say nothing about where to go */
+    var q = fold(raw).split(/\s+/).filter(function (w) { return w && !STOP[w]; });
     var groups = [];
     if (!q.length) {
-      groups.push({ t: "Sık arananlar", items: (D.popularDepts || []).map(function (d) { return { href: d.href, html: true, pic: icon(d.icon), title: esc(d.title), sub: esc(d.sub) }; }) });
+      groups.push({ t: T("Sık arananlar"), items: (D.popularDepts || []).map(function (d) { return { href: d.href, html: true, pic: icon(d.icon), title: esc(d.title), sub: esc(d.sub) }; }) });
       return groups;
     }
     var signs = [];
     (D.signs || []).forEach(function (s) {
       var best = 0, word = "";
       s.words.forEach(function (w) { var sc = score(q, w); if (sc > best) { best = sc; word = w; } });
-      if (best) signs.push({ s: best + 1, html: true, href: s.href, pic: icon(s.icon), title: mark(word.charAt(0).toLocaleUpperCase("tr") + word.slice(1), q), sub: "İlgili bölüm: " + esc(s.dept) });
+      if (best) signs.push({ s: best + 1, html: true, href: s.href, pic: icon(s.icon), title: mark(word.charAt(0).toLocaleUpperCase("tr") + word.slice(1), q), sub: T("İlgili bölüm: {d}", { d: esc(s.dept) }) });
     });
     var depts = [], docs = [], pages = [];
     /* a complaint names a department: its doctors come with it ("diz ağrısı" → the orthopaedists) */
     var near = {};
     signs.forEach(function (s) { (D.signs || []).forEach(function (g) { if (g.href === s.href) near[g.slug] = true; }); });
-    D.depts.forEach(function (d) { var s = score(q, d.name + " " + (d.alias || "")); if (s) depts.push({ s: s + 2, href: d.href, pic: icon(d.icon), title: mark(d.name, q), sub: d.count ? d.count + " hekim" : "Tıbbi birim", html: true }); });
+    D.depts.forEach(function (d) { var s = score(q, d.name + " " + (d.alias || "")); if (s) depts.push({ s: s + 2, href: d.href, pic: icon(d.icon), title: mark(d.name, q), sub: d.count ? T("{n} hekim", { n: d.count }) : T("Tıbbi birim"), html: true }); });
     D.docs.forEach(function (d) { var s = score(q, d.name + " " + d.title + " " + d.dept) || (near[d.deptSlug] ? 1 : 0); if (s) docs.push({ s: s, href: d.href, pic: d.thumb ? '<img src="' + esc(abs(d.thumb)) + '" alt="" loading="lazy">' : icon("i-doctor"), title: mark(d.title + " " + d.name, q), sub: esc(d.dept), html: true }); });
     D.pages.forEach(function (p) { var s = score(q, p.title + " " + (p.words || "")); if (s) pages.push({ s: s, href: p.href, pic: icon(p.icon || "i-book"), title: mark(p.title, q), sub: esc(p.sub || ""), html: true }); });
     var by = function (a, b) { return b.s - a.s; };
-    if (signs.length) groups.push({ t: "Şikâyetinize göre", items: signs.sort(by).slice(0, 4) });
-    if (depts.length) groups.push({ t: "Bölümler", items: depts.sort(by).slice(0, 5) });
-    if (docs.length) groups.push({ t: "Doktorlar", items: docs.sort(by).slice(0, 6) });
-    if (pages.length) groups.push({ t: "Sayfalar", items: pages.sort(by).slice(0, 5) });
-    groups.red = RED.test(q.join(" "));
+    if (signs.length) groups.push({ t: T("Şikâyetinize göre"), items: signs.sort(by).slice(0, 4) });
+    if (depts.length) groups.push({ t: T("Bölümler"), items: depts.sort(by).slice(0, 5) });
+    if (docs.length) groups.push({ t: T("Doktorlar"), items: docs.sort(by).slice(0, 6) });
+    if (pages.length) groups.push({ t: T("Sayfalar"), items: pages.sort(by).slice(0, 5) });
+    var said = q.join(" ");
+    groups.red = RED.test(said) || (D.red || []).some(function (w) { return said.indexOf(fold(w)) >= 0; });
     return groups;
   }
   function draw(raw) {
     var groups = search(raw);
     hits = [];
-    var h = groups.red ? '<p class="finder__note" role="alert"><b>Acil bir durum mu?</b> Göğüs ağrısı, nefes darlığı, bilinç kaybı gibi belirtilerde hemen <a href="tel:112"><b>112</b></a>\'yi arayın ya da 7/24 açık Acil Servisimize gelin.</p>' : "";
+    var h = groups.red ? '<p class="finder__note" role="alert">' + T("<b>Acil bir durum mu?</b> Göğüs ağrısı, nefes darlığı, bilinç kaybı gibi belirtilerde hemen <a href=\"tel:112\"><b>112</b></a>'yi arayın ya da 7/24 açık Acil Servisimize gelin.") + "</p>" : "";
     groups.forEach(function (g) {
       h += '<p class="finder__group">' + esc(g.t) + "</p>";
       g.items.forEach(function (it) {
@@ -177,7 +187,7 @@
         h += '<a class="hit" role="option" id="hit-' + n + '" href="' + esc(abs(it.href)) + '"><span class="hit__pic">' + it.pic + '</span><span class="hit__t"><b>' + it.title + "</b><small>" + it.sub + "</small></span>" + icon("i-arrow", "hit__go") + "</a>";
       });
     });
-    if (!hits.length) h += '<div class="finder__empty">Sonuç bulunamadı. Bölüm adı, doktor adı ya da bir şikâyet yazmayı deneyin — örneğin <b>diz ağrısı</b>.</div>';
+    if (!hits.length) h += '<div class="finder__empty">' + T("Sonuç bulunamadı. Bölüm adı, doktor adı ya da bir şikâyet yazmayı deneyin — örneğin <b>diz ağrısı</b>.") + "</div>";
     fout.innerHTML = h;
     sel = hits.length ? 0 : -1; select();
   }
@@ -234,11 +244,11 @@
     var listen = function (btn) {
       if (listening) { listening.stop(); return; }
       if (!finder.classList.contains("is-open")) finderSet(true, "");
-      var r = new Rec(); r.lang = "tr-TR"; r.interimResults = true; r.maxAlternatives = 1;
+      var r = new Rec(); r.lang = { en: "en-GB", ar: "ar-SA" }[html.lang] || "tr-TR"; r.interimResults = true; r.maxAlternatives = 1;
       listening = r; $$("[data-voice]").forEach(function (x) { x.classList.add("is-on"); });
-      fin.placeholder = "Dinliyorum… şikâyetinizi söyleyin";
+      var was = fin.placeholder; fin.placeholder = T("Dinliyorum… şikâyetinizi söyleyin");
       r.onresult = function (e) { var t = ""; for (var i = 0; i < e.results.length; i++) t += e.results[i][0].transcript; fin.value = t; draw(t); };
-      r.onend = r.onerror = function () { listening = null; fin.placeholder = "Bölüm, doktor ya da şikâyet — örn. diz ağrısı"; $$("[data-voice]").forEach(function (x) { x.classList.remove("is-on"); }); fin.focus(); };
+      r.onend = r.onerror = function () { listening = null; fin.placeholder = was; $$("[data-voice]").forEach(function (x) { x.classList.remove("is-on"); }); fin.focus(); };
       try { r.start(); } catch (err) { r.onend(); }
     };
     $$("[data-voice]").forEach(function (b) { b.hidden = false; b.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); listen(b); }); });
@@ -252,8 +262,8 @@
       if (!q) { out.innerHTML = ""; return; }
       var found = list.filter(function (n) { return fold(n).indexOf(q) >= 0; }).slice(0, 4);
       out.innerHTML = found.length
-        ? found.map(function (n) { return '<div class="ins__res">' + icon("i-check") + "<span>" + esc(n) + "<small>Anlaşmalı kurumlarımız arasında</small></span></div>"; }).join("")
-        : '<div class="ins__res ins__res--no">' + icon("i-close") + "<span>Listede bulunamadı<small>Kurumunuz için çağrı merkezimize danışın: 0342 320 02 02</small></span></div>";
+        ? found.map(function (n) { return '<div class="ins__res">' + icon("i-check") + "<span>" + esc(n) + "<small>" + T("Anlaşmalı kurumlarımız arasında") + "</small></span></div>"; }).join("")
+        : '<div class="ins__res ins__res--no">' + icon("i-close") + "<span>" + T("Listede bulunamadı") + "<small>" + T("Kurumunuz için çağrı merkezimize danışın: 0342 320 02 02") + "</small></span></div>";
     };
     inp.addEventListener("input", run);
   });
@@ -273,8 +283,8 @@
     b.addEventListener("click", function () {
       if (!navigator.clipboard) return;
       navigator.clipboard.writeText(b.dataset.copy).then(function () {
-        if (window.EMEKtoast) return window.EMEKtoast(b.getAttribute("data-done") || "Kopyalandı");
-        var old = b.innerHTML; b.textContent = "Kopyalandı"; setTimeout(function () { b.innerHTML = old; }, 1600);
+        if (window.EMEKtoast) return window.EMEKtoast(b.getAttribute("data-done") || T("Kopyalandı"));
+        var old = b.innerHTML; b.textContent = T("Kopyalandı"); setTimeout(function () { b.innerHTML = old; }, 1600);
       });
     });
   });
@@ -284,7 +294,7 @@
     b.addEventListener("click", function () {
       var data = { title: b.dataset.title || document.title, url: location.href.split("#")[0] };
       if (navigator.share) { navigator.share(data).catch(function () {}); return; }
-      if (navigator.clipboard) navigator.clipboard.writeText(data.url).then(function () { if (window.EMEKtoast) window.EMEKtoast("Bağlantı kopyalandı"); });
+      if (navigator.clipboard) navigator.clipboard.writeText(data.url).then(function () { if (window.EMEKtoast) window.EMEKtoast(T("Bağlantı kopyalandı")); });
     });
   });
 
@@ -343,7 +353,15 @@
     html.classList.add("rv");
     rise.forEach(function (g) { $$(":scope > *", g).forEach(function (el, i) { el.classList.add("rise"); el.style.setProperty("--i", Math.min(i, 8)); }); });
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (!e.isIntersecting) return; $$(".rise", e.target).forEach(function (el) { el.classList.add("is-in"); }); io.unobserve(e.target); });
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        $$(".rise", e.target).forEach(function (el, i) {
+          el.classList.add("is-in");
+          /* the reveal is over: hand the block back (its own hover moves it again) */
+          setTimeout(function () { el.classList.remove("rise", "is-in"); el.style.removeProperty("--i"); }, 1150 + Math.min(i, 8) * 70);
+        });
+        io.unobserve(e.target);
+      });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.01 });
     rise.forEach(function (g) { io.observe(g); });
   }
