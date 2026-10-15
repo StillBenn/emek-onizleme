@@ -4,7 +4,7 @@
    The header's reading line and the back-to-top ring; the pill that follows
    the pointer along the menu; headings that arrive word by word; pictures
    that settle; the light under the pointer on cards; the gentle pull of the
-   main buttons; the cursor's label over a doctor's picture; numbers that
+   main buttons; numbers that
    count up; the chairman's words lighting as they are read; the doctors'
    rail (buttons, drag, a progress line); "Nereniz rahatsız?" (a region → its
    departments and doctors); the departments menu's preview; toasts.
@@ -151,16 +151,6 @@
       b.addEventListener("pointerleave", function () { b.style.transform = ""; });
     });
 
-    /* the cursor's label over a doctor's picture */
-    var tag = document.createElement("span"), on = null;
-    tag.className = "ctag"; tag.setAttribute("aria-hidden", "true"); document.body.appendChild(tag);
-    document.addEventListener("pointermove", function (e) {
-      tag.style.setProperty("--cx", e.clientX + "px"); tag.style.setProperty("--cy", (e.clientY + 0) + "px");
-      var t = e.target.closest && e.target.closest("[data-ctag]");
-      if (t && document.querySelector(".rail__track.is-drag")) t = null;
-      if (t !== on) { on = t; if (t) tag.innerHTML = esc(t.getAttribute("data-ctag")) + icon("i-arrow"); tag.classList.toggle("is-on", !!t); }
-    }, { passive: true });
-    document.addEventListener("pointerleave", function () { on = null; tag.classList.remove("is-on"); });
   }
 
   /* ---- numbers that count up ---- */
@@ -227,8 +217,9 @@
       if (prev) prev.disabled = at < 4;
       if (next) next.disabled = at > max - 4;
     }
-    if (prev) prev.addEventListener("click", function () { track.scrollBy({ left: -sgn * stepW() * 2, behavior: reduced() ? "auto" : "smooth" }); });
-    if (next) next.addEventListener("click", function () { track.scrollBy({ left: sgn * stepW() * 2, behavior: reduced() ? "auto" : "smooth" }); });
+    var perPage = function () { return Math.max(1, Math.round(track.clientWidth / stepW())); };
+    if (prev) prev.addEventListener("click", function () { track.scrollBy({ left: -sgn * stepW() * perPage(), behavior: reduced() ? "auto" : "smooth" }); });
+    if (next) next.addEventListener("click", function () { track.scrollBy({ left: sgn * stepW() * perPage(), behavior: reduced() ? "auto" : "smooth" }); });
     track.addEventListener("scroll", function () { requestAnimationFrame(upd); }, { passive: true });
     addEventListener("resize", upd);
     /* drag with the mouse (touch scrolls by itself) */

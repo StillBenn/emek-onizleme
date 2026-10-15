@@ -198,7 +198,7 @@
 
 /* ---- printed: the ticket and the request, nothing else ---- */
 @media print {
-  .hdr, .site-foot, .dock, .phead, .stepper, .appt__bar, .done__ways, .done__acts, .done__mark, .totop, .toasts, .ctag, .finder, .sheet, .ticket__rows button, .ticket__prog { display: none !important; }
+  .hdr, .site-foot, .dock, .phead, .stepper, .appt__bar, .done__ways, .done__acts, .done__mark, .totop, .toasts, .finder, .sheet, .ticket__rows button, .ticket__prog { display: none !important; }
   body, .section { background: #fff !important; padding: 0 !important; }
   .appt { display: block; }
   .stage { box-shadow: none; padding: 0; }

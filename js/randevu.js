@@ -7,8 +7,10 @@
    department or a doctor page links here already chosen (?bolum=…,
    ?doktor=…); the choices (never the name or the phone) survive a reload in
    the tab. The first step understands complaints as well as department
-   names ("diz ağrısı" → Ortopedi). The site has no booking server of its
-   own: the last step hands the request to the hospital's real channels —
+   names ("diz ağrısı" → Ortopedi). On the hospital's own host the last
+   step sends the request straight to the call centre's panel (/api/randevu)
+   and shows its number; where there is no server (the preview) — or the
+   sending fails — it hands the request to the hospital's other channels:
    the call centre (the ticket to read out), an e-mail already written, the
    e-Randevu system. Nothing typed here leaves the page unless the patient
    sends it.
@@ -58,6 +60,10 @@
   /* ---- the state ---- */
   var st = { dept: null, doc: null, any: false, day: null, slot: null };
   var KEY = "emek-appt";
+  /* sending: the hospital's API (absent on the preview), a key that makes a double tap one request */
+  var API = S.api ? BASE + S.api : null, T0 = Date.now(), sent = false, sending = false;
+  var newKey = function () { var a = new Uint8Array(16); (window.crypto || window.msCrypto).getRandomValues(a); return [].map.call(a, function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); };
+  var idem = newKey();
   function save() {
     try {
       sessionStorage.setItem(KEY, JSON.stringify({ dept: st.dept && st.dept.slug, doc: st.doc && st.doc.slug, any: st.any,
@@ -240,6 +246,7 @@
 
   /* ---- moving between steps ---- */
   function can(n) {
+    if (sent && n < 4) return false;
     if (n >= 1 && !st.dept) return false;
     if (n >= 2 && !st.doc && !st.any) return false;
     if (n >= 3 && (!st.day || !st.slot)) return false;
@@ -271,8 +278,72 @@
   }
   next.addEventListener("click", function () {
     if (at === 3 && !formOk(false)) { var bad = $(".is-bad input", form); if (bad) bad.focus(); return; }
+    if (at === 3 && API) { submit(); return; }
     go(at + 1);
   });
+
+  /* ---- sending the request to the call centre ---- */
+  var SLOTS_TR = ["Sabah", "Öğleden sonra", "Fark etmez"];
+  var PAYS_TR = ["Özel sağlık sigortası", "Kurum anlaşması", "Ücretli muayene", "Bilmiyorum"], VISITS_TR = ["İlk kez geleceğim", "Daha önce geldim"];
+  var choiceKey = function (name, list) {   /* the radio's place in its group, the Turkish value for that place */
+    var all = $$('input[name="' + name + '"]', form), i = all.map(function (r) { return r.checked; }).indexOf(true);
+    return i >= 0 ? list[i] || "" : "";
+  };
+  /* what the server may refuse, said in the page's language */
+  var FIELD_ERR = {
+    name: T("Lütfen adınızı ve soyadınızı yazın"), phone: T("Lütfen size ulaşabileceğimiz bir telefon numarası yazın"),
+    consent: T("Devam etmek için aydınlatma metnini onaylayın"), dept: T("Lütfen bir bölüm seçin"),
+    doc: T("Seçtiğiniz hekim için çevrimiçi talep alınamıyor; “Fark etmez” ile devam edebilirsiniz."),
+    day: T("Lütfen önümüzdeki üç hafta içinden bir gün seçin"), slot: T("Lütfen gün içinde size uygun zamanı seçin")
+  };
+  function slotKey() {
+    var i = $$("[data-slot]").map(function (b) { return b.dataset.slot; }).indexOf(st.slot);
+    return SLOTS_TR[i] || st.slot;
+  }
+  function outcome(ok, ref, why) {
+    var sentBox = $("[data-sent]"), hand = $("[data-handover]"), er = $("[data-senderr]");
+    if (sentBox) sentBox.hidden = !ok;
+    if (hand) hand.hidden = ok;
+    if (er) { er.hidden = ok || !why; if (why) er.querySelector("span").textContent = why; }
+    var r = $("[data-ref]"); if (r) r.textContent = ref || "";
+    steps[4].setAttribute("aria-labelledby", ok ? "st5s" : "st5");
+  }
+  function submit() {
+    if (sending) return;
+    sending = true;
+    next.classList.add("is-busy"); next.disabled = true;
+    next.querySelector("span").textContent = T("Gönderiliyor…");
+    var w = who();
+    var body = { dept: st.dept.slug, doc: st.doc ? st.doc.slug : "", day: st.day === "earliest" ? "earliest" : keyOf(st.day), slot: slotKey(),
+      name: w.name, phone: w.phone, pay: choiceKey("pay", PAYS_TR), insurer: insHit || w.insurer, first: choiceKey("first", VISITS_TR), note: w.note, consent: true,
+      lang: html.lang || "tr", idem: idem, t: Date.now() - T0, website: form.elements.website ? form.elements.website.value : "" };
+    var done = function () { sending = false; next.classList.remove("is-busy"); next.disabled = false; render(); };
+    fetch(API + "randevu", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) })
+      .then(function (res) { return res.json().catch(function () { return { ok: false }; }).then(function (j) { j.status = res.status; return j; }); })
+      .then(function (j) {
+        done();
+        if (j.ok) { sent = true; outcome(true, j.ref); go(4); return; }
+        var why = FIELD_ERR[j.field];
+        if (j.status === 422 && why && form.elements[j.field]) {
+          var f = form.elements[j.field].closest(".field, .check");
+          if (f) { f.classList.add("is-bad"); var em = f.querySelector("em"); if (em) em.textContent = why; }
+          form.elements[j.field].focus();
+          return;
+        }
+        if (j.status === 422 && why) {
+          if (j.field === "doc") { st.doc = null; st.any = true; drawDocs(); }
+          toast(why, "i-calendar"); go({ dept: 0, doc: 1, day: 2, slot: 2 }[j.field] || 0, { force: true }); return;
+        }
+        outcome(false, "", j.status === 429 ? T("Kısa sürede çok sayıda gönderim yapıldı. Talebinizi aşağıdaki yollardan biriyle bize ulaştırın; bilgileriniz hazır.")
+          : T("Talebiniz şu anda internet üzerinden iletilemedi. Aşağıdaki yollardan biriyle bize ulaştırın; bilgileriniz hazır."));
+        go(4);
+      })
+      .catch(function () {
+        done();
+        outcome(false, "", T("Bağlantı kurulamadı; talebiniz iletilemedi. Aşağıdaki yollardan biriyle bize ulaştırın; bilgileriniz hazır."));
+        go(4);
+      });
+  }
   back.addEventListener("click", function () { go(at - 1); });
   $$("[data-go]", document).forEach(function (b) { b.addEventListener("click", function () { go(+b.dataset.go); }); });
 
@@ -297,8 +368,9 @@
       w.note ? T("Not") + ": " + w.note : ""].filter(function (x, i) { return x !== "" || i === 1 || i === 6; }).join("\n");
   }
   function finish() {
-    var t = document.querySelector("[data-state]"); if (t) t.textContent = T("Hazır");
+    var t = document.querySelector("[data-state]"); if (t) t.textContent = sent ? T("Gönderildi") : T("Hazır");
     root.classList.add("is-done");
+    if (sent) try { sessionStorage.removeItem(KEY); } catch (e) { /* fine */ }
   }
 
   /* ---- everything on screen follows the state ---- */
@@ -330,11 +402,11 @@
       var b = li.querySelector("button"); b.disabled = !(i <= reach && can(i)) && i !== at;
       if (i === at) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
     });
-    $$(".ticket__rows button").forEach(function (b) { b.hidden = +b.dataset.go > reach || +b.dataset.go === at; });
+    $$(".ticket__rows button").forEach(function (b) { b.hidden = sent || +b.dataset.go > reach || +b.dataset.go === at; });
     /* the bar under the step */
     bar.hidden = at === 4;
     back.style.visibility = at === 0 ? "hidden" : "";
-    next.querySelector("span").textContent = at === 3 ? T("Talebimi hazırla") : T("Devam");
+    if (!sending) next.querySelector("span").textContent = at === 3 ? (API ? T("Talebimi gönder") : T("Talebimi hazırla")) : T("Devam");
     next.disabled = at < 3 ? !can(at + 1) : false;
     next.classList.toggle("is-ready", at < 3 && can(at + 1));
     mini.textContent = [st.dept && st.dept.name, st.doc ? st.doc.name : st.any ? T("Fark etmez") : "", st.day instanceof Date ? st.day.getDate() + " " + monShort(st.day) : st.day ? T("En erken") : "", st.slot]
@@ -350,6 +422,7 @@
   var again = $("[data-restart]");
   if (again) again.addEventListener("click", function () {
     st = { dept: null, doc: null, any: false, day: null, slot: null };
+    sent = false; idem = newKey(); T0 = Date.now(); outcome(false, "", "");
     try { sessionStorage.removeItem(KEY); } catch (e) { /* fine */ }
     form.reset(); insField.hidden = true; insCheck(); counter.textContent = "0 / 300"; find.value = "";
     $$(".field, .check", form).forEach(function (f) { f.classList.remove("is-bad", "is-ok"); var em = f.querySelector("em"); if (em) em.textContent = ""; });
@@ -357,6 +430,14 @@
     root.classList.remove("is-done"); var t = document.querySelector("[data-state]"); if (t) t.textContent = T("Hazırlanıyor");
     reach = 0; drawDepts(); drawDocs(); drawCal();
     go(0, { force: true });
+  });
+
+  /* ---- a doctor the hospital has just taken off the site (js/live.js) ---- */
+  document.addEventListener("emek:live", function (e) {
+    var gone = (e.detail && e.detail.hidden) || [];
+    if (!gone.length) return;
+    if (st.doc && gone.indexOf(st.doc.slug) >= 0) { st.doc = null; st.any = false; if (at > 1 && !sent) go(1, { force: true }); }
+    drawDocs(); render();
   });
 
   /* ---- start where the choice ends ---- */

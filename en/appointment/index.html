@@ -21,13 +21,13 @@
 <link href="../../img/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link as="font" crossorigin="" href="../../fonts/jakarta-latin.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../fonts/fraunces-latin.woff2" rel="preload" type="font/woff2"/>
-<link href="../../css/main.css?v=4" rel="stylesheet"/>
-<link href="../../css/parts.css?v=4" rel="stylesheet"/>
-<link href="../../css/home.css?v=4" rel="stylesheet"/>
-<link href="../../css/pages.css?v=4" rel="stylesheet"/>
-<link href="../../css/appt.css?v=4" rel="stylesheet"/>
-<link href="../../css/motion.css?v=4" rel="stylesheet"/>
-<link href="../../css/i18n.css?v=4" rel="stylesheet"/>
+<link href="../../css/main.css?v=7" rel="stylesheet"/>
+<link href="../../css/parts.css?v=7" rel="stylesheet"/>
+<link href="../../css/home.css?v=7" rel="stylesheet"/>
+<link href="../../css/pages.css?v=7" rel="stylesheet"/>
+<link href="../../css/appt.css?v=7" rel="stylesheet"/>
+<link href="../../css/motion.css?v=7" rel="stylesheet"/>
+<link href="../../css/i18n.css?v=7" rel="stylesheet"/>
 <script>try{var d=document.documentElement,s=localStorage.getItem("emek-size"),c=localStorage.getItem("emek-contrast"),m=localStorage.getItem("emek-motion");if(s)d.setAttribute("data-size",s);if(c==="high")d.setAttribute("data-contrast","high");if(m==="reduced")d.setAttribute("data-motion","reduced")}catch(e){}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://larisel.com/emek-onizleme/"}, {"@type": "ListItem", "position": 2, "name": "Online Appointment", "item": "https://larisel.com/emek-onizleme/"}]}</script>
 <link href="https://larisel.com/emek-onizleme/randevu/" hreflang="tr" rel="alternate"/>
@@ -125,10 +125,19 @@
 <fieldset class="choice"><legend>Have you visited our hospital before? <small>(optional)</small></legend><div class="choice__opts"><label><input name="first" type="radio" value="This will be my first visit"/><span>This will be my first visit</span></label><label><input name="first" type="radio" value="I have visited before"/><span>I have visited before</span></label></div></fieldset>
 <label class="field"><span>Note <small>(optional)</small></span><textarea maxlength="300" name="note" placeholder="You can briefly describe your symptoms" rows="3"></textarea><small class="counter" data-counter="">0 / 300</small></label>
 <label class="check check--card"><input name="consent" required="" type="checkbox"/><span>I have read the <a href="../../en/clarification-text/" target="_blank">Privacy Notice</a> and consent to my details being used for my appointment request.<em></em></span></label>
+<div aria-hidden="true" class="hp" translate="no"><input autocomplete="off" name="website" tabindex="-1"/></div>
 </form>
 </section>
 <section aria-labelledby="st5" class="step done" data-step="4" hidden="">
 <div aria-hidden="true" class="done__mark"><svg viewbox="0 0 52 52"><circle cx="26" cy="26" pathlength="100" r="24"></circle><path d="m15.5 27 7 7 14-15" pathlength="100"></path></svg></div>
+<div data-sent="" hidden="">
+<header class="step__head"><p class="step__k">Request sent</p><h2 id="st5s">We have received your request</h2>
+<p class="step__hint">Our call centre will call you shortly to confirm your appointment. Whether you call us or we call you, just give this number.</p></header>
+<div class="refcard"><small>Your request number</small><b data-ref="">—</b></div>
+<div class="done__ways"><a class="way" href="tel:+903423200202"><span class="di"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-phone"></use></svg></span><span><b>Rather not wait?</b><small>+90 342 320 02 02 · Give your request number</small></span><svg aria-hidden="true" class="icon go"><use href="../../img/icons.svg#i-arrow"></use></svg></a></div>
+</div>
+<div data-handover="">
+<p class="senderr" data-senderr="" hidden=""><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-phone"></use></svg><span></span></p>
 <header class="step__head"><p class="step__k">Final step</p><h2 id="st5">Your request is ready</h2>
 <p class="step__hint">Send it in one of the ways below. Your appointment is confirmed once our call centre calls you and approves it.</p></header>
 <div class="done__ways">
@@ -137,6 +146,7 @@
 <a class="way" href="http://randevu.meddata.com.tr/emekhastanesi/" rel="noopener" target="_blank"><span class="di"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-calendar"></use></svg></span><span><b>Complete it in the e-Appointment system</b><small>Our hospital's online appointment system</small></span><svg aria-hidden="true" class="icon go"><use href="../../img/icons.svg#i-arrow"></use></svg></a>
 </div>
 <details class="reqbox"><summary>Show request text</summary><pre data-request=""></pre></details>
+</div>
 <div class="done__acts">
 <button class="btn btn--ghost btn--sm" data-copyreq="" type="button"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-copy"></use></svg>Copy summary</button>
 <button class="btn btn--ghost btn--sm" data-print="" type="button"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-print"></use></svg>Print</button>
@@ -195,7 +205,7 @@
 <div class="foot__bottom">
 <span>© 2026 MEDIGAP Sağlık Hizmetleri San. Tic. A.Ş.</span>
 <nav aria-label="Legal"><a href="../../en/personal-data-protection/">KVKK (Turkish Personal Data Protection Law)</a><a href="../../en/clarification-text/">Privacy Notice</a><a href="../../en/cookie-policy/">Cookie Policy</a></nav>
-<div style="display:flex;gap:.6rem"><a aria-label="facebook" href="https://www.facebook.com/emekhastanesi" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-fb"></use></svg></a><a aria-label="twitter" href="https://twitter.com/emekhastanesi" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-x"></use></svg></a><a aria-label="instagram" href="https://www.instagram.com/emekhastanesi/" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-insta"></use></svg></a></div>
+<div class="foot__end"><a class="foot__credit" href="https://larisel.com/" rel="noopener" target="_blank"><span>Web design</span><b translate="no">larisel.com</b><svg aria-hidden="true" class="icon foot__go"><use href="../../img/icons.svg#i-arrow"></use></svg></a><span class="foot__social"><a aria-label="facebook" href="https://www.facebook.com/emekhastanesi" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-fb"></use></svg></a><a aria-label="twitter" href="https://twitter.com/emekhastanesi" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-x"></use></svg></a><a aria-label="instagram" href="https://www.instagram.com/emekhastanesi/" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-insta"></use></svg></a></span></div>
 </div>
 </div>
 </footer>
@@ -224,9 +234,10 @@
 <a class="dock__main" href="../../en/appointment/"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-calendar"></use></svg>Book an Appointment</a>
 <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../../img/icons.svg#i-route"></use></svg>Directions</a>
 </nav>
-<script defer="" src="../../js/data.en.js?v=4"></script>
-<script defer="" src="../../js/app.js?v=4"></script>
-<script defer="" src="../../js/motion.js?v=4"></script>
-<script defer="" src="../../js/randevu.js?v=4"></script>
+<script defer="" src="../../js/data.en.js?v=7"></script>
+<script defer="" src="../../js/app.js?v=7"></script>
+<script defer="" src="../../js/motion.js?v=7"></script>
+<script defer="" src="../../js/live.js?v=7"></script>
+<script defer="" src="../../js/randevu.js?v=7"></script>
 </body>
 </html>

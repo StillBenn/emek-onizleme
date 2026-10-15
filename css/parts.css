@@ -153,3 +153,43 @@
 .mega__list a[data-slug]:hover .di { background: var(--teal-700); color: var(--white); }
 .mega__list .di { transition: background var(--d-fast), color var(--d-fast); }
 .finder__field .mic { margin-inline-end: 0.2rem; }
+
+/* ---- what the panel puts on the site (js/live.js) ------------------------ */
+.hp { position: absolute !important; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.annbar { position: relative; z-index: 61; background: var(--teal-900); color: rgba(255, 255, 255, 0.86); font-size: 0.92rem; animation: annbar-in 420ms var(--e-out); }
+.annbar.is-out { opacity: 0; transform: translateY(-100%); transition: opacity 300ms, transform 300ms var(--e-out); }
+@keyframes annbar-in { from { opacity: 0; transform: translateY(-100%); } }
+.annbar__in { display: flex; align-items: center; gap: 0.85rem; min-height: 52px; padding: 0.6rem var(--pad); }
+.annbar__i { flex: none; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, 0.1); color: #ffd6a0; }
+.annbar__i .icon { width: 1rem; height: 1rem; }
+.annbar p { flex: 1; min-width: 0; line-height: 1.45; }
+.annbar b { color: var(--white); font-weight: 650; margin-inline-end: 0.35rem; }
+.annbar .link { color: #9fe6dd; white-space: nowrap; }
+.annbar__x { flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center; color: rgba(255, 255, 255, 0.7); transition: background var(--d-fast), color var(--d-fast); }
+.annbar__x:hover { background: rgba(255, 255, 255, 0.1); color: var(--white); }
+.annbar__x .icon { width: 1.05rem; height: 1.05rem; }
+@media (max-width: 640px) { .annbar__in { align-items: flex-start; } .annbar .link { display: block; margin-top: 0.2rem; } }
+.anns-live { padding-block: calc(var(--section) * 0.42) 0; }
+.anns-live__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1rem; }
+.anns-live .head { margin-bottom: 1.2rem; }
+.annc { display: grid; grid-template-columns: 2.8rem minmax(0, 1fr); gap: 1rem; align-items: start; padding: 1.25rem 1.35rem; border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1); }
+.annc__i { width: 2.8rem; height: 2.8rem; border-radius: 12px; display: grid; place-items: center; background: var(--mint); color: var(--teal-700); }
+.annc h3 { font: 400 1.25rem/1.25 var(--f-display); color: var(--ink); }
+.annc p { margin-top: 0.35rem; color: var(--ink-2); font-size: 0.95rem; line-height: 1.55; }
+.annc .link { margin-top: 0.6rem; }
+.ophours { display: grid; gap: 0.1rem; }
+.ophours__d { display: flex; gap: 0.5rem; justify-content: space-between; max-width: 22rem; }
+.ophours__d b { display: inline; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.note-box.note-box--away { margin-block: 1rem; background: var(--red-soft); color: #7a2224; }
+.note-box--away a { font-weight: 650; text-decoration: underline; }
+.refcard { display: grid; gap: 0.3rem; justify-items: start; margin: 1.4rem 0 1.2rem; padding: 1.2rem 1.4rem; border-radius: var(--r-md); background: var(--mint); }
+.refcard small { font: 700 0.72rem/1 var(--f-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-700); }
+.refcard b { font: 400 clamp(1.8rem, 1.4rem + 1.2vw, 2.3rem)/1.1 var(--f-display); letter-spacing: 0.08em; color: var(--teal-900); direction: ltr; }
+.refcard--sm b { font-size: 1.6rem; }
+.senderr { display: flex; gap: 0.6rem; align-items: flex-start; margin-bottom: 1.1rem; padding: 0.9rem 1.1rem; border-radius: var(--r-md); font-size: 0.92rem; background: #fdf3e4; color: #7a4a0c; }
+.senderr .icon { flex: none; width: 1.1rem; height: 1.1rem; margin-top: 0.15rem; }
+.formsent { display: grid; justify-items: start; gap: 0.5rem; padding: 1.6rem 1.5rem; border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-1); outline: none; }
+.formsent__mark { width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center; background: var(--mint); color: var(--teal-700); }
+.form .formsent h3 { font: 400 1.6rem/1.2 var(--f-display); margin: 0.2rem 0 0; }
+.formsent p { color: var(--ink-2); }
+.btn.is-busy { pointer-events: none; opacity: 0.75; }

@@ -42,10 +42,8 @@ html[lang="ar"] .js-split .w { padding-bottom: 0.32em; margin-bottom: -0.32em; p
 [dir="rtl"] svg:has(use[href$="#i-arrow"]), [dir="rtl"] svg:has(use[href$="#i-left"]) { scale: -1 1; }
 [dir="rtl"] .qa .go { right: auto; left: 1.1rem; }
 [dir="rtl"] .doc__tag { left: auto; right: 0.8rem; }
-[dir="rtl"] .note--er { left: auto; right: -5%; }
-[dir="rtl"] .note--team { right: auto; left: -5%; }
-@media (max-width: 980px) { [dir="rtl"] .note--er { right: 0; } [dir="rtl"] .note--team { left: 0; } }
-@media (max-width: 520px) { [dir="rtl"] .note--er { right: -0.4rem; } [dir="rtl"] .note--team { left: -0.4rem; } }
+[dir="rtl"] .note--er { left: auto; right: 0; }
+[dir="rtl"] .note--team { right: auto; left: 0; }
 [dir="rtl"] .atab[aria-selected="true"]::after { left: auto; right: 1.8rem; }
 [dir="rtl"] .opt[aria-pressed="true"]::after { right: auto; left: 0.6rem; }
 [dir="rtl"] .pcard[aria-pressed="true"]::after { right: auto; left: 0.9rem; }
@@ -69,3 +67,22 @@ html[lang="ar"] .js-split .w { padding-bottom: 0.32em; margin-bottom: -0.32em; p
 /* Latin words inside an Arabic heading keep their own order */
 bdi.wl { unicode-bidi: isolate; }
 @media (max-width: 1380px) { .lang a { min-width: 2rem; } .btn--appt { padding: 0 0.95rem; font-size: 0.9rem; } .btn--appt .icon { display: none; } html[lang="en"] .nav__a { padding: 0 0.45rem; font-size: 0.88rem; } }
+
+/* the footer's credit */
+.foot__end { display: flex; align-items: center; gap: 1.4rem; }
+.foot__social { display: flex; gap: 0.6rem; padding-inline-start: 1.4rem; box-shadow: inset 1px 0 0 rgba(232, 244, 241, 0.14); }
+[dir="rtl"] .foot__social { box-shadow: inset -1px 0 0 rgba(232, 244, 241, 0.14); }
+/* the studio's signature: quiet until it is pointed at */
+.foot__credit { display: inline-flex; align-items: center; gap: 0.5rem; color: rgba(232, 244, 241, 0.5); white-space: nowrap; transition: color var(--d-fast); }
+.foot__credit b { font-weight: 600; letter-spacing: 0.015em; color: rgba(232, 244, 241, 0.86); padding-bottom: 1px; direction: ltr; unicode-bidi: isolate;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: color var(--d-fast), background-size 420ms var(--e-out); }
+.foot__credit .foot__go { width: 0.8rem; height: 0.8rem; opacity: 0.55; transform: rotate(-45deg); transition: transform 420ms var(--e-out), opacity var(--d-fast); }
+[dir="rtl"] .foot__credit .foot__go { transform: rotate(-135deg); }
+.foot__credit:hover { color: rgba(232, 244, 241, 0.72); }
+.foot__credit:hover b { color: var(--white); background-size: 100% 1px; }
+.foot__credit:hover .foot__go { opacity: 1; transform: rotate(-45deg) translateX(2px); }
+[dir="rtl"] .foot__credit:hover .foot__go { transform: rotate(-135deg) translateX(2px); }
+.foot__credit:focus-visible { outline: 2px solid rgba(232, 244, 241, 0.6); outline-offset: 4px; border-radius: 4px; }
+@media (max-width: 560px) { .foot__end { width: 100%; justify-content: space-between; } .foot__social { padding-inline-start: 0; box-shadow: none; } }
+/* the back-to-top button never sits on the footer's last line */
+@media (min-width: 761px) { .foot__bottom { padding-inline-end: 4.6rem; } }   /* inline-end is where the "to top" button sits, in either direction */
