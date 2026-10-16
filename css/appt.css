@@ -54,7 +54,8 @@
 .pick__empty a { color: var(--teal-700); text-decoration: underline; }
 
 /* options: departments, times, "the earliest day" */
-.pick--dept { grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr)); }
+.pick--dept { grid-template-columns: repeat(2, minmax(0, 1fr)); }          /* two to a row (Bünyamin 17.10) */
+@media (max-width: 560px) { .pick--dept { grid-template-columns: minmax(0, 1fr); } }
 .opt { min-height: 4.4rem; }
 .opt__t { display: grid; gap: 0.15rem; min-width: 0; }
 .opt--dept .opt__t small { display: flex; align-items: center; gap: 0.45rem; }

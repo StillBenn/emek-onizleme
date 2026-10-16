@@ -37,18 +37,12 @@
   var abs = function (h) { return !h || /^(https?:|tel:|mailto:|#)/.test(h) ? h : BASE + h; };
   var icon = function (id, cls) { return '<svg class="icon ' + (cls || "") + '" aria-hidden="true"><use href="' + BASE + 'img/icons.svg#' + id + '"/></svg>'; };
 
-  /* ---- the reader's own size and contrast, before anything paints differently ---- */
-  var size = store.get("size"), contrast = store.get("contrast"), motion = store.get("motion");
-  if (size) html.setAttribute("data-size", size);
-  if (contrast) html.setAttribute("data-contrast", contrast);
-  if (motion === "reduced") html.setAttribute("data-motion", "reduced");
-
   /* ---- header ---- */
   var hdr = $(".hdr");
   var stuck = function () { if (hdr) hdr.classList.toggle("is-stuck", scrollY > 4); };
   addEventListener("scroll", stuck, { passive: true }); stuck();
 
-  /* one panel open at a time: the departments menu, the accessibility panel */
+  /* the departments menu opens under its button; a click anywhere else closes it */
   var panels = [];
   function panel(btn, el) {
     if (!btn || !el) return;
@@ -62,34 +56,7 @@
     el.addEventListener("click", function (e) { e.stopPropagation(); });
   }
   panel($("[data-mega]"), $(".mega"));
-  panel($("[data-a11y]"), $(".a11y"));
   document.addEventListener("click", function () { panels.forEach(function (p) { p.set(false); }); });
-
-  /* text size, contrast */
-  $$(".a11y [data-size]").forEach(function (b) {
-    b.setAttribute("aria-pressed", String((size || "1") === b.dataset.size));
-    b.addEventListener("click", function () {
-      html.setAttribute("data-size", b.dataset.size); store.set("size", b.dataset.size);
-      $$(".a11y [data-size]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-    });
-  });
-  $$(".a11y [data-contrast]").forEach(function (b) {
-    b.setAttribute("aria-pressed", String((contrast || "normal") === b.dataset.contrast));
-    b.addEventListener("click", function () {
-      if (b.dataset.contrast === "high") html.setAttribute("data-contrast", "high"); else html.removeAttribute("data-contrast");
-      store.set("contrast", b.dataset.contrast);
-      $$(".a11y [data-contrast]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-    });
-  });
-
-  $$(".a11y [data-motion]").forEach(function (b) {
-    b.setAttribute("aria-pressed", String((motion || "full") === b.dataset.motion));
-    b.addEventListener("click", function () {
-      if (b.dataset.motion === "reduced") html.setAttribute("data-motion", "reduced"); else html.removeAttribute("data-motion");
-      store.set("motion", b.dataset.motion);
-      $$(".a11y [data-motion]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-    });
-  });
 
   /* ---- the menu sheet (narrow screens) ---- */
   var sheet = $(".sheet"), lastFocus = null;
@@ -103,13 +70,6 @@
     else if (lastFocus) lastFocus.focus();
   }
   $$("[data-menu]").forEach(function (b) { b.addEventListener("click", function () { sheetSet(true); }); });
-  $$("[data-a11y-sheet]").forEach(function (b) {
-    b.addEventListener("click", function (e) {
-      e.stopPropagation(); sheetSet(false);
-      var a = panels.filter(function (p) { return p.el.classList.contains("a11y"); })[0];
-      if (a) setTimeout(function () { a.set(true); var f = $(".a11y button"); if (f) f.focus(); }, 80);
-    });
-  });
   if (sheet) $$("[data-close], .sheet__nav a", sheet).forEach(function (b) { b.addEventListener("click", function () { sheetSet(false); }); });
 
   /* ---- the phone's action bar: after the first screen, out of the way of the footer's own links ---- */
@@ -335,9 +295,98 @@
   });
   $$("[data-docpick]").forEach(function (pick) {
     var sel = "#" + pick.dataset.docpick, L = list(sel); if (!L) return;
-    function on() { L.dept = pick.value; pick.closest(".pick").classList.toggle("is-on", pick.value !== "all"); narrow(sel); }
+    function on() { L.dept = pick.value; pick.closest(".dmenu").classList.toggle("is-on", pick.value !== "all"); narrow(sel); }
     pick.addEventListener("change", on);
     if (pick.value !== "all") on();          // a value the browser kept from before (back button)
+  });
+
+  /* ---- a menu of choices in the site's own look (the browser's list opened upward, long and grey):
+     the <select> stays the truth (and works without this); a button shows its value, a list opens
+     beneath it, short and scrolling, and the page behind it softens out of focus ---- */
+  var veil = null;
+  $$(".dmenu select").forEach(function (sel, n) {
+    var box = sel.closest(".dmenu"), opts = [].slice.call(sel.options);
+    var id = sel.id || "pick" + n;
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "dmenu__btn";
+    btn.setAttribute("aria-haspopup", "listbox"); btn.setAttribute("aria-expanded", "false"); btn.setAttribute("aria-controls", id + "-list");
+    var lab = $('label[for="' + sel.id + '"]');
+    if (lab) btn.setAttribute("aria-label", lab.textContent.trim());
+    btn.innerHTML = '<span class="dmenu__val"></span>' + icon("i-chev", "chev");
+    var ul = document.createElement("ul");
+    ul.className = "dmenu__list"; ul.id = id + "-list"; ul.setAttribute("role", "listbox"); ul.tabIndex = -1;
+    if (lab) ul.setAttribute("aria-label", lab.textContent.trim());
+    ul.innerHTML = opts.map(function (o, i) {
+      var c = o.getAttribute("data-n");
+      return '<li role="option" id="' + id + "-o" + i + '" data-i="' + i + '"><span>' + esc(o.textContent) + "</span>" +
+        (c ? "<small>" + esc(T("{n} hekim", { n: c })) + "</small>" : "") + icon("i-check", "dmenu__tick") + "</li>";
+    }).join("");
+    var items = $$("li", ul), at = -1;
+    sel.tabIndex = -1; sel.setAttribute("aria-hidden", "true");
+    box.classList.add("is-pretty");
+    box.appendChild(btn); box.appendChild(ul);
+
+    function paint() {
+      $(".dmenu__val", btn).textContent = opts[sel.selectedIndex].textContent;
+      items.forEach(function (li, i) { li.setAttribute("aria-selected", String(i === sel.selectedIndex)); });
+    }
+    function active(i, scroll) {
+      at = Math.max(0, Math.min(items.length - 1, i));
+      items.forEach(function (li, k) { li.classList.toggle("is-active", k === at); });
+      ul.setAttribute("aria-activedescendant", items[at].id);
+      if (scroll) {
+        var li = items[at], top = li.offsetTop, bottom = top + li.offsetHeight;
+        if (top < ul.scrollTop + 6) ul.scrollTop = top - 6;
+        else if (bottom > ul.scrollTop + ul.clientHeight - 6) ul.scrollTop = bottom - ul.clientHeight + 6;
+      }
+    }
+    function open() {
+      if (box.classList.contains("is-open")) return;
+      if (!veil) { veil = document.createElement("div"); veil.className = "dmenu__veil"; veil.setAttribute("aria-hidden", "true"); document.body.appendChild(veil);
+        veil.addEventListener("wheel", function (e) { e.preventDefault(); }, { passive: false });
+        veil.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false }); }
+      box.classList.add("is-open"); btn.setAttribute("aria-expanded", "true");
+      html.classList.add("is-held"); veil.classList.add("is-on");
+      active(sel.selectedIndex, false);
+      var li = items[sel.selectedIndex];
+      ul.scrollTop = Math.max(0, li.offsetTop - ul.clientHeight / 2 + li.offsetHeight / 2);
+      ul.focus({ preventScroll: true });
+    }
+    function close(back) {
+      if (!box.classList.contains("is-open")) return;
+      box.classList.remove("is-open"); btn.setAttribute("aria-expanded", "false");
+      html.classList.remove("is-held"); if (veil) veil.classList.remove("is-on");
+      if (back) btn.focus({ preventScroll: true });
+    }
+    function choose(i) {
+      if (i !== sel.selectedIndex) { sel.selectedIndex = i; sel.dispatchEvent(new Event("change", { bubbles: true })); }
+      paint(); close(true);
+    }
+    btn.addEventListener("click", function (e) { e.stopPropagation(); if (box.classList.contains("is-open")) close(true); else open(); });
+    btn.addEventListener("keydown", function (e) { if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); open(); } });
+    ul.addEventListener("click", function (e) { e.stopPropagation(); var li = e.target.closest("li"); if (li) choose(+li.dataset.i); });
+    ul.addEventListener("mousemove", function (e) { var li = e.target.closest("li"); if (li && +li.dataset.i !== at) active(+li.dataset.i, false); });
+    var typed = "", typedAt = 0;
+    ul.addEventListener("keydown", function (e) {
+      var k = e.key;
+      if (k === "ArrowDown") { e.preventDefault(); active(at + 1, true); }
+      else if (k === "ArrowUp") { e.preventDefault(); active(at - 1, true); }
+      else if (k === "Home") { e.preventDefault(); active(0, true); }
+      else if (k === "End") { e.preventDefault(); active(items.length - 1, true); }
+      else if (k === "PageDown") { e.preventDefault(); active(at + 6, true); }
+      else if (k === "PageUp") { e.preventDefault(); active(at - 6, true); }
+      else if (k === "Enter" || k === " ") { e.preventDefault(); choose(at); }
+      else if (k === "Escape") { e.preventDefault(); close(true); }
+      else if (k === "Tab") close(false);
+      else if (k.length === 1 && /\S/.test(k)) {            /* type the first letters of a department */
+        var now = Date.now(); typed = (now - typedAt > 700 ? "" : typed) + fold(k); typedAt = now;
+        for (var j = 0; j < opts.length; j++) { if (fold(opts[j].textContent).indexOf(typed) === 0) { active(j, true); break; } }
+      }
+    });
+    document.addEventListener("click", function () { close(false); });
+    addEventListener("resize", function () { close(false); });
+    sel.addEventListener("change", paint);
+    paint();
   });
 
   /* ---- a long page's contents: the heading on screen is marked ---- */

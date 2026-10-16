@@ -56,7 +56,7 @@ html[lang="ar"] .js-split .w { padding-bottom: 0.32em; margin-bottom: -0.32em; p
 [dir="rtl"] .hdr__line { transform-origin: 100% 50%; background: linear-gradient(270deg, var(--teal), #5fc9bd); }
 [dir="rtl"] .skip { left: auto; right: var(--pad); }
 /* the insurers' band, the phone and e-mail fields: Latin, left to right, wherever they stand */
-.marq, .aa { direction: ltr; }
+.marq { direction: ltr; }
 [dir="rtl"] input[type="tel"], [dir="rtl"] input[type="email"] { direction: ltr; text-align: right; }
 [dir="rtl"] .reqbox pre { direction: rtl; }
 

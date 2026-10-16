@@ -72,8 +72,6 @@
   /* the reader's own size (accessibility: A / A+ / A++) */
   --scale: 1;
 }
-html[data-size="2"] { --scale: 1.12; }
-html[data-size="3"] { --scale: 1.25; }
 @media (max-width: 960px) { :root { --hdr: 68px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -95,8 +93,6 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 .skip:focus { top: 12px; }
 
 /* high contrast (accessibility switch) */
-html[data-contrast="high"] { --ink-2: #13211f; --ink-3: #26332f; --line: rgba(16, 36, 34, 0.32); --line-2: rgba(16, 36, 34, 0.5); --paper: #ffffff; --paper-2: #f1f1ef; --teal-600: #075f59; }
-html[data-contrast="high"] .btn--ghost { border-color: var(--ink); }
 
 /* ---- layout ------------------------------------------------------------------------ */
 .wrap { width: min(100% - 2 * var(--pad), var(--max)); margin-inline: auto; }

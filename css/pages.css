@@ -307,14 +307,48 @@ fieldset.is-bad legend { color: var(--red); }
 /* ==== 17.10: the inner pages, quieter (the same brief as the home page: one thing at a time) ======= */
 /* the doctors' page: the search and one department menu */
 .filterbar--pick { grid-template-columns: minmax(0, 22rem) minmax(0, 16rem) minmax(0, 1fr); }
-.pick { position: relative; display: block; }
-.pick select { width: 100%; height: 3.8rem; padding-block: 0; padding-inline: 1.3rem 2.9rem; border: 0; border-radius: 999px; background: var(--white); -webkit-appearance: none; appearance: none;
+.dmenu { position: relative; display: block; }
+.dmenu select { width: 100%; height: 3.8rem; padding-block: 0; padding-inline: 1.3rem 2.9rem; border: 0; border-radius: 999px; background: var(--white); -webkit-appearance: none; appearance: none;
   box-shadow: 0 0 0 1.5px var(--line); font: 600 0.98rem/1 var(--f-body); color: var(--ink); cursor: pointer; transition: box-shadow var(--d-base) var(--e-out); }
-.pick select:hover { box-shadow: 0 0 0 1.5px var(--ink-3); }
-.pick select:focus-visible { outline: 0; box-shadow: 0 0 0 2px var(--teal); }
-.pick.is-on select { box-shadow: 0 0 0 2px var(--teal); color: var(--teal-800); }
-.pick .chev { position: absolute; top: 50%; inset-inline-end: 1.2rem; width: 1rem; height: 1rem; margin-top: -0.5rem; color: var(--ink-3); pointer-events: none; }
+.dmenu select:hover { box-shadow: 0 0 0 1.5px var(--ink-3); }
+.dmenu select:focus-visible { outline: 0; box-shadow: 0 0 0 2px var(--teal); }
+.dmenu.is-on select { box-shadow: 0 0 0 2px var(--teal); color: var(--teal-800); }
+.dmenu .chev { position: absolute; top: 50%; inset-inline-end: 1.2rem; width: 1rem; height: 1rem; margin-top: -0.5rem; color: var(--ink-3); pointer-events: none; transition: transform var(--d-base) var(--e-out); }
 @media (max-width: 860px) { .filterbar--pick { grid-template-columns: 1fr; } }
+
+/* the same menu in the site's own look (app.js): a pill button, a list that opens beneath it — short,
+   scrolling inside, each department with its number of doctors — and the page behind it out of focus */
+.dmenu.is-pretty > select, .dmenu.is-pretty > .chev { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.dmenu__btn { position: relative; display: flex; align-items: center; width: 100%; height: 3.8rem; padding-inline: 1.3rem 2.9rem; border-radius: 999px; background: var(--white);
+  box-shadow: 0 0 0 1.5px var(--line); font: 600 0.98rem/1 var(--f-body); color: var(--ink); text-align: start; cursor: pointer; transition: box-shadow var(--d-base) var(--e-out); }
+.dmenu__val { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.dmenu__btn .chev { position: absolute; top: 50%; inset-inline-end: 1.2rem; width: 1rem; height: 1rem; margin-top: -0.5rem; color: var(--ink-3); transition: transform var(--d-base) var(--e-out), color var(--d-base); }
+.dmenu__btn:hover { box-shadow: 0 0 0 1.5px var(--ink-3); }
+.dmenu__btn:focus-visible { outline: 0; box-shadow: 0 0 0 2px var(--teal); }
+.dmenu.is-on .dmenu__btn { box-shadow: 0 0 0 2px var(--teal); color: var(--teal-800); }
+.dmenu.is-open { z-index: 91; }
+.dmenu.is-open .dmenu__btn { box-shadow: 0 0 0 2px var(--teal), 0 18px 40px -24px rgba(11, 57, 54, 0.45); }
+.dmenu.is-open .dmenu__btn .chev { transform: rotate(180deg); color: var(--teal-700); }
+.dmenu__list { position: absolute; z-index: 2; top: calc(100% + 0.55rem); inset-inline-start: 0; width: max(100%, 23.5rem); max-width: calc(100vw - 2 * var(--pad)); max-height: min(21rem, 56vh); margin: 0; padding: 0.4rem;
+  list-style: none; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(16, 36, 34, 0.18) transparent;
+  border-radius: 20px; background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -28px rgba(11, 57, 54, 0.45);
+  opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.985); transform-origin: top center;
+  transition: opacity 220ms var(--e-out), transform 320ms var(--e-out), visibility 0s linear 220ms; }
+.dmenu__list:focus { outline: 0; }
+.dmenu.is-open .dmenu__list { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.dmenu__list li { display: flex; align-items: center; gap: 0.75rem; padding: 0.72rem 0.85rem; border-radius: 13px; font-weight: 600; font-size: 0.95rem; color: var(--ink-2); cursor: pointer;
+  transition: background var(--d-fast), color var(--d-fast); }
+.dmenu__list li span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dmenu__list li small { flex: none; font-size: 0.78rem; font-weight: 600; color: var(--ink-3); }
+.dmenu__list li.is-active { background: var(--paper-2); color: var(--ink); }
+.dmenu__list li[aria-selected="true"] { background: var(--mint); color: var(--teal-800); }
+.dmenu__list li[aria-selected="true"] small { color: var(--teal-700); }
+.dmenu__tick { flex: none; width: 1rem; height: 1rem; color: var(--teal-700); opacity: 0; }
+.dmenu__list li[aria-selected="true"] .dmenu__tick { opacity: 1; }
+.dmenu__veil { position: fixed; inset: 0; z-index: 90; background: rgba(251, 250, 246, 0.42); -webkit-backdrop-filter: blur(7px) saturate(1.05); backdrop-filter: blur(7px) saturate(1.05);
+  opacity: 0; visibility: hidden; transition: opacity 280ms var(--e-out), visibility 0s linear 280ms; }
+.dmenu__veil.is-on { opacity: 1; visibility: visible; transition-delay: 0s; }
+@media (prefers-reduced-motion: reduce) { .dmenu__list, .dmenu__veil { transition: none; } }
 
 /* the patient guide's and the corporate pages' cards: the card is the link, its arrow sits in the corner */
 .hubc { position: relative; }
@@ -337,3 +371,25 @@ html[dir="rtl"] .hubc:hover .go { transform: translateX(-3px) scaleX(-1); }
 .more > summary .chev { width: 0.9rem; height: 0.9rem; }
 .more > summary:hover { background: var(--mint); box-shadow: inset 0 0 0 1.5px transparent; }
 .more[open] > summary { display: none; }
+
+/* my results: the hospital's results system framed inside the page, without its own logo and step bar */
+.results { align-items: start; }
+.lab { display: grid; gap: 0.9rem; }
+.lab__frame { position: relative; height: 44rem; overflow: hidden; border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-2); }
+.lab__frame iframe { display: block; width: 100%; height: calc(100% + var(--crop)); margin-top: calc(-1 * var(--crop)); border: 0; background: var(--white); }
+.lab__note { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.86rem; line-height: 1.55; color: var(--ink-3); }
+.lab__note .icon { flex: none; width: 1.05rem; height: 1.05rem; margin-top: 0.15rem; color: var(--teal-700); }
+.card--need h2 { font: 700 0.72rem/1 var(--f-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.need { display: grid; gap: 0.9rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.need li, .card--link { display: flex; align-items: flex-start; gap: 0.8rem; }
+.need b, .card--link b { display: block; font-weight: 650; font-size: 0.95rem; color: var(--ink); }
+.need small, .card--link small { display: block; margin-top: 0.15rem; font-size: 0.82rem; line-height: 1.45; color: var(--ink-3); }
+.need .lrow__i, .card--link .lrow__i { flex: none; width: 2.3rem; height: 2.3rem; border-radius: 11px; }
+.card--link { align-items: center; transition: box-shadow var(--d-base) var(--e-out), transform var(--d-base) var(--e-out); }
+.card--link > span:not(.lrow__i) { flex: 1; min-width: 0; }
+.card--link .go { flex: none; width: 1.05rem; height: 1.05rem; color: var(--ink-3); transition: transform var(--d-base) var(--e-out), color var(--d-base); }
+.card--link:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px rgba(0, 160, 152, 0.35), var(--shadow-2); }
+.card--link:hover .go { transform: translateX(3px); color: var(--teal-700); }
+html[dir="rtl"] .card--link .go { transform: scaleX(-1); }
+@media (max-width: 1000px) { .results .side { order: 2; } }
+@media (max-width: 560px) { .lab__frame { height: 47rem; } }

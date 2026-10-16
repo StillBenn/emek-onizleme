@@ -286,24 +286,43 @@
   });
 
   /* ---- the departments menu: a department under the pointer shows itself in the side panel ---- */
+  /* The panel changes only once the pointer has settled on a department (a pointer resting on the
+     line between two of them used to swap the panel back and forth on every pixel, each swap starting
+     a fade from nothing — the panel flickered empty). Each department's card is built once and kept, so
+     its photos never load twice; the panel's size never depends on which card it shows. */
   var mega = $(".mega"), peek = mega && $(".mega__peek", mega), plain = mega && $(".mega__default", mega);
   if (peek && fine) {
-    var showDept = function (slug) {
+    var cards = {}, last = null, wait = 0;
+    var card = function (slug) {
+      if (cards[slug]) return cards[slug];
       var d = D.depts.filter(function (x) { return x.slug === slug; })[0];
-      if (!d) return;
+      if (!d) return null;
       var faces = (d.faces || []).map(function (f) { return '<img src="' + esc(abs(f)) + '" alt="" width="240" height="276">'; }).join("");
-      peek.innerHTML = '<span class="mega__i">' + icon(d.icon) + "</span>" +
-        '<p class="h3">' + esc(d.name) + "</p>" + (d.sum ? "<p>" + esc(d.sum) + "</p>" : "") +
+      var el = document.createElement("div");
+      el.className = "mega__card";
+      el.innerHTML = '<span class="mega__i">' + icon(d.icon) + "</span>" +
+        '<p class="h3">' + esc(d.name) + "</p>" + (d.sum ? '<p class="mega__sum">' + esc(d.sum) + "</p>" : "") +
         '<div class="faces faces--night">' + faces + "<span>" + (d.count ? T("{n} hekim", { n: d.count }) : T("Tıbbi birim")) + "</span></div>" +
         '<div class="mega__acts"><a class="btn btn--light btn--sm" href="' + esc(abs(d.href)) + '">' + T("Bölümü incele") + "</a>" +
         (d.count ? '<a class="btn btn--bright btn--sm" href="' + esc(abs("randevu/?bolum=" + d.slug)) + '">' + icon("i-calendar") + T("Randevu") + "</a>" : "") + "</div>";
-      peek.hidden = false; plain.hidden = true;
-      if (!reduced() && peek.animate) peek.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 320, easing: "cubic-bezier(.22,1,.36,1)" });
+      return (cards[slug] = el);
     };
-    var last = null;
+    var show = function (slug) {
+      if (slug === last) return;
+      var el = card(slug);
+      if (!el) return;
+      last = slug;
+      peek.replaceChildren(el);
+      var first = peek.hidden;
+      peek.hidden = false; plain.hidden = true;
+      if (!reduced() && el.animate) el.animate(first ? [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }]
+                                                    : [{ opacity: 0.35 }, { opacity: 1 }], { duration: first ? 320 : 220, easing: "cubic-bezier(.22,1,.36,1)" });
+    };
     $$(".mega__list a", mega).forEach(function (a) {
-      a.addEventListener("mouseenter", function () { if (a.dataset.slug !== last) { last = a.dataset.slug; showDept(last); } });
+      a.addEventListener("mouseenter", function () { clearTimeout(wait); wait = setTimeout(function () { show(a.dataset.slug); }, 90); });
+      a.addEventListener("focus", function () { clearTimeout(wait); show(a.dataset.slug); });
     });
-    mega.addEventListener("mouseleave", function () { last = null; peek.hidden = true; plain.hidden = false; });
+    mega.addEventListener("mouseleave", function () { clearTimeout(wait); wait = setTimeout(function () { last = null; peek.hidden = true; plain.hidden = false; }, 160); });
+    mega.addEventListener("mouseenter", function () { clearTimeout(wait); });
   }
 })();

@@ -27,7 +27,7 @@
   var fine = window.matchMedia("(pointer: fine)").matches;
   var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   function reduced() { return prefersReduced.matches || root.getAttribute("data-motion") === "reduced"; }
-  function held() { return root.style.overflow === "hidden" || document.body.style.overflow === "hidden"; }
+  function held() { return root.style.overflow === "hidden" || document.body.style.overflow === "hidden" || root.classList.contains("is-held"); }
 
   var OMEGA = 6.8;       /* the spring's stiffness: ~0.75 s for a notch to settle */
   var SETTLE = 0.35;     /* px: below this (and slow) the glide snaps and stops */
