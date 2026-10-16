@@ -32,7 +32,7 @@
   var OMEGA = 6.8;       /* the spring's stiffness: ~0.75 s for a notch to settle */
   var SETTLE = 0.35;     /* px: below this (and slow) the glide snaps and stops */
   var target = window.scrollY, current = target, written = Math.round(current), vel = 0;
-  var max = 0, running = false, last = 0;
+  var max = 0, running = false, last = 0, dpr = window.devicePixelRatio || 1;
 
   function measure() {
     max = Math.max(0, root.scrollHeight - window.innerHeight);
@@ -49,8 +49,10 @@
     current = target + (x0 + c * dt) * e;
     vel = (vel - OMEGA * c * dt) * e;
     if (Math.abs(target - current) < SETTLE && Math.abs(vel) < 6) { current = target; vel = 0; running = false; }
-    written = Math.round(current);
-    window.scrollTo(0, current);
+    /* whole device pixels: a position between two pixels is drawn snapped one frame and not the next */
+    var px = Math.round(current * dpr) / dpr;
+    written = Math.round(px);
+    window.scrollTo(0, px);
     if (running) requestAnimationFrame(frame);
   }
   function start() {
@@ -132,9 +134,24 @@
     /* a mouse press on the scrollbar, or a touch on a touch-screen laptop, takes over at once */
     window.addEventListener("pointerdown", function () { if (running) stop(); }, { passive: true });
 
-    window.addEventListener("resize", measure);
+    window.addEventListener("resize", function () { dpr = window.devicePixelRatio || 1; measure(); });
     if ("ResizeObserver" in window) new ResizeObserver(measure).observe(document.body);
     measure();
+  }
+
+  /* pictures are unpacked a screen before they arrive: a large portrait decoded in the frame it comes
+     on screen held that frame back (measured where the doctors' photos enter during a glide) */
+  if ("IntersectionObserver" in window && "decode" in Image.prototype) {
+    var pre = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var img = e.target;
+        pre.unobserve(img);
+        var go = function () { img.decode().catch(function () { /* drawn the usual way */ }); };
+        if (img.complete && img.naturalWidth) go(); else img.addEventListener("load", go, { once: true });
+      });
+    }, { rootMargin: "120% 0px 120% 0px" });
+    [].forEach.call(document.querySelectorAll('img[loading="lazy"]'), function (img) { pre.observe(img); });
   }
 
   /* in-page links glide and stop under the sticky header (the CSS scroll-padding) */

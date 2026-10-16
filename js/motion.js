@@ -50,14 +50,20 @@
   up.innerHTML = '<svg class="ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" pathLength="100"/></svg>' + icon("i-up");
   document.body.appendChild(up);
   up.addEventListener("click", function () { if (window.EMEKscroll) window.EMEKscroll(0); else scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" }); });
-  var ticking = false;
+  /* the value goes to the two things that draw it, not to <html>: a custom property set on the root
+     restyles the whole page, every frame of a scroll (measured as dropped frames once the wheel glides) */
+  var ticking = false, max = 0, readers = [up].concat(line ? [line] : []);
+  function room() { max = document.documentElement.scrollHeight - innerHeight; }
   function reading() {
     ticking = false;
-    var max = document.documentElement.scrollHeight - innerHeight;
-    html.style.setProperty("--read", (max > 0 ? Math.min(1, scrollY / max) : 0).toFixed(4));
+    var v = (max > 0 ? Math.min(1, scrollY / max) : 0).toFixed(4);
+    readers.forEach(function (el) { el.style.setProperty("--read", v); });
     up.classList.toggle("is-on", scrollY > innerHeight * 1.2);
     fills.forEach(fill);
   }
+  room();
+  addEventListener("resize", function () { room(); reading(); });
+  if ("ResizeObserver" in window) new ResizeObserver(function () { room(); }).observe(document.body);
   addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(reading); } }, { passive: true });
 
   /* ---- the menu: a pill that follows the pointer from item to item ---- */
