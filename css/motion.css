@@ -65,7 +65,7 @@ body { overflow-x: clip; }
 .rv .settle { opacity: 0; scale: 1.08; transition: opacity 900ms var(--e-out), scale 1600ms cubic-bezier(0.19, 1, 0.22, 1); }
 .rv .settle.is-in { opacity: 1; scale: 1; }
 /* blocks rise (the existing data-rise), now with a touch of blur leaving */
-.rv .rise { filter: blur(6px); transition: opacity 800ms var(--e-out), transform 1000ms var(--e-out), filter 800ms var(--e-out); }
+.rv .rise { filter: blur(4px); transition: opacity 1000ms var(--e-out), transform 1300ms var(--e-out), filter 1000ms var(--e-out); transition-delay: calc(var(--i, 0) * 80ms); }
 .rv .rise.is-in { filter: none; }
 
 /* ---- cards: one way of answering the pointer, everywhere ----------------------------

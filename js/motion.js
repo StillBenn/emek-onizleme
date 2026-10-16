@@ -49,7 +49,7 @@
   up.type = "button"; up.className = "totop"; up.setAttribute("aria-label", T("Sayfanın başına dön"));
   up.innerHTML = '<svg class="ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" pathLength="100"/></svg>' + icon("i-up");
   document.body.appendChild(up);
-  up.addEventListener("click", function () { scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" }); });
+  up.addEventListener("click", function () { if (window.EMEKscroll) window.EMEKscroll(0); else scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" }); });
   var ticking = false;
   function reading() {
     ticking = false;

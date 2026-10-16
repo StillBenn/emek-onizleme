@@ -196,7 +196,7 @@
 @media (max-width: 900px) { .visit { grid-template-columns: 1fr; } }
 
 /* ---- the reveal: blocks rise once as they come on screen (off under reduced motion) ---- */
-.rv .rise { opacity: 0; transform: translateY(22px); transition: opacity 800ms var(--e-out), transform 900ms var(--e-out); transition-delay: calc(var(--i, 0) * 70ms); }
+.rv .rise { opacity: 0; transform: translateY(18px); transition: opacity 1000ms var(--e-out), transform 1300ms var(--e-out); transition-delay: calc(var(--i, 0) * 80ms); }
 .rv .rise.is-in { opacity: 1; transform: none; }
 
 /* ---- the pieces added with the pages ---- */

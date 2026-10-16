@@ -364,7 +364,7 @@
         $$(".rise", e.target).forEach(function (el, i) {
           el.classList.add("is-in");
           /* the reveal is over: hand the block back (its own hover moves it again) */
-          setTimeout(function () { el.classList.remove("rise", "is-in"); el.style.removeProperty("--i"); }, 1150 + Math.min(i, 8) * 70);
+          setTimeout(function () { el.classList.remove("rise", "is-in"); el.style.removeProperty("--i"); }, 1450 + Math.min(i, 8) * 80);
         });
         io.unobserve(e.target);
       });
