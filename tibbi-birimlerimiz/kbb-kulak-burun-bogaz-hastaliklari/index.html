@@ -20,12 +20,12 @@
 <link rel="apple-touch-icon" href="../../img/apple-touch-icon.png">
 <link rel="preload" href="../../fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../../fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../css/main.css?v=7">
-<link rel="stylesheet" href="../../css/parts.css?v=7">
-<link rel="stylesheet" href="../../css/home.css?v=7">
-<link rel="stylesheet" href="../../css/pages.css?v=7">
-<link rel="stylesheet" href="../../css/motion.css?v=7">
-<link rel="stylesheet" href="../../css/i18n.css?v=7">
+<link rel="stylesheet" href="../../css/main.css?v=8">
+<link rel="stylesheet" href="../../css/parts.css?v=8">
+<link rel="stylesheet" href="../../css/home.css?v=8">
+<link rel="stylesheet" href="../../css/pages.css?v=8">
+<link rel="stylesheet" href="../../css/motion.css?v=8">
+<link rel="stylesheet" href="../../css/i18n.css?v=8">
 <script>try{var d=document.documentElement,s=localStorage.getItem("emek-size"),c=localStorage.getItem("emek-contrast"),m=localStorage.getItem("emek-motion");if(s)d.setAttribute("data-size",s);if(c==="high")d.setAttribute("data-contrast","high");if(m==="reduced")d.setAttribute("data-motion","reduced")}catch(e){}</script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "MedicalClinic", "name": "Kulak Burun Boğaz (KBB) — Özel Gaziantep Emek Hastanesi", "url": "https://larisel.com/emek-onizleme/tibbi-birimlerimiz/kbb-kulak-burun-bogaz-hastaliklari/", "parentOrganization": {"@type": "Hospital", "name": "Özel Gaziantep Emek Hastanesi"}, "telephone": "+903423200202"}</script>
@@ -42,9 +42,9 @@
     <a class="brand" href="../../" aria-label="Özel Gaziantep Emek Hastanesi — ana sayfa"><img src="../../img/logo.webp" alt="Özel Gaziantep Emek Hastanesi" width="373" height="179"></a>
     <nav class="nav" aria-label="Ana menü"><button class="nav__a" type="button" data-mega aria-expanded="false" aria-controls="mega" aria-current="page">Bölümlerimiz<svg class="icon chev" aria-hidden="true"><use href="../../img/icons.svg#i-chev"/></svg></button><a class="nav__a" href="../../doktorlarimiz/">Doktorlarımız</a><a class="nav__a" href="../../hasta-rehberi/">Hasta Rehberi</a><a class="nav__a" href="../../hakkimizda/">Kurumsal</a><a class="nav__a" href="../../iletisim/">İletişim</a></nav>
     <div class="tools">
-      <button class="tool tool--kbd" type="button" data-finder aria-label="Ara"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-search"/></svg><span>Ara</span><kbd>/</kbd></button>
+      <button class="tool" type="button" data-finder aria-label="Ara" data-tip="Ara"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-search"/></svg></button>
       <button class="tool tool--aa" type="button" data-a11y aria-expanded="false" aria-controls="a11y" aria-label="Yazı boyutu ve kontrast" data-tip="Yazı boyutu ve kontrast"><span class="aa" aria-hidden="true">A<small>a</small></span></button>
-      <nav class="lang" aria-label="Dil · Language · اللغة" translate="no"><a href="../../tibbi-birimlerimiz/kbb-kulak-burun-bogaz-hastaliklari/" hreflang="tr" lang="tr" aria-current="true">TR</a><a href="../../en/ent-ear-nose-and-throat-diseases/" hreflang="en" lang="en">EN</a><a href="../../ar/ent-ear-nose-and-throat-diseases/" hreflang="ar" lang="ar">AR</a></nav>
+      <details class="lang" translate="no"><summary aria-label="Dil · Language · اللغة">TR<svg class="icon chev" aria-hidden="true"><use href="../../img/icons.svg#i-chev"/></svg></summary><nav class="lang__menu" aria-label="Dil · Language · اللغة"><a href="../../tibbi-birimlerimiz/kbb-kulak-burun-bogaz-hastaliklari/" hreflang="tr" lang="tr" aria-current="true"><b>TR</b><span>Türkçe</span></a><a href="../../en/ent-ear-nose-and-throat-diseases/" hreflang="en" lang="en"><b>EN</b><span>English</span></a><a href="../../ar/ent-ear-nose-and-throat-diseases/" hreflang="ar" lang="ar"><b>AR</b><span>العربية</span></a></nav></details>
       <a class="er" href="tel:+903423200202"><span class="pulse" aria-hidden="true"></span>Acil 7/24 <small>0342 320 02 02</small></a>
       <a class="btn btn--appt" href="../../randevu/" data-magnet><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-calendar"/></svg>Randevu Al</a>
       <button class="tool burger" type="button" data-menu aria-label="Menü"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-menu"/></svg></button>
@@ -58,7 +58,7 @@
           <p class="label" style="color:#8fd6cd">Randevu</p>
           <p class="h3">Hangi bölüme gideceğinizi bilmiyor musunuz?</p>
           <p>Şikâyetinizi yazın, size uygun bölümü ve doktoru gösterelim.</p>
-          <button class="btn btn--light btn--sm" type="button" data-finder><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-search"/></svg>Şikâyetimi yazayım</button>
+          <a class="btn btn--light btn--sm" href="../../sikayetime-gore-bolum/"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-search"/></svg>Şikâyetime göre bölüm</a>
         </div>
         <div class="mega__peek" hidden></div>
       </div>
@@ -151,7 +151,7 @@
   </div>
 </div>
 <div class="sheet" aria-hidden="true">
-  <div class="sheet__top"><img src="../../img/logo.webp" alt="" width="373" height="179"><nav class="lang" aria-label="Dil · Language · اللغة" translate="no"><a href="../../tibbi-birimlerimiz/kbb-kulak-burun-bogaz-hastaliklari/" hreflang="tr" lang="tr" aria-current="true">TR</a><a href="../../en/ent-ear-nose-and-throat-diseases/" hreflang="en" lang="en">EN</a><a href="../../ar/ent-ear-nose-and-throat-diseases/" hreflang="ar" lang="ar">AR</a></nav><button class="tool" type="button" data-close aria-label="Menüyü kapat"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-close"/></svg></button></div>
+  <div class="sheet__top"><img src="../../img/logo.webp" alt="" width="373" height="179"><details class="lang" translate="no"><summary aria-label="Dil · Language · اللغة">TR<svg class="icon chev" aria-hidden="true"><use href="../../img/icons.svg#i-chev"/></svg></summary><nav class="lang__menu" aria-label="Dil · Language · اللغة"><a href="../../tibbi-birimlerimiz/kbb-kulak-burun-bogaz-hastaliklari/" hreflang="tr" lang="tr" aria-current="true"><b>TR</b><span>Türkçe</span></a><a href="../../en/ent-ear-nose-and-throat-diseases/" hreflang="en" lang="en"><b>EN</b><span>English</span></a><a href="../../ar/ent-ear-nose-and-throat-diseases/" hreflang="ar" lang="ar"><b>AR</b><span>العربية</span></a></nav></details><button class="tool" type="button" data-close aria-label="Menüyü kapat"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-close"/></svg></button></div>
   <div class="sheet__body">
     <nav class="sheet__nav" aria-label="Menü"><a href="../../tibbi-birimlerimiz/">Bölümlerimiz<svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-arrow"/></svg></a><a href="../../doktorlarimiz/">Doktorlarımız<svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-arrow"/></svg></a><a href="../../hasta-rehberi/">Hasta Rehberi<svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-arrow"/></svg></a><a href="../../hakkimizda/">Kurumsal<svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-arrow"/></svg></a><a href="../../iletisim/">İletişim<svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-arrow"/></svg></a></nav>
     <div class="sheet__quick">
@@ -168,9 +168,9 @@
   <a class="dock__main" href="../../randevu/?bolum=kbb-kulak-burun-bogaz-hastaliklari"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-calendar"/></svg>Randevu Al</a>
   <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" target="_blank" rel="noopener"><svg class="icon " aria-hidden="true"><use href="../../img/icons.svg#i-route"/></svg>Yol Tarifi</a>
 </nav>
-<script src="../../js/data.js?v=7" defer></script>
-<script src="../../js/app.js?v=7" defer></script>
-<script src="../../js/motion.js?v=7" defer></script>
-<script src="../../js/live.js?v=7" defer></script>
+<script src="../../js/data.js?v=8" defer></script>
+<script src="../../js/app.js?v=8" defer></script>
+<script src="../../js/motion.js?v=8" defer></script>
+<script src="../../js/live.js?v=8" defer></script>
 </body>
 </html>

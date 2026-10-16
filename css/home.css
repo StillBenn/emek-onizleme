@@ -370,3 +370,76 @@
 /* the doctor page's share button */
 .btn--icon { width: 3.5rem; padding: 0; }
 .btn--icon .icon { width: 1.2rem; height: 1.2rem; }
+
+/* ==== the calm home page (16.10: the client found it "too crowded the moment you arrive") ==========
+   One search in the hero, then one thing per section with room around it: four ways in, eight
+   departments, four doctors, four numbers, how to reach us. */
+.hero--calm { padding-bottom: clamp(2rem, 1.2rem + 2.5vw, 3.5rem); }
+.hero--calm .hero__text { gap: 1.7rem; }
+.hero--calm .ask { margin-top: 0.6rem; }
+.section--calm { padding-block: clamp(5rem, 3.5rem + 5vw, 9rem); }
+.section--first-calm { padding-top: clamp(1.5rem, 1rem + 2vw, 3rem); }
+.head--center { justify-items: center; text-align: center; }
+.head--center .label::before { display: none; }
+.head--row { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 3rem; }
+
+/* four ways in */
+.ways { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.8rem, 0.5rem + 1vw, 1.4rem); }
+.way { position: relative; display: grid; align-content: start; gap: 0.75rem; min-height: 15rem; padding: clamp(1.4rem, 1rem + 1.2vw, 2.1rem); border-radius: var(--r-lg);
+  background: var(--white); box-shadow: inset 0 0 0 1px var(--line); transition: transform 600ms var(--e-out), box-shadow 600ms var(--e-out); }
+.way:hover { transform: translateY(-5px); box-shadow: inset 0 0 0 1px rgba(0, 160, 152, 0.35), var(--shadow-2); }
+.way__i { width: 3.4rem; height: 3.4rem; margin-bottom: 0.8rem; border-radius: 16px; display: grid; place-items: center; background: var(--mint); color: var(--teal-700); transition: background var(--d-base), color var(--d-base); }
+.way__i .icon { width: 1.6rem; height: 1.6rem; }
+.way:hover .way__i { background: var(--teal-700); color: var(--white); }
+.way b { font: 450 clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)/1.2 var(--f-display); font-variation-settings: "opsz" 48; letter-spacing: -0.01em; text-wrap: balance; }
+.way small { color: var(--ink-3); font-size: 0.95rem; line-height: 1.5; }
+.way .go { position: absolute; top: clamp(1.4rem, 1rem + 1.2vw, 2.1rem); inset-inline-end: clamp(1.4rem, 1rem + 1.2vw, 2.1rem); width: 1.2rem; height: 1.2rem; color: var(--ink-3); transition: transform var(--d-base) var(--e-out), color var(--d-base); }
+.way:hover .go { transform: translateX(3px); color: var(--teal-700); }
+html[dir="rtl"] .way .go { transform: scaleX(-1); }
+html[dir="rtl"] .way:hover .go { transform: translateX(-3px) scaleX(-1); }
+@media (max-width: 1100px) { .ways { grid-template-columns: repeat(2, minmax(0, 1fr)); } .way { min-height: 12rem; } }
+@media (max-width: 560px) { .ways { grid-template-columns: 1fr; } .way { min-height: 0; } }
+
+/* eight departments: a sign and a name */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.tile { position: relative; display: flex; align-items: center; gap: 1rem; padding: 1.15rem 1.2rem; border-radius: var(--r-lg); background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line); transition: transform 500ms var(--e-out), box-shadow 500ms var(--e-out); }
+.tile:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1px rgba(0, 160, 152, 0.35), var(--shadow-2); }
+.tile__i { flex: none; width: 2.9rem; height: 2.9rem; border-radius: 14px; display: grid; place-items: center; background: var(--mint); color: var(--teal-700); transition: background var(--d-base), color var(--d-base); }
+.tile__i .icon { width: 1.4rem; height: 1.4rem; }
+.tile:hover .tile__i { background: var(--teal-700); color: var(--white); }
+.tile__t { display: grid; gap: 0.2rem; min-width: 0; flex: 1; }
+.tile__t b { font: 450 1.08rem/1.25 var(--f-display); font-variation-settings: "opsz" 36; }
+.tile__t small { font-size: 0.84rem; color: var(--ink-3); }
+.tile .go { flex: none; width: 1.05rem; height: 1.05rem; color: var(--ink-3); transition: transform var(--d-base) var(--e-out), color var(--d-base); }
+.tile:hover .go { transform: translateX(3px); color: var(--teal-700); }
+html[dir="rtl"] .tile .go { transform: scaleX(-1); }
+@media (max-width: 1100px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .tiles { grid-template-columns: 1fr; } }
+
+/* four doctors: a portrait and a name */
+.people { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.8rem, 0.5rem + 1vw, 1.4rem); }
+.person { display: grid; gap: 1rem; }
+.person__pic { position: relative; display: block; aspect-ratio: 4 / 4.6; border-radius: 999px 999px var(--r-lg) var(--r-lg); overflow: hidden; background: linear-gradient(180deg, var(--mint-2), var(--mint)); }
+.person__pic img { position: absolute; inset: auto 0 0 0; width: 100%; height: 94%; object-fit: cover; object-position: top center; transition: transform var(--d-slow) var(--e-out); }
+.person:hover .person__pic img { transform: scale(1.04); }
+.person__t { display: grid; gap: 0.2rem; }
+.person__t small { font-size: 0.78rem; font-weight: 650; letter-spacing: 0.04em; color: var(--teal-700); }
+.person__t b { font: 450 1.22rem/1.2 var(--f-display); font-variation-settings: "opsz" 40; }
+.person__t span { font-size: 0.9rem; color: var(--ink-3); }
+@media (max-width: 900px) { .people { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* four numbers in one row */
+.stats--row { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 72rem; margin-inline: auto; }
+@media (max-width: 900px) { .stats--row { grid-template-columns: 1fr 1fr; } }
+
+/* how to reach us, in one line */
+.reach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem clamp(2rem, 1rem + 4vw, 6rem); align-items: center; }
+.reach__facts { display: grid; gap: 1.1rem; }
+.reach__f { display: flex; align-items: flex-start; gap: 0.85rem; font-size: 1.05rem; color: var(--ink-2); }
+.reach__f .icon { flex: none; width: 1.3rem; height: 1.3rem; margin-top: 0.15rem; color: var(--teal-700); }
+.reach__f span { display: grid; gap: 0.2rem; }
+.reach__f a { font-weight: 650; color: var(--ink); }
+.reach__f small { font-size: 0.86rem; color: var(--ink-3); }
+.reach__acts { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
+@media (max-width: 860px) { .reach { grid-template-columns: 1fr; } }

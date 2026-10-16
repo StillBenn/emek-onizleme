@@ -24,8 +24,7 @@
 }
 
 /* ---- the switch: TR · EN · AR, in the header and in the phone's menu ---- */
-.lang a { transition: background var(--d-fast), color var(--d-fast); }
-.lang a:hover:not([aria-current="true"]) { color: var(--ink); background: rgba(16, 36, 34, 0.06); }
+.lang__menu a { transition: background var(--d-fast), color var(--d-fast); }
 .sheet__top .lang { margin-inline: auto 0.6rem; }
 @media (max-width: 1500px) { .tool--kbd span, .tool--kbd kbd { display: none; } .tool--kbd { width: 2.6rem; padding: 0; justify-content: center; } .er small { display: none; } }
 
@@ -66,7 +65,7 @@ html[lang="ar"] .js-split .w { padding-bottom: 0.32em; margin-bottom: -0.32em; p
 @media (max-width: 1460px) { .nav { gap: 0; } .nav__a { padding: 0 0.55rem; font-size: 0.9rem; } .tools { gap: 0.4rem; } .btn--appt { padding: 0 1.05rem; } }
 /* Latin words inside an Arabic heading keep their own order */
 bdi.wl { unicode-bidi: isolate; }
-@media (max-width: 1380px) { .lang a { min-width: 2rem; } .btn--appt { padding: 0 0.95rem; font-size: 0.9rem; } .btn--appt .icon { display: none; } html[lang="en"] .nav__a { padding: 0 0.45rem; font-size: 0.88rem; } }
+@media (max-width: 1380px) { .btn--appt { padding: 0 0.95rem; font-size: 0.9rem; } .btn--appt .icon { display: none; } html[lang="en"] .nav__a { padding: 0 0.45rem; font-size: 0.88rem; } }
 
 /* the footer's credit */
 .foot__end { display: flex; align-items: center; gap: 1.4rem; }

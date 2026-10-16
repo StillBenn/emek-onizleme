@@ -21,11 +21,11 @@
 <link href="../img/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link as="font" crossorigin="" href="../fonts/jakarta-latin.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../fonts/fraunces-latin.woff2" rel="preload" type="font/woff2"/>
-<link href="../css/main.css?v=7" rel="stylesheet"/>
-<link href="../css/parts.css?v=7" rel="stylesheet"/>
-<link href="../css/home.css?v=7" rel="stylesheet"/>
-<link href="../css/motion.css?v=7" rel="stylesheet"/>
-<link href="../css/i18n.css?v=7" rel="stylesheet"/>
+<link href="../css/main.css?v=8" rel="stylesheet"/>
+<link href="../css/parts.css?v=8" rel="stylesheet"/>
+<link href="../css/home.css?v=8" rel="stylesheet"/>
+<link href="../css/motion.css?v=8" rel="stylesheet"/>
+<link href="../css/i18n.css?v=8" rel="stylesheet"/>
 <script>try{var d=document.documentElement,s=localStorage.getItem("emek-size"),c=localStorage.getItem("emek-contrast"),m=localStorage.getItem("emek-motion");if(s)d.setAttribute("data-size",s);if(c==="high")d.setAttribute("data-contrast","high");if(m==="reduced")d.setAttribute("data-motion","reduced")}catch(e){}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Hospital", "name": "Emek Hospital Gaziantep", "url": "https://larisel.com/emek-onizleme/", "telephone": "+903423200202", "email": "info@emekhastanesi.com", "logo": "https://larisel.com/emek-onizleme/img/logo.webp", "image": "https://larisel.com/emek-onizleme/img/og.jpg", "address": {"@type": "PostalAddress", "streetAddress": "Emek Mah. Ali Nadi Ünler Bulvarı, Şakir Sabri Cad. No:13", "addressLocality": "Şehitkamil", "addressRegion": "Gaziantep", "addressCountry": "TR"}, "geo": {"@type": "GeoCoordinates", "latitude": 37.0741053, "longitude": 37.3505369}, "openingHours": "Mo-Su 00:00-23:59", "sameAs": ["https://www.facebook.com/emekhastanesi", "https://twitter.com/emekhastanesi", "https://www.instagram.com/emekhastanesi/"]}</script>
 <link href="https://larisel.com/emek-onizleme/" hreflang="tr" rel="alternate"/>
@@ -40,9 +40,9 @@
 <a aria-label="Emek Hospital Gaziantep — home page" class="brand" href="../en/"><img alt="Emek Hospital Gaziantep" height="179" src="../img/logo.webp" width="373"/></a>
 <nav aria-label="Main menu" class="nav"><button aria-controls="mega" aria-expanded="false" class="nav__a" data-mega="" type="button">Departments<svg aria-hidden="true" class="icon chev"><use href="../img/icons.svg#i-chev"></use></svg></button><a class="nav__a" href="../en/our-doctors/">Our Doctors</a><a class="nav__a" href="../en/patient-guide/">Patient Guide</a><a class="nav__a" href="../en/about-us/">About Us</a><a class="nav__a" href="../en/contact-us/">Contact</a></nav>
 <div class="tools">
-<button aria-label="Search" class="tool tool--kbd" data-finder="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-search"></use></svg><span>Search</span><kbd>/</kbd></button>
+<button aria-label="Search" class="tool" data-finder="" data-tip="Search" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-search"></use></svg></button>
 <button aria-controls="a11y" aria-expanded="false" aria-label="Text size and contrast" class="tool tool--aa" data-a11y="" data-tip="Text size and contrast" type="button"><span aria-hidden="true" class="aa">A<small>a</small></span></button>
-<nav aria-label="Dil · Language · اللغة" class="lang" translate="no"><a href="../" hreflang="tr" lang="tr">TR</a><a aria-current="true" href="../en/" hreflang="en" lang="en">EN</a><a href="../ar/" hreflang="ar" lang="ar">AR</a></nav>
+<details class="lang" translate="no"><summary aria-label="Dil · Language · اللغة">EN<svg aria-hidden="true" class="icon chev"><use href="../img/icons.svg#i-chev"></use></svg></summary><nav aria-label="Dil · Language · اللغة" class="lang__menu"><a href="../" hreflang="tr" lang="tr"><b>TR</b><span>Türkçe</span></a><a aria-current="true" href="../en/" hreflang="en" lang="en"><b>EN</b><span>English</span></a><a href="../ar/" hreflang="ar" lang="ar"><b>AR</b><span>العربية</span></a></nav></details>
 <a class="er" href="tel:+903423200202"><span aria-hidden="true" class="pulse"></span>Emergency 24/7 <small>0342 320 02 02</small></a>
 <a class="btn btn--appt" data-magnet="" href="../en/appointment/"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an Appointment</a>
 <button aria-label="Menu" class="tool burger" data-menu="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-menu"></use></svg></button>
@@ -56,7 +56,7 @@
 <p class="label" style="color:#8fd6cd">Appointment</p>
 <p class="h3">Not sure which department to go to?</p>
 <p>Type your symptoms and we'll show you the right department and doctor.</p>
-<button class="btn btn--light btn--sm" data-finder="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-search"></use></svg>I'll type my symptoms</button>
+<a class="btn btn--light btn--sm" href="../en/find-a-department/"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-search"></use></svg>Find a department by complaint</a>
 </div>
 <div class="mega__peek" hidden=""></div>
 </div>
@@ -74,478 +74,69 @@
 </div>
 </header>
 <main id="main">
-<section class="hero">
+<section class="hero hero--calm">
 <div class="wrap hero__in">
 <div class="hero__text">
 <p class="label">Emek Hospital Gaziantep</p>
 <h1 class="hero__title">Health takes <em>effort</em>.</h1>
 <p class="hero__lead">Our hospital provides 24-hour service with the advanced medical equipment that modern technology requires and its specialist staff.</p>
 <form action="../en/our-medical-units/" class="ask" role="search">
-<label class="ask__label" for="ask">How can we help you?</label>
+<label class="sr-only" for="ask">Symptom, department or doctor's name</label>
 <div class="ask__field"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-search"></use></svg><input autocomplete="off" data-ask="" id="ask" name="q" placeholder="Symptom, department or doctor's name" type="search"/><button aria-label="Search by voice" class="mic" data-tip="Search by voice" data-voice="" hidden="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-mic"></use></svg></button><button class="btn" type="submit">Find</button></div>
-<div class="ask__chips"><button class="chip" data-finder="" data-q="Headache" type="button">Headache</button><button class="chip" data-finder="" data-q="Knee pain" type="button">Knee pain</button><button class="chip" data-finder="" data-q="My child has a fever" type="button">My child has a fever</button><button class="chip" data-finder="" data-q="Check-up" type="button">Check-up</button><button class="chip" data-finder="" data-q="Eye" type="button">Eye</button></div>
 </form>
 </div>
-<div aria-label="From our doctors" class="crew">
-<figure class="arch"><a aria-label="Spec. Dr. Sevgi Bilmez Altay — profile" class="arch__a" href="../en/our-doctors/sevgi-bilmez-altay/"></a>
+<div aria-label="From our doctors" class="crew"><figure class="arch"><a aria-label="Spec. Dr. Sevgi Bilmez Altay — profile" class="arch__a" href="../en/our-doctors/sevgi-bilmez-altay/"></a>
 <img alt="Spec. Dr. Sevgi Bilmez Altay" draggable="false" height="920" src="../img/doktor/sevgi-bilmez-altay.webp" width="800"/>
 <figcaption><b>Spec. Dr. Sevgi Bilmez Altay</b><small>Internal Medicine</small></figcaption></figure><figure class="arch"><a aria-label="Op. Dr. İbrahim Düzgün — profile" class="arch__a" href="../en/our-doctors/ibrahim-duzgun/"></a>
 <img alt="Op. Dr. İbrahim Düzgün" draggable="false" fetchpriority="high" height="920" src="../img/doktor/ibrahim-duzgun.webp" width="800"/>
 <figcaption><b>Op. Dr. İbrahim Düzgün</b><small>Urology</small></figcaption></figure><figure class="arch"><a aria-label="Spec. Dr. Ceyda Doğançay Karahan — profile" class="arch__a" href="../en/our-doctors/ceyda-dogancay/"></a>
 <img alt="Spec. Dr. Ceyda Doğançay Karahan" draggable="false" height="920" src="../img/doktor/ceyda-dogancay.webp" width="800"/>
-<figcaption><b>Spec. Dr. Ceyda Doğançay Karahan</b><small>Paediatrics</small></figcaption></figure>
-<a class="note note--er" href="tel:+903423200202"><span class="note__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg></span><span><b>Emergency Department 24/7</b><small><i aria-hidden="true" class="live"></i>Open now</small></span></a>
-<a class="note note--team" href="../en/our-doctors/"><span class="note__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-users"></use></svg></span><span><b>25 doctors</b><small>18 departments</small></span></a>
+<figcaption><b>Spec. Dr. Ceyda Doğançay Karahan</b><small>Paediatrics</small></figcaption></figure></div>
 </div>
-</div>
-<div class="wrap"><nav aria-label="Quick actions" class="quick" data-rise=""><a class="qa" href="../en/appointment/"><span class="qa__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg></span><b>Book an Appointment</b><small>Choose your department and doctor, and create your request</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="qa" href="../en/our-doctors/"><span class="qa__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-doctor"></use></svg></span><b>Find a Doctor</b><small>Browse our 25 doctors by department</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="qa" href="http://randevu.meddata.com.tr/emekhastanesi/labsonuc.php" rel="noopener" target="_blank"><span class="qa__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-flask"></use></svg></span><b>My Results</b><small>View your lab results online</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="qa" href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" rel="noopener" target="_blank"><span class="qa__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-route"></use></svg></span><b>Directions</b><small>Şakir Sabri Street No:13, Şehitkamil</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="qa qa--er" href="tel:+903423200202"><span class="qa__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg></span><b>Emergency Department 24/7</b><small>0342 320 02 02</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></nav></div>
 </section>
 <section aria-labelledby="duyurular" class="section anns-live" data-live-anns="" hidden="">
 <div class="wrap"><div class="head"><p class="label" id="duyurular">Announcements</p></div><div class="anns-live__list" data-live-list=""></div></div>
 </section>
-<section class="section section--tight-top" id="sikayet">
+<section aria-labelledby="yardim" class="section section--calm section--first-calm">
 <div class="wrap">
-<div class="head head--split">
-<div><p class="label">The right department, the right doctor</p><h2 class="h2">Let us find the right <em>department</em> for you</h2></div>
-<p class="lead">Select the area where you have a problem and we'll show you the departments and doctors who treat it. You can request an appointment directly.</p>
-</div>
-<div class="areas" data-areas="">
-<div aria-label="Body area" class="areas__tabs" role="tablist"><button aria-controls="area-bas" aria-selected="true" class="atab" id="tab-bas" role="tab" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-noroloji"></use></svg></span><span class="atab__t">Head and nervous system</span></button><button aria-controls="area-kalp" aria-selected="false" class="atab" id="tab-kalp" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kardiyoloji"></use></svg></span><span class="atab__t">Heart and blood vessels</span></button><button aria-controls="area-ic" aria-selected="false" class="atab" id="tab-ic" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dahiliye"></use></svg></span><span class="atab__t">Stomach and internal medicine</span></button><button aria-controls="area-kemik" aria-selected="false" class="atab" id="tab-kemik" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-ortopedi"></use></svg></span><span class="atab__t">Bones, joints and back</span></button><button aria-controls="area-kadin" aria-selected="false" class="atab" id="tab-kadin" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kadin"></use></svg></span><span class="atab__t">Women's health and pregnancy</span></button><button aria-controls="area-cocuk" aria-selected="false" class="atab" id="tab-cocuk" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cocuk"></use></svg></span><span class="atab__t">Children's health</span></button><button aria-controls="area-goz" aria-selected="false" class="atab" id="tab-goz" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-goz"></use></svg></span><span class="atab__t">Eye</span></button><button aria-controls="area-kbb" aria-selected="false" class="atab" id="tab-kbb" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kbb"></use></svg></span><span class="atab__t">Ear, nose and throat</span></button><button aria-controls="area-cilt" aria-selected="false" class="atab" id="tab-cilt" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dermatoloji"></use></svg></span><span class="atab__t">Skin and hair</span></button><button aria-controls="area-idrar" aria-selected="false" class="atab" id="tab-idrar" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-uroloji"></use></svg></span><span class="atab__t">Kidneys and urinary tract</span></button><button aria-controls="area-beslenme" aria-selected="false" class="atab" id="tab-beslenme" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-diyet"></use></svg></span><span class="atab__t">Nutrition and weight</span></button><button aria-controls="area-ruh" aria-selected="false" class="atab" id="tab-ruh" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-chat"></use></svg></span><span class="atab__t">Mental health</span></button><button aria-controls="area-goruntu" aria-selected="false" class="atab" id="tab-goruntu" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-radyoloji"></use></svg></span><span class="atab__t">Imaging and tests</span></button><button aria-controls="area-acil" aria-selected="false" class="atab" id="tab-acil" role="tab" tabindex="-1" type="button"><span class="atab__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg></span><span class="atab__t">Emergencies</span></button></div>
-<div class="areas__panels"><div aria-labelledby="tab-bas" class="area" id="area-bas" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-noroloji"></use></svg></span><div><p class="area__k">Head and nervous system</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-noroloji"></use></svg></span>
-<div class="arow__t"><b>Neurology</b><small>Spec. Dr. Abdulkadir Göğüş</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/abdulkadir-gogus-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/neurology/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=noroloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="headache" type="button">Headache</button><button class="chip" data-finder="" data-q="migraine" type="button">Migraine</button><button class="chip" data-finder="" data-q="dizziness vertigo" type="button">Dizziness</button><button class="chip" data-finder="" data-q="numbness" type="button">Numbness</button><button class="chip" data-finder="" data-q="forgetfulness memory loss" type="button">Forgetfulness</button><button class="chip" data-finder="" data-q="tremor shaking" type="button">Tremor</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/abdulkadir-gogus/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/abdulkadir-gogus.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Abdulkadir Göğüş</b><span>Neurology</span></span></a></div></div>
-</div><div aria-labelledby="tab-kalp" class="area" hidden="" id="area-kalp" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kardiyoloji"></use></svg></span><div><p class="area__k">Heart and blood vessels</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kardiyoloji"></use></svg></span>
-<div class="arow__t"><b>Cardiology</b><small>Spec. Dr. Gökhan Altunbaş</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/gokhan-altunbas-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/cardiology/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=kardiyoloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dahiliye"></use></svg></span>
-<div class="arow__t"><b>Internal Medicine</b><small>Assoc. Prof. Dr. Akif Doğantekin, Spec. Dr. Sevgi Bilmez Altay</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/akif-dogantekin-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/sevgi-bilmez-altay-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/internal-medicine/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=dahiliye"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="palpitations" type="button">Palpitations</button><button class="chip" data-finder="" data-q="blood pressure hypertension" type="button">Blood pressure</button><button class="chip" data-finder="" data-q="exercise stress test treadmill test" type="button">Exercise stress test</button><button class="chip" data-finder="" data-q="arrhythmia irregular heartbeat" type="button">Arrhythmia</button><button class="chip" data-finder="" data-q="cholesterol" type="button">Cholesterol</button></div><p class="area__er"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg><span>If you have symptoms such as chest pain, shortness of breath or loss of consciousness, don't wait: call <a href="tel:112">112</a> or come to our Emergency Department, open 24/7.</span></p>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/gokhan-altunbas/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/gokhan-altunbas.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Gökhan Altunbaş</b><span>Cardiology</span></span></a><a class="adoc" href="../en/our-doctors/akif-dogantekin/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/akif-dogantekin.webp" width="800"/></span>
-<span class="adoc__t"><small>Assoc. Prof. Dr.</small><b>Akif Doğantekin</b><span>Internal Medicine</span></span></a><a class="adoc" href="../en/our-doctors/sevgi-bilmez-altay/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/sevgi-bilmez-altay.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Sevgi Bilmez Altay</b><span>Internal Medicine</span></span></a></div></div>
-</div><div aria-labelledby="tab-ic" class="area" hidden="" id="area-ic" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dahiliye"></use></svg></span><div><p class="area__k">Stomach and internal medicine</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dahiliye"></use></svg></span>
-<div class="arow__t"><b>Internal Medicine</b><small>Assoc. Prof. Dr. Akif Doğantekin, Spec. Dr. Sevgi Bilmez Altay</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/akif-dogantekin-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/sevgi-bilmez-altay-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/internal-medicine/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=dahiliye"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cerrahi"></use></svg></span>
-<div class="arow__t"><b>General Surgery</b><small>Op. Dr. Mehmet Yavuz Çapan</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/mehmet-yavuz-capan-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/general-surgery/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=genel-cerrahi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="abdominal pain stomach ache tummy ache" type="button">Abdominal pain</button><button class="chip" data-finder="" data-q="indigestion" type="button">Indigestion</button><button class="chip" data-finder="" data-q="blood sugar diabetes sugar" type="button">Blood sugar</button><button class="chip" data-finder="" data-q="thyroid" type="button">Thyroid</button><button class="chip" data-finder="" data-q="weakness fatigue" type="button">Fatigue</button><button class="chip" data-finder="" data-q="check-up" type="button">Check-up</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/akif-dogantekin/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/akif-dogantekin.webp" width="800"/></span>
-<span class="adoc__t"><small>Assoc. Prof. Dr.</small><b>Akif Doğantekin</b><span>Internal Medicine</span></span></a><a class="adoc" href="../en/our-doctors/sevgi-bilmez-altay/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/sevgi-bilmez-altay.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Sevgi Bilmez Altay</b><span>Internal Medicine</span></span></a><a class="adoc" href="../en/our-doctors/mehmet-yavuz-capan/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-yavuz-capan.webp" width="800"/></span>
-<span class="adoc__t"><small>Op. Dr.</small><b>Mehmet Yavuz Çapan</b><span>General Surgery</span></span></a></div></div>
-</div><div aria-labelledby="tab-kemik" class="area" hidden="" id="area-kemik" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-ortopedi"></use></svg></span><div><p class="area__k">Bones, joints and back</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-ortopedi"></use></svg></span>
-<div class="arow__t"><b>Orthopaedics and Traumatology</b><small>Op. Dr. Bekir Erbey</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/bekir-erbey-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/orthopedics-and-traumatology/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=ortopedi-ve-travmatoloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="knee pain" type="button">Knee pain</button><button class="chip" data-finder="" data-q="lower back pain back pain" type="button">Lower back pain</button><button class="chip" data-finder="" data-q="neck pain" type="button">Neck pain</button><button class="chip" data-finder="" data-q="shoulder pain" type="button">Shoulder pain</button><button class="chip" data-finder="" data-q="fracture broken bone" type="button">Fracture</button><button class="chip" data-finder="" data-q="sports injury" type="button">Sports injury</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/bekir-erbey/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/bekir-erbey.webp" width="800"/></span>
-<span class="adoc__t"><small>Op. Dr.</small><b>Bekir Erbey</b><span>Orthopaedics and Traumatology</span></span></a></div></div>
-</div><div aria-labelledby="tab-kadin" class="area" hidden="" id="area-kadin" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kadin"></use></svg></span><div><p class="area__k">Women's health and pregnancy</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kadin"></use></svg></span>
-<div class="arow__t"><b>Obstetrics and Gynaecology</b><small>Op. Dr. Elif Kevser Kibar and Op. Dr. Mehmet Yıldırım Arpacıoğlu</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/kevser-kibar-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/mehmet-yildirim-arpacioglu-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/gynecology-and-obstetrics/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=kadin-hastaliklari-ve-dogum"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="pregnancy" type="button">Pregnancy</button><button class="chip" data-finder="" data-q="irregular periods" type="button">Irregular periods</button><button class="chip" data-finder="" data-q="smear test pap smear" type="button">Smear test</button><button class="chip" data-finder="" data-q="groin pain pelvic pain" type="button">Groin pain</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/kevser-kibar/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/kevser-kibar.webp" width="800"/></span>
-<span class="adoc__t"><small>Op. Dr.</small><b>Elif Kevser Kibar</b><span>Obstetrics and Gynaecology</span></span></a><a class="adoc" href="../en/our-doctors/mehmet-yildirim-arpacioglu/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-yildirim-arpacioglu.webp" width="800"/></span>
-<span class="adoc__t"><small>Op. Dr.</small><b>Mehmet Yıldırım Arpacıoğlu</b><span>Obstetrics and Gynaecology</span></span></a></div></div>
-</div><div aria-labelledby="tab-cocuk" class="area" hidden="" id="area-cocuk" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cocuk"></use></svg></span><div><p class="area__k">Children's health</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cocuk"></use></svg></span>
-<div class="arow__t"><b>Paediatrics</b><small>Spec. Dr. Beyhan Sarıkaya, Spec. Dr. Ceyda Doğançay Karahan and 1 more doctor</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/beyhan-sarikaya-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/ceyda-dogancay-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/mehmet-ali-bulgur-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/child-health-and-diseases/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=cocuk-sagligi-ve-hastaliklari"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="my child has a fever" type="button">My child has a fever</button><button class="chip" data-finder="" data-q="vaccine vaccination jab" type="button">Vaccination</button><button class="chip" data-finder="" data-q="growth and development" type="button">Growth and development</button><button class="chip" data-finder="" data-q="newborn" type="button">Newborn</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/beyhan-sarikaya/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/beyhan-sarikaya.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Beyhan Sarıkaya</b><span>Paediatrics</span></span></a><a class="adoc" href="../en/our-doctors/ceyda-dogancay/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/ceyda-dogancay.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Ceyda Doğançay Karahan</b><span>Paediatrics</span></span></a><a class="adoc" href="../en/our-doctors/mehmet-ali-bulgur/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-ali-bulgur.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Mehmet Ali Bulgur</b><span>Paediatrics</span></span></a></div></div>
-</div><div aria-labelledby="tab-goz" class="area" hidden="" id="area-goz" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-goz"></use></svg></span><div><p class="area__k">Eye</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-goz"></use></svg></span>
-<div class="arow__t"><b>Ophthalmology</b><small>Op. Dr. Tayyar Karadağ</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/tayyar-karadag-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/eye-diseases/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=goz-hastaliklari"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="blurred vision" type="button">Blurred vision</button><button class="chip" data-finder="" data-q="red eyes" type="button">Red eyes</button><button class="chip" data-finder="" data-q="dry eyes" type="button">Dry eyes</button><button class="chip" data-finder="" data-q="cataract" type="button">Cataract</button><button class="chip" data-finder="" data-q="glasses spectacles" type="button">Glasses</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/tayyar-karadag/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/tayyar-karadag.webp" width="800"/></span>
-<span class="adoc__t"><small>Op. Dr.</small><b>Tayyar Karadağ</b><span>Ophthalmology</span></span></a></div></div>
-</div><div aria-labelledby="tab-kbb" class="area" hidden="" id="area-kbb" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kbb"></use></svg></span><div><p class="area__k">Ear, nose and throat</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kbb"></use></svg></span>
-<div class="arow__t"><b>Ear, Nose and Throat (ENT)</b><small>Op. Dr. Hasan Görür</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/hasan-gorur-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/ent-ear-nose-and-throat-diseases/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=kbb-kulak-burun-bogaz-hastaliklari"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="earache ear pain" type="button">Earache</button><button class="chip" data-finder="" data-q="blocked nose nasal congestion" type="button">Blocked nose</button><button class="chip" data-finder="" data-q="sinusitis" type="button">Sinusitis</button><button class="chip" data-finder="" data-q="snoring" type="button">Snoring</button><button class="chip" data-finder="" data-q="hoarseness hoarse voice" type="button">Hoarseness</button><button class="chip" data-finder="" data-q="tonsils tonsillitis" type="button">Tonsils</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/hasan-gorur/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/hasan-gorur.webp" width="800"/></span>
-<span class="adoc__t"><small>Op. Dr.</small><b>Hasan Görür</b><span>Ear, Nose and Throat (ENT)</span></span></a></div></div>
-</div><div aria-labelledby="tab-cilt" class="area" hidden="" id="area-cilt" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dermatoloji"></use></svg></span><div><p class="area__k">Skin and hair</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dermatoloji"></use></svg></span>
-<div class="arow__t"><b>Dermatology</b><small>Spec. Dr. M. Çağlar Soysal</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/m-caglar-soysal-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/dermatology/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=dermatoloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dermakoz"></use></svg></span>
-<div class="arow__t"><b>Dermatocosmetology</b><small>Spec. Dr. M. Çağlar Soysal</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/m-caglar-soysal-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/dermatocosmetology/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=dermatocosmotoloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="acne" type="button">Acne</button><button class="chip" data-finder="" data-q="eczema" type="button">Eczema</button><button class="chip" data-finder="" data-q="hair loss" type="button">Hair loss</button><button class="chip" data-finder="" data-q="skin spots dark spots pigmentation" type="button">Skin spots</button><button class="chip" data-finder="" data-q="itching itchy skin" type="button">Itching</button><button class="chip" data-finder="" data-q="wart warts" type="button">Warts</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/m-caglar-soysal/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/m-caglar-soysal.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>M. Çağlar Soysal</b><span>Dermatology</span></span></a><a class="adoc" href="../en/our-doctors/m-caglar-soysal/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/m-caglar-soysal.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>M. Çağlar Soysal</b><span>Dermatology</span></span></a></div></div>
-</div><div aria-labelledby="tab-idrar" class="area" hidden="" id="area-idrar" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-uroloji"></use></svg></span><div><p class="area__k">Kidneys and urinary tract</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-uroloji"></use></svg></span>
-<div class="arow__t"><b>Urology</b><small>Op. Dr. İbrahim Düzgün</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/ibrahim-duzgun-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/urology/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=uroloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="frequent urination" type="button">Frequent urination</button><button class="chip" data-finder="" data-q="prostate" type="button">Prostate</button><button class="chip" data-finder="" data-q="kidney stones" type="button">Kidney stones</button><button class="chip" data-finder="" data-q="urinary tract infection uti" type="button">Urinary tract infection</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/ibrahim-duzgun/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/ibrahim-duzgun.webp" width="800"/></span>
-<span class="adoc__t"><small>Op. Dr.</small><b>İbrahim Düzgün</b><span>Urology</span></span></a></div></div>
-</div><div aria-labelledby="tab-beslenme" class="area" hidden="" id="area-beslenme" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-diyet"></use></svg></span><div><p class="area__k">Nutrition and weight</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-diyet"></use></svg></span>
-<div class="arow__t"><b>Diet and Nutrition</b><small>Dietitian Behice Yediler</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/behice-yediler-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/diet-and-nutrition/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=diyet-ve-beslenme"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="weight" type="button">Weight</button><button class="chip" data-finder="" data-q="diet" type="button">Diet</button><button class="chip" data-finder="" data-q="obesity" type="button">Obesity</button><button class="chip" data-finder="" data-q="nutrition" type="button">Nutrition</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/behice-yediler/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/behice-yediler.webp" width="800"/></span>
-<span class="adoc__t"><small>Dietitian</small><b>Behice Yediler</b><span>Diet and Nutrition</span></span></a></div></div>
-</div><div aria-labelledby="tab-ruh" class="area" hidden="" id="area-ruh" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-chat"></use></svg></span><div><p class="area__k">Mental health</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-genel"></use></svg></span>
-<div class="arow__t"><b>Psychiatry</b><small>Spec. Dr. Neslihan Şahin</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/neslihan-sahin-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/psychiatry/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=psikiyatri"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="anxiety" type="button">Anxiety</button><button class="chip" data-finder="" data-q="depression" type="button">Depression</button><button class="chip" data-finder="" data-q="panic attack" type="button">Panic attack</button><button class="chip" data-finder="" data-q="insomnia sleeplessness" type="button">Insomnia</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/neslihan-sahin/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/neslihan-sahin.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Neslihan Şahin</b><span>Psychiatry</span></span></a></div></div>
-</div><div aria-labelledby="tab-goruntu" class="area" hidden="" id="area-goruntu" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-radyoloji"></use></svg></span><div><p class="area__k">Imaging and tests</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-radyoloji"></use></svg></span>
-<div class="arow__t"><b>Radiology</b><small>Spec. Dr. Hüseyin Biçer</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/huseyin-bicer-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/radiology/">View</a><a class="btn btn--sm" href="../en/appointment/?bolum=radyoloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an appointment</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="mri" type="button">MRI</button><button class="chip" data-finder="" data-q="ct scan tomography" type="button">CT scan</button><button class="chip" data-finder="" data-q="ultrasound scan" type="button">Ultrasound</button><button class="chip" data-finder="" data-q="x-ray" type="button">X-ray</button><button class="chip" data-finder="" data-q="mammogram mammography" type="button">Mammography</button></div>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/huseyin-bicer/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/huseyin-bicer.webp" width="800"/></span>
-<span class="adoc__t"><small>Spec. Dr.</small><b>Hüseyin Biçer</b><span>Radiology</span></span></a></div></div>
-</div><div aria-labelledby="tab-acil" class="area" hidden="" id="area-acil" role="tabpanel">
-<div class="area__main">
-<div class="area__top"><span class="area__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg></span><div><p class="area__k">Emergencies</p>
-<p class="area__q">Our departments that deal with symptoms in this area.</p></div></div>
-<div class="area__rows"><div class="arow">
-<span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg></span>
-<div class="arow__t"><b>Emergency Medicine</b><small>Dr. Mahmut Metin Yıldız, Dr. Berkant May and 3 more doctors</small></div>
-<span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/mahmut-metin-yildiz-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/berkant-may-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/bilaldemiroglu-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/erdogan-demiroglu-k.webp" width="240"/></span>
-<div class="arow__acts"><a class="btn btn--sm btn--ghost" href="../en/emergency-medicine/">View</a><a class="btn btn--sm btn--red" href="tel:+903423200202"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-phone"></use></svg>Call now</a></div>
-</div></div>
-<div class="area__words"><span>Commonly searched symptoms</span><button class="chip" data-finder="" data-q="accident" type="button">Accident</button><button class="chip" data-finder="" data-q="injury" type="button">Injury</button><button class="chip" data-finder="" data-q="poisoning" type="button">Poisoning</button><button class="chip" data-finder="" data-q="high fever" type="button">High fever</button><button class="chip" data-finder="" data-q="fainting" type="button">Fainting</button></div><p class="area__er"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg><span>If you have symptoms such as chest pain, shortness of breath or loss of consciousness, don't wait: call <a href="tel:112">112</a> or come to our Emergency Department, open 24/7.</span></p>
-</div>
-<div class="area__docs"><p class="area__dk">Our doctors in this field</p><div class="area__cards"><a class="adoc" href="../en/our-doctors/mahmut-metin-yildiz/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/mahmut-metin-yildiz.webp" width="800"/></span>
-<span class="adoc__t"><small>Dr.</small><b>Mahmut Metin Yıldız</b><span>Emergency Medicine</span></span></a><a class="adoc" href="../en/our-doctors/berkant-may/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/berkant-may.webp" width="800"/></span>
-<span class="adoc__t"><small>Dr.</small><b>Berkant May</b><span>Emergency Medicine</span></span></a><a class="adoc" href="../en/our-doctors/bilaldemiroglu/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/bilaldemiroglu.webp" width="800"/></span>
-<span class="adoc__t"><small>Dr.</small><b>Bilal Demiroğlu</b><span>Emergency Medicine</span></span></a><a class="adoc" href="../en/our-doctors/erdogan-demiroglu/"><span class="adoc__pic"><img alt="" draggable="false" height="920" loading="lazy" src="../img/doktor/erdogan-demiroglu.webp" width="800"/></span>
-<span class="adoc__t"><small>Dr.</small><b>Erdoğan Demiroğlu</b><span>Emergency Medicine</span></span></a></div></div>
-</div></div>
-</div>
+<div class="head head--center" style="margin-bottom:clamp(1.6rem,1rem + 2vw,2.6rem)"><h2 class="h2" id="yardim">How can we <em>help</em> you?</h2></div>
+<nav aria-label="How can we help you?" class="ways" data-rise=""><a class="way" href="../en/appointment/"><span class="way__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg></span><b>I want to book an appointment</b><small>Choose a department and a doctor, and leave your request.</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="way" href="../en/our-doctors/"><span class="way__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-doctor"></use></svg></span><b>I am looking for a doctor</b><small>Browse our 25 doctors by department.</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="way" href="../en/find-a-department/"><span class="way__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-search"></use></svg></span><b>I don't know which department to visit</b><small>Choose your complaint and let us find the right department together.</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="way" href="http://randevu.meddata.com.tr/emekhastanesi/labsonuc.php" rel="noopener" target="_blank"><span class="way__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-flask"></use></svg></span><b>I want to see my results</b><small>View your lab results online.</small><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></nav>
 </div>
 </section>
-<section class="section section--paper2" id="bolumler">
+<section class="section section--paper2 section--calm" id="bolumler">
 <div class="wrap">
-<div class="head head--split">
+<div class="head head--row">
 <div><p class="label">Departments</p><h2 class="h2">Expertise that offers a <em>remedy</em> for your ailments</h2></div>
-<p class="lead">We serve you in 18 departments with doctors experienced in their fields. If the department you are looking for isn't here, <button class="link" data-finder="" type="button">find it by searching <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></button></p>
+<a class="link" href="../en/our-medical-units/">All our departments (18) <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a>
 </div>
-<div class="depts" data-rise=""><a class="dept" data-name="acil tip acil servis 7/24 ambulans" href="../en/emergency-medicine/">
-<span class="dept__i" style="view-transition-name: dept-acil-tip"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-acil"></use></svg></span>
-<div class="dept__t"><h3>Emergency Medicine</h3><p>With experienced doctors, nurses and healthcare staff, our Emergency Department provides the care every person deserves, mindful of how important accurate and rapid…</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/mahmut-metin-yildiz-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/berkant-may-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/bilaldemiroglu-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/erdogan-demiroglu-k.webp" width="240"/><span>5 doctors</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="cocuk sagligi ve hastaliklari pediatri cocuk doktoru bebek" href="../en/child-health-and-diseases/">
-<span class="dept__i" style="view-transition-name: dept-cocuk-sagligi-ve-hastaliklari"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cocuk"></use></svg></span>
-<div class="dept__t"><h3>Paediatrics</h3><p>Paediatrics is the branch of medicine concerned with the development of children.</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/beyhan-sarikaya-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/ceyda-dogancay-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/mehmet-ali-bulgur-k.webp" width="240"/><span>3 doctors</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="kadin hastaliklari ve dogum jinekoloji kadin dogum gebelik" href="../en/gynecology-and-obstetrics/">
-<span class="dept__i" style="view-transition-name: dept-kadin-hastaliklari-ve-dogum"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kadin"></use></svg></span>
-<div class="dept__t"><h3>Obstetrics and Gynaecology</h3><p>At certain stages of their lives, women visit the obstetrics and gynaecology department because of health complaints or for routine check-ups.</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/kevser-kibar-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/mehmet-yildirim-arpacioglu-k.webp" width="240"/><span>2 doctors</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="dahiliye ic hastaliklari internist" href="../en/internal-medicine/">
-<span class="dept__i" style="view-transition-name: dept-dahiliye"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dahiliye"></use></svg></span>
-<div class="dept__t"><h3>Internal Medicine</h3><p>Internal Medicine is generally regarded as the foundation for all branches of medicine.</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/akif-dogantekin-k.webp" width="240"/><img alt="" height="276" loading="lazy" src="../img/doktor/sevgi-bilmez-altay-k.webp" width="240"/><span>2 doctors</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="kardiyoloji kalp" href="../en/cardiology/">
-<span class="dept__i" style="view-transition-name: dept-kardiyoloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kardiyoloji"></use></svg></span>
-<div class="dept__t"><h3>Cardiology</h3><p>Cardiology is the branch of medicine that deals with the diagnosis and treatment of diseases of the circulatory system, such as the heart and blood vessels, and helps prevent these…</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/gokhan-altunbas-k.webp" width="240"/><span>1 doctor</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="ortopedi ve travmatoloji ortopedi kemik eklem" href="../en/orthopedics-and-traumatology/">
-<span class="dept__i" style="view-transition-name: dept-ortopedi-ve-travmatoloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-ortopedi"></use></svg></span>
-<div class="dept__t"><h3>Orthopaedics and Traumatology</h3><p>Orthopaedics and Traumatology covers musculoskeletal diseases, traumatic injuries, and hand, shoulder, elbow and knee disorders, and their diagnosis and treatment…</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/bekir-erbey-k.webp" width="240"/><span>1 doctor</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="genel cerrahi cerrahi ameliyat" href="../en/general-surgery/">
-<span class="dept__i" style="view-transition-name: dept-genel-cerrahi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cerrahi"></use></svg></span>
-<div class="dept__t"><h3>General Surgery</h3><p>Thyroid gland diseases (goitre) – breast, gallbladder, liver, pancreas, spleen and stomach ulcer surgery, small and large bowel surgery, pilonidal…</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/mehmet-yavuz-capan-k.webp" width="240"/><span>1 doctor</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="goz hastaliklari goz doktoru oftalmoloji" href="../en/eye-diseases/">
-<span class="dept__i" style="view-transition-name: dept-goz-hastaliklari"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-goz"></use></svg></span>
-<div class="dept__t"><h3>Ophthalmology</h3><p>Eye diseases are physical disorders that develop due to environmental or genetic factors and can lead to various vision problems.</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/tayyar-karadag-k.webp" width="240"/><span>1 doctor</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="kulak burun bogaz (kbb) kbb kulak burun bogaz" href="../en/ent-ear-nose-and-throat-diseases/">
-<span class="dept__i" style="view-transition-name: dept-kbb-kulak-burun-bogaz-hastaliklari"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kbb"></use></svg></span>
-<div class="dept__t"><h3>Ear, Nose and Throat (ENT)</h3><p>Ear, nose and throat medicine is the oldest medical speciality.</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/hasan-gorur-k.webp" width="240"/><span>1 doctor</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="noroloji sinir hastaliklari beyin" href="../en/neurology/">
-<span class="dept__i" style="view-transition-name: dept-noroloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-noroloji"></use></svg></span>
-<div class="dept__t"><h3>Neurology</h3><p>The department provides diagnosis and treatment for all diseases of the brain and nervous system through its outpatient clinic, emergency department and intensive care units.</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/abdulkadir-gogus-k.webp" width="240"/><span>1 doctor</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept" data-name="uroloji uroloji idrar yolu" href="../en/urology/">
-<span class="dept__i" style="view-transition-name: dept-uroloji"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-uroloji"></use></svg></span>
-<div class="dept__t"><h3>Urology</h3><p>The Urology Department deals with the treatment of diseases of the urinary tract and reproductive tract in men.</p></div>
-<div class="dept__foot"><span class="faces"><img alt="" height="276" loading="lazy" src="../img/doktor/ibrahim-duzgun-k.webp" width="240"/><span>1 doctor</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div>
-</a><a class="dept dept--all" href="../en/our-medical-units/"><span class="dept__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-plus"></use></svg></span>
-<div class="dept__t"><h3>All our departments</h3><p>Explore all 18 departments.</p></div><div class="dept__foot"><span class="faces"><span>18 departments</span></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></div></a></div>
+<div class="tiles" data-rise=""><a class="tile" href="../en/child-health-and-diseases/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cocuk"></use></svg></span>
+<span class="tile__t"><b>Paediatrics</b><small>3 doctors</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="tile" href="../en/gynecology-and-obstetrics/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kadin"></use></svg></span>
+<span class="tile__t"><b>Obstetrics and Gynaecology</b><small>2 doctors</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="tile" href="../en/internal-medicine/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-dahiliye"></use></svg></span>
+<span class="tile__t"><b>Internal Medicine</b><small>2 doctors</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="tile" href="../en/cardiology/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kardiyoloji"></use></svg></span>
+<span class="tile__t"><b>Cardiology</b><small>1 doctor</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="tile" href="../en/orthopedics-and-traumatology/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-ortopedi"></use></svg></span>
+<span class="tile__t"><b>Orthopaedics and Traumatology</b><small>1 doctor</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="tile" href="../en/general-surgery/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-cerrahi"></use></svg></span>
+<span class="tile__t"><b>General Surgery</b><small>1 doctor</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="tile" href="../en/eye-diseases/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-goz"></use></svg></span>
+<span class="tile__t"><b>Ophthalmology</b><small>1 doctor</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a><a class="tile" href="../en/ent-ear-nose-and-throat-diseases/"><span class="tile__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-kbb"></use></svg></span>
+<span class="tile__t"><b>Ear, Nose and Throat (ENT)</b><small>1 doctor</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></div>
 </div>
 </section>
-<section class="section section--rail">
+<section class="section section--calm">
 <div class="wrap">
-<div class="head head--split">
+<div class="head head--row">
 <div><p class="label">Our Doctors</p><h2 class="h2">Our <em>team</em>, who care about your health</h2></div>
-<p class="lead">In their profiles you can find their education, areas of interest and the institutions where they have worked, and request an appointment directly with the doctor of your choice.</p>
+<a class="link" href="../en/our-doctors/">All our doctors (25) <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a>
 </div>
-<div class="rail" data-rail="">
-<div class="rail__top">
-<div aria-label="By department" class="docs-bar docs-bar--rail" data-docfilter="rail" role="group"><button aria-pressed="true" data-f="all" type="button">All</button><button aria-pressed="false" data-f="acil-tip" type="button">Emergency Medicine</button><button aria-pressed="false" data-f="anestezi-ve-reanimasyon" type="button">Anaesthesiology and Reanimation</button><button aria-pressed="false" data-f="cocuk-sagligi-ve-hastaliklari" type="button">Paediatrics</button><button aria-pressed="false" data-f="dahiliye" type="button">Internal Medicine</button><button aria-pressed="false" data-f="dermatoloji" type="button">Dermatology</button><button aria-pressed="false" data-f="diyet-ve-beslenme" type="button">Diet and Nutrition</button><button aria-pressed="false" data-f="genel-cerrahi" type="button">General Surgery</button><button aria-pressed="false" data-f="goz-hastaliklari" type="button">Ophthalmology</button><button aria-pressed="false" data-f="kadin-hastaliklari-ve-dogum" type="button">Obstetrics and Gynaecology</button><button aria-pressed="false" data-f="kardiyoloji" type="button">Cardiology</button><button aria-pressed="false" data-f="kbb-kulak-burun-bogaz-hastaliklari" type="button">Ear, Nose and Throat (ENT)</button><button aria-pressed="false" data-f="noroloji" type="button">Neurology</button><button aria-pressed="false" data-f="ortopedi-ve-travmatoloji" type="button">Orthopaedics and Traumatology</button><button aria-pressed="false" data-f="psikiyatri" type="button">Psychiatry</button><button aria-pressed="false" data-f="radyoloji" type="button">Radiology</button><button aria-pressed="false" data-f="uroloji" type="button">Urology</button></div>
-<div class="rail__nav"><button aria-label="Previous doctors" class="rail__b" data-prev="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-left"></use></svg></button><button aria-label="Next doctors" class="rail__b" data-next="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></button></div>
-</div>
-<div aria-label="Our Doctors" class="rail__track" id="rail" tabindex="0"><article class="doc" data-dept="acil-tip" data-doc="mahmut-metin-yildiz" data-name="dr. mahmut metin yildiz acil tip">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/mahmut-metin-yildiz/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/mahmut-metin-yildiz.webp" style="view-transition-name: doc-mahmut-metin-yildiz" width="800"/><span class="doc__tag">Chief Physician</span></a>
-<h3 class="doc__name"><small>Dr.</small><a href="../en/our-doctors/mahmut-metin-yildiz/">Mahmut Metin Yıldız</a></h3>
-<p class="doc__dept">Emergency Medicine</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=mahmut-metin-yildiz"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/mahmut-metin-yildiz/">Profile</a></div>
-</article><article class="doc" data-dept="acil-tip" data-doc="berkant-may" data-name="dr. berkant may acil tip">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/berkant-may/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/berkant-may.webp" style="view-transition-name: doc-berkant-may" width="800"/></a>
-<h3 class="doc__name"><small>Dr.</small><a href="../en/our-doctors/berkant-may/">Berkant May</a></h3>
-<p class="doc__dept">Emergency Medicine</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=berkant-may"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/berkant-may/">Profile</a></div>
-</article><article class="doc" data-dept="acil-tip" data-doc="bilaldemiroglu" data-name="dr. bilal demiroglu acil tip">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/bilaldemiroglu/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/bilaldemiroglu.webp" style="view-transition-name: doc-bilaldemiroglu" width="800"/></a>
-<h3 class="doc__name"><small>Dr.</small><a href="../en/our-doctors/bilaldemiroglu/">Bilal Demiroğlu</a></h3>
-<p class="doc__dept">Emergency Medicine</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=bilaldemiroglu"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/bilaldemiroglu/">Profile</a></div>
-</article><article class="doc" data-dept="acil-tip" data-doc="erdogan-demiroglu" data-name="dr. erdogan demiroglu acil tip">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/erdogan-demiroglu/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/erdogan-demiroglu.webp" style="view-transition-name: doc-erdogan-demiroglu" width="800"/></a>
-<h3 class="doc__name"><small>Dr.</small><a href="../en/our-doctors/erdogan-demiroglu/">Erdoğan Demiroğlu</a></h3>
-<p class="doc__dept">Emergency Medicine</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=erdogan-demiroglu"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/erdogan-demiroglu/">Profile</a></div>
-</article><article class="doc" data-dept="acil-tip" data-doc="mehmet-sinan-mitil" data-name="dr. mehmet sinan mitil acil tip">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/mehmet-sinan-mitil/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-sinan-mitil.webp" style="view-transition-name: doc-mehmet-sinan-mitil" width="800"/></a>
-<h3 class="doc__name"><small>Dr.</small><a href="../en/our-doctors/mehmet-sinan-mitil/">Mehmet Sinan Mitil</a></h3>
-<p class="doc__dept">Emergency Medicine</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=mehmet-sinan-mitil"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/mehmet-sinan-mitil/">Profile</a></div>
-</article><article class="doc" data-dept="anestezi-ve-reanimasyon" data-doc="ahmet-sukru-denker" data-name="uz. dr. ahmet sukru denker anestezi ve reanimasyon">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/ahmet-sukru-denker/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/ahmet-sukru-denker.webp" style="view-transition-name: doc-ahmet-sukru-denker" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/ahmet-sukru-denker/">Ahmet Şükrü Denker</a></h3>
-<p class="doc__dept">Anaesthesiology and Reanimation</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=ahmet-sukru-denker"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/ahmet-sukru-denker/">Profile</a></div>
-</article><article class="doc" data-dept="anestezi-ve-reanimasyon" data-doc="rifat-kilic" data-name="uz. dr. rifat kilic anestezi ve reanimasyon">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/rifat-kilic/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/rifat-kilic.webp" style="view-transition-name: doc-rifat-kilic" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/rifat-kilic/">Rıfat Kılıç</a></h3>
-<p class="doc__dept">Anaesthesiology and Reanimation</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=rifat-kilic"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/rifat-kilic/">Profile</a></div>
-</article><article class="doc" data-dept="cocuk-sagligi-ve-hastaliklari" data-doc="beyhan-sarikaya" data-name="uz. dr. beyhan sarikaya cocuk sagligi ve hastaliklari">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/beyhan-sarikaya/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/beyhan-sarikaya.webp" style="view-transition-name: doc-beyhan-sarikaya" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/beyhan-sarikaya/">Beyhan Sarıkaya</a></h3>
-<p class="doc__dept">Paediatrics</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=beyhan-sarikaya"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/beyhan-sarikaya/">Profile</a></div>
-</article><article class="doc" data-dept="cocuk-sagligi-ve-hastaliklari" data-doc="ceyda-dogancay" data-name="uz. dr. ceyda dogancay karahan cocuk sagligi ve hastaliklari">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/ceyda-dogancay/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/ceyda-dogancay.webp" style="view-transition-name: doc-ceyda-dogancay" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/ceyda-dogancay/">Ceyda Doğançay Karahan</a></h3>
-<p class="doc__dept">Paediatrics</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=ceyda-dogancay"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/ceyda-dogancay/">Profile</a></div>
-</article><article class="doc" data-dept="cocuk-sagligi-ve-hastaliklari" data-doc="mehmet-ali-bulgur" data-name="uz. dr. mehmet ali bulgur cocuk sagligi ve hastaliklari">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/mehmet-ali-bulgur/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-ali-bulgur.webp" style="view-transition-name: doc-mehmet-ali-bulgur" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/mehmet-ali-bulgur/">Mehmet Ali Bulgur</a></h3>
-<p class="doc__dept">Paediatrics</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=mehmet-ali-bulgur"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/mehmet-ali-bulgur/">Profile</a></div>
-</article><article class="doc" data-dept="dahiliye" data-doc="akif-dogantekin" data-name="doc. dr. akif dogantekin dahiliye">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/akif-dogantekin/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/akif-dogantekin.webp" style="view-transition-name: doc-akif-dogantekin" width="800"/></a>
-<h3 class="doc__name"><small>Assoc. Prof. Dr.</small><a href="../en/our-doctors/akif-dogantekin/">Akif Doğantekin</a></h3>
-<p class="doc__dept">Internal Medicine</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=akif-dogantekin"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/akif-dogantekin/">Profile</a></div>
-</article><article class="doc" data-dept="dahiliye" data-doc="sevgi-bilmez-altay" data-name="uz. dr. sevgi bilmez altay dahiliye">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/sevgi-bilmez-altay/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/sevgi-bilmez-altay.webp" style="view-transition-name: doc-sevgi-bilmez-altay" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/sevgi-bilmez-altay/">Sevgi Bilmez Altay</a></h3>
-<p class="doc__dept">Internal Medicine</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=sevgi-bilmez-altay"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/sevgi-bilmez-altay/">Profile</a></div>
-</article><article class="doc" data-dept="dermatoloji" data-doc="m-caglar-soysal" data-name="uz. dr. m. caglar soysal dermatoloji">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/m-caglar-soysal/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/m-caglar-soysal.webp" style="view-transition-name: doc-m-caglar-soysal" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/m-caglar-soysal/">M. Çağlar Soysal</a></h3>
-<p class="doc__dept">Dermatology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=m-caglar-soysal"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/m-caglar-soysal/">Profile</a></div>
-</article><article class="doc" data-dept="diyet-ve-beslenme" data-doc="behice-yediler" data-name="dyt. behice yediler diyet ve beslenme">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/behice-yediler/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/behice-yediler.webp" style="view-transition-name: doc-behice-yediler" width="800"/></a>
-<h3 class="doc__name"><small>Dietitian</small><a href="../en/our-doctors/behice-yediler/">Behice Yediler</a></h3>
-<p class="doc__dept">Diet and Nutrition</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=behice-yediler"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/behice-yediler/">Profile</a></div>
-</article><article class="doc" data-dept="genel-cerrahi" data-doc="mehmet-yavuz-capan" data-name="op. dr. mehmet yavuz capan genel cerrahi">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/mehmet-yavuz-capan/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-yavuz-capan.webp" style="view-transition-name: doc-mehmet-yavuz-capan" width="800"/></a>
-<h3 class="doc__name"><small>Op. Dr.</small><a href="../en/our-doctors/mehmet-yavuz-capan/">Mehmet Yavuz Çapan</a></h3>
-<p class="doc__dept">General Surgery</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=mehmet-yavuz-capan"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/mehmet-yavuz-capan/">Profile</a></div>
-</article><article class="doc" data-dept="goz-hastaliklari" data-doc="tayyar-karadag" data-name="op. dr. tayyar karadag goz hastaliklari">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/tayyar-karadag/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/tayyar-karadag.webp" style="view-transition-name: doc-tayyar-karadag" width="800"/></a>
-<h3 class="doc__name"><small>Op. Dr.</small><a href="../en/our-doctors/tayyar-karadag/">Tayyar Karadağ</a></h3>
-<p class="doc__dept">Ophthalmology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=tayyar-karadag"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/tayyar-karadag/">Profile</a></div>
-</article><article class="doc" data-dept="kadin-hastaliklari-ve-dogum" data-doc="kevser-kibar" data-name="op. dr. elif kevser kibar kadin hastaliklari ve dogum">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/kevser-kibar/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/kevser-kibar.webp" style="view-transition-name: doc-kevser-kibar" width="800"/></a>
-<h3 class="doc__name"><small>Op. Dr.</small><a href="../en/our-doctors/kevser-kibar/">Elif Kevser Kibar</a></h3>
-<p class="doc__dept">Obstetrics and Gynaecology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=kevser-kibar"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/kevser-kibar/">Profile</a></div>
-</article><article class="doc" data-dept="kadin-hastaliklari-ve-dogum" data-doc="mehmet-yildirim-arpacioglu" data-name="op. dr. mehmet yildirim arpacioglu kadin hastaliklari ve dogum">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/mehmet-yildirim-arpacioglu/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-yildirim-arpacioglu.webp" style="view-transition-name: doc-mehmet-yildirim-arpacioglu" width="800"/></a>
-<h3 class="doc__name"><small>Op. Dr.</small><a href="../en/our-doctors/mehmet-yildirim-arpacioglu/">Mehmet Yıldırım Arpacıoğlu</a></h3>
-<p class="doc__dept">Obstetrics and Gynaecology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=mehmet-yildirim-arpacioglu"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/mehmet-yildirim-arpacioglu/">Profile</a></div>
-</article><article class="doc" data-dept="kardiyoloji" data-doc="gokhan-altunbas" data-name="uz. dr. gokhan altunbas kardiyoloji">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/gokhan-altunbas/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/gokhan-altunbas.webp" style="view-transition-name: doc-gokhan-altunbas" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/gokhan-altunbas/">Gökhan Altunbaş</a></h3>
-<p class="doc__dept">Cardiology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=gokhan-altunbas"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/gokhan-altunbas/">Profile</a></div>
-</article><article class="doc" data-dept="kbb-kulak-burun-bogaz-hastaliklari" data-doc="hasan-gorur" data-name="op. dr. hasan gorur kulak burun bogaz (kbb)">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/hasan-gorur/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/hasan-gorur.webp" style="view-transition-name: doc-hasan-gorur" width="800"/></a>
-<h3 class="doc__name"><small>Op. Dr.</small><a href="../en/our-doctors/hasan-gorur/">Hasan Görür</a></h3>
-<p class="doc__dept">Ear, Nose and Throat (ENT)</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=hasan-gorur"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/hasan-gorur/">Profile</a></div>
-</article><article class="doc" data-dept="noroloji" data-doc="abdulkadir-gogus" data-name="uz. dr. abdulkadir gogus noroloji">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/abdulkadir-gogus/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/abdulkadir-gogus.webp" style="view-transition-name: doc-abdulkadir-gogus" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/abdulkadir-gogus/">Abdulkadir Göğüş</a></h3>
-<p class="doc__dept">Neurology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=abdulkadir-gogus"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/abdulkadir-gogus/">Profile</a></div>
-</article><article class="doc" data-dept="ortopedi-ve-travmatoloji" data-doc="bekir-erbey" data-name="op. dr. bekir erbey ortopedi ve travmatoloji">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/bekir-erbey/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/bekir-erbey.webp" style="view-transition-name: doc-bekir-erbey" width="800"/></a>
-<h3 class="doc__name"><small>Op. Dr.</small><a href="../en/our-doctors/bekir-erbey/">Bekir Erbey</a></h3>
-<p class="doc__dept">Orthopaedics and Traumatology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=bekir-erbey"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/bekir-erbey/">Profile</a></div>
-</article><article class="doc" data-dept="psikiyatri" data-doc="neslihan-sahin" data-name="uz. dr. neslihan sahin psikiyatri">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/neslihan-sahin/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/neslihan-sahin.webp" style="view-transition-name: doc-neslihan-sahin" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/neslihan-sahin/">Neslihan Şahin</a></h3>
-<p class="doc__dept">Psychiatry</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=neslihan-sahin"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/neslihan-sahin/">Profile</a></div>
-</article><article class="doc" data-dept="radyoloji" data-doc="huseyin-bicer" data-name="uz. dr. huseyin bicer radyoloji">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/huseyin-bicer/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/huseyin-bicer.webp" style="view-transition-name: doc-huseyin-bicer" width="800"/></a>
-<h3 class="doc__name"><small>Spec. Dr.</small><a href="../en/our-doctors/huseyin-bicer/">Hüseyin Biçer</a></h3>
-<p class="doc__dept">Radiology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=huseyin-bicer"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/huseyin-bicer/">Profile</a></div>
-</article><article class="doc" data-dept="uroloji" data-doc="ibrahim-duzgun" data-name="op. dr. ibrahim duzgun uroloji">
-<a aria-hidden="true" class="doc__pic" href="../en/our-doctors/ibrahim-duzgun/" tabindex="-1"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/ibrahim-duzgun.webp" style="view-transition-name: doc-ibrahim-duzgun" width="800"/></a>
-<h3 class="doc__name"><small>Op. Dr.</small><a href="../en/our-doctors/ibrahim-duzgun/">İbrahim Düzgün</a></h3>
-<p class="doc__dept">Urology</p>
-<div class="doc__acts"><a class="btn btn--sm" href="../en/appointment/?doktor=ibrahim-duzgun"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Appointment</a><a class="btn btn--sm btn--ghost" href="../en/our-doctors/ibrahim-duzgun/">Profile</a></div>
-</article></div>
-<div class="rail__foot"><span aria-hidden="true" class="rail__bar"><i></i></span><a class="link" href="../en/our-doctors/">All our doctors (25) <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a></div>
-</div>
+<div class="people" data-rise=""><a class="person" href="../en/our-doctors/mahmut-metin-yildiz/"><span class="person__pic"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/mahmut-metin-yildiz.webp" width="800"/></span>
+<span class="person__t"><small>Dr.</small><b>Mahmut Metin Yıldız</b><span>Chief Physician</span></span></a><a class="person" href="../en/our-doctors/gokhan-altunbas/"><span class="person__pic"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/gokhan-altunbas.webp" width="800"/></span>
+<span class="person__t"><small>Spec. Dr.</small><b>Gökhan Altunbaş</b><span>Cardiology</span></span></a><a class="person" href="../en/our-doctors/beyhan-sarikaya/"><span class="person__pic"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/beyhan-sarikaya.webp" width="800"/></span>
+<span class="person__t"><small>Spec. Dr.</small><b>Beyhan Sarıkaya</b><span>Paediatrics</span></span></a><a class="person" href="../en/our-doctors/mehmet-yildirim-arpacioglu/"><span class="person__pic"><img alt="" decoding="async" draggable="false" height="920" loading="lazy" src="../img/doktor/mehmet-yildirim-arpacioglu.webp" width="800"/></span>
+<span class="person__t"><small>Op. Dr.</small><b>Mehmet Yıldırım Arpacıoğlu</b><span>Obstetrics and Gynaecology</span></span></a></div>
 </div>
 </section>
-<section class="section section--night">
-<div class="wrap why">
-<div class="head" style="margin:0">
-<p class="label">Why Emek</p>
-<h2 class="h2">Where effort turns into <em>health</em></h2>
-<p class="lead">With our intensive care units, operating theatres, laboratories and radiology units, and our specialist doctors, nurses and healthcare staff, we are by your side around the clock.</p>
-<ul class="why__list" data-rise="" role="list">
-<li><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-check"></use></svg>Emergency Department 7 days a week, 24 hours a day</li>
-<li><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-check"></use></svg>24-hour laboratory: biochemistry and microbiology</li>
-<li><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-check"></use></svg>X-ray, computed tomography, MRI and ultrasound</li>
-<li><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-check"></use></svg>Service in English, German and Arabic</li>
-</ul>
-</div>
-<div class="stats" data-rise="">
+<section class="section section--night section--calm">
+<div class="wrap">
+<div class="head head--center" style="margin-bottom:clamp(2rem,1.5rem + 2vw,3rem)"><p class="label">Why Emek</p><h2 class="h2">Where effort turns into <em>health</em></h2></div>
+<div class="stats stats--row" data-rise="">
 <div class="stat"><b>7/24</b><span>Emergency department, laboratory and imaging</span></div>
 <div class="stat"><b data-count-to="25">25</b><span>Doctors and dietitians</span></div>
 <div class="stat"><b data-count-to="18">18</b><span>Department</span></div>
@@ -553,72 +144,13 @@
 </div>
 </div>
 </section>
-<section aria-label="Our contracted institutions" class="band">
-<div class="wrap band__head"><p class="label">Our contracted institutions</p><a class="link" href="../en/patient-guide/contracted-institutions/">All 27 institutions <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a></div>
-<div class="marq"><div class="marq__track"><span class="marq__set"><span class="marq__i">Türk Nippon Sigorta</span><span class="marq__i">AXA Sigorta</span><span class="marq__i">Quick Sigorta</span><span class="marq__i">MetLife</span><span class="marq__i">Groupama</span><span class="marq__i">Aveon</span><span class="marq__i">Katılım Emeklilik</span><span class="marq__i">Generali</span><span class="marq__i">Ray Sigorta</span><span class="marq__i">Magdeburger Sigorta</span><span class="marq__i">Ethica Sigorta</span><span class="marq__i">NN</span><span class="marq__i">Bereket Emeklilik</span><span class="marq__i">AcnTürk Sigorta</span></span><span aria-hidden="true" class="marq__set"><span class="marq__i">Türk Nippon Sigorta</span><span class="marq__i">AXA Sigorta</span><span class="marq__i">Quick Sigorta</span><span class="marq__i">MetLife</span><span class="marq__i">Groupama</span><span class="marq__i">Aveon</span><span class="marq__i">Katılım Emeklilik</span><span class="marq__i">Generali</span><span class="marq__i">Ray Sigorta</span><span class="marq__i">Magdeburger Sigorta</span><span class="marq__i">Ethica Sigorta</span><span class="marq__i">NN</span><span class="marq__i">Bereket Emeklilik</span><span class="marq__i">AcnTürk Sigorta</span></span></div></div>
-<div class="marq marq--rev"><div class="marq__track"><span class="marq__set"><span class="marq__i">Hepiyi Sigorta</span><span class="marq__i">Fortis</span><span class="marq__i">Arex Sigorta</span><span class="marq__i">Unico Sigorta</span><span class="marq__i">Ankara Sigorta</span><span class="marq__i">Cigna</span><span class="marq__i">Ana Sigorta</span><span class="marq__i">Anadolu Sigorta</span><span class="marq__i">Doğa Sigorta</span><span class="marq__i">Allianz</span><span class="marq__i">Zurich</span><span class="marq__i">QNB Sigorta</span><span class="marq__i">Sompo Sigorta</span></span><span aria-hidden="true" class="marq__set"><span class="marq__i">Hepiyi Sigorta</span><span class="marq__i">Fortis</span><span class="marq__i">Arex Sigorta</span><span class="marq__i">Unico Sigorta</span><span class="marq__i">Ankara Sigorta</span><span class="marq__i">Cigna</span><span class="marq__i">Ana Sigorta</span><span class="marq__i">Anadolu Sigorta</span><span class="marq__i">Doğa Sigorta</span><span class="marq__i">Allianz</span><span class="marq__i">Zurich</span><span class="marq__i">QNB Sigorta</span><span class="marq__i">Sompo Sigorta</span></span></div></div>
-</section>
-<section class="section">
-<div class="wrap word">
-<div class="word__pic"><img alt="Dr. Mahmut Metin Yıldız" height="920" loading="lazy" src="../img/doktor/mahmut-metin-yildiz.webp" width="800"/></div>
-<div>
-<p class="label">A message from our Chief Physician</p>
-<blockquote data-fill="">Health takes a building, technology, qualified and friendly staff, patient satisfaction and uninterrupted 24-hour service. In fact, all of this takes effort. <em>In other words, health takes effort.</em></blockquote>
-<cite>Dr. Mahmut Metin Yıldız<small>Chief Physician</small></cite>
-<a class="link word__more" href="../en/about-us/#mesaj">Full message <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a>
-</div>
-</div>
-</section>
-<section class="section section--paper2">
-<div class="wrap guide">
-<div>
-<div class="head"><p class="label">Patient Guide</p><h2 class="h2"><em>Before</em> you come to our hospital</h2></div>
-<ul class="guide__list" data-rise="" role="list"><li><a href="../en/patient-guide/contracted-institutions/"><span class="gi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-shield"></use></svg></span><span><b>Contracted Institutions</b><small>We have agreements with 27 insurers and institutions</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></li><li><a href="../en/patient-guide/lab-result-times/"><span class="gi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-flask"></use></svg></span><span><b>Lab Result Turnaround Times</b><small>When will your test results be ready?</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></li><li><a href="../en/patient-guide/visitor-rules/"><span class="gi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-users"></use></svg></span><span><b>Visitor Rules</b><small>Visiting every day, 08:00 – 22:00</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></li><li><a href="../en/patient-guide/companion-rules/"><span class="gi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-bed"></use></svg></span><span><b>Companion Rules</b><small>If you will be staying with your patient</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></li><li><a href="../en/patient-guide/patient-rights/"><span class="gi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-book"></use></svg></span><span><b>Patient Rights</b><small>Your rights and responsibilities</small></span><svg aria-hidden="true" class="icon go"><use href="../img/icons.svg#i-arrow"></use></svg></a></li></ul>
-</div>
-<div class="ins" data-insurer="">
-<span class="ins__i"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-shield"></use></svg></span>
-<h2 class="h3">Is my insurance accepted?</h2>
-<p>Type the name of your private health insurer or institution and instantly see whether we have an agreement with them.</p>
-<label class="ins__field"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-search"></use></svg><span class="sr-only">Insurer or institution name</span><input autocomplete="off" placeholder="E.g. Allianz, AXA, Anadolu Sigorta" type="search"/></label>
-<div aria-live="polite" class="ins__out"></div>
-<a class="link link--light" href="../en/patient-guide/contracted-institutions/">All contracted institutions (27) <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a>
-</div>
-</div>
-</section>
-<section class="section section--tight">
-<div class="wrap">
-<a class="feature" href="../en/rezum-water-vapour-therapy-for-bph/">
-<span class="feature__pic"><img alt="" height="533" loading="lazy" src="../img/rezum/rezum-uygulama.webp" width="945"/></span>
-<span class="feature__text">
-<span class="label">Health Guide · Urology</span>
-<span class="feature__title">Rezum (Water Vapour) in the Treatment of Benign Prostatic Enlargement</span>
-<span class="feature__sum">Rezum therapy is a minimally invasive treatment method that technology offers us for treating prostate enlargement. In this method, to reduce the size of the prostate gland and increase the volume and rate of urine flow…</span>
-<span class="feature__by"><span class="by"><img alt="" height="276" loading="lazy" src="../img/doktor/ibrahim-duzgun-k.webp" width="240"/><span><b>Op. Dr. İbrahim Düzgün</b><small>Urology Specialist</small></span></span><span class="link">Read the article <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></span></span>
-</span>
-</a>
-</div>
-</section>
-<section class="section" id="ulasim">
-<div class="wrap visit">
-<div>
-<div class="head"><p class="label">Get in touch</p><h2 class="h2"><em>How</em> do you get to our hospital?</h2></div>
-<div class="facts">
-<div class="fact"><span class="fi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-pin"></use></svg></span><span><b>Address</b><span>Emek Mah. Ali Nadi Ünler Bulvarı, Şakir Sabri Cad. No:13, Şehitkamil / Gaziantep</span>
-<span class="fact__acts"><a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" rel="noopener" target="_blank">Get directions <svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a><button class="link" data-copy="Emek Mah. Ali Nadi Ünler Bulvarı, Şakir Sabri Cad. No:13, Şehitkamil / Gaziantep" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-copy"></use></svg>Copy address</button></span></span></div>
-<div class="fact"><span class="fi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-phone"></use></svg></span><span><b>Phone · 24/7</b><a href="tel:+903423200202">0342 320 02 02</a></span></div>
-<div class="fact"><span class="fi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-mail"></use></svg></span><span><b>Email</b><a href="mailto:info@emekhastanesi.com">info@emekhastanesi.com</a></span></div>
-<div class="fact"><span class="fi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-clock"></use></svg></span><span><b>Visiting hours</b><span>Every day 08:00 – 22:00 · Intensive care 13.30 – 14.00</span></span></div>
-<div class="fact" data-live-op="" hidden=""><span class="fi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-doctor"></use></svg></span><span><b>Outpatient clinic hours</b><span class="ophours" data-live-op-text=""></span></span></div>
-<div class="fact"><span class="fi"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-route"></use></svg></span><span><b>Public transport</b><span><strong>From the airport:</strong> buses K27 – K16 – K13, with a transfer to buses S11 – S07 – B89<br/><strong>From the intercity bus terminal:</strong> buses M16 – M17/1 – M11 – M02 – M09 – B29 – B92/1 – B01, with a transfer to buses S11 – S07 – B89</span></span></div>
-</div>
-</div>
-<div class="map" data-map="https://www.google.com/maps?q=%C3%96zel%20Emek%20Hastanesi%20Gaziantep&amp;ll=37.0741053,37.3505369&amp;z=16&amp;output=embed" data-title="Emek Hospital Gaziantep — map">
-<div class="map__gate">
-<span class="map__pin"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-pin"></use></svg></span>
-<b>Emek Hospital Gaziantep</b>
-<p>The map loads from Google Maps; no information is sent to Google unless you ask for it.</p>
-<span class="map__acts"><button class="btn btn--sm" type="button">Show map</button><a class="btn btn--sm btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-route"></use></svg>Directions</a></span>
-</div>
+<section class="section section--calm" id="ulasim">
+<div class="wrap reach">
+<div><p class="label">Get in touch</p><h2 class="h2"><em>How</em> do you get to our hospital?</h2></div>
+<div class="reach__facts">
+<p class="reach__f"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-pin"></use></svg><span>Emek Mah. Ali Nadi Ünler Bulvarı, Şakir Sabri Cad. No:13, Şehitkamil / Gaziantep</span></p>
+<p class="reach__f"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-phone"></use></svg><span><a href="tel:+903423200202">0342 320 02 02</a><small>Call centre and Emergency Department — 24/7</small></span></p>
+<p class="reach__acts"><a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-route"></use></svg>Get directions</a><a class="btn btn--ghost" href="../en/contact-us/">Map and how to get here</a></p>
 </div>
 </div>
 </section>
@@ -654,7 +186,7 @@
 </div>
 </div>
 <div aria-hidden="true" class="sheet">
-<div class="sheet__top"><img alt="" height="179" src="../img/logo.webp" width="373"/><nav aria-label="Dil · Language · اللغة" class="lang" translate="no"><a href="../" hreflang="tr" lang="tr">TR</a><a aria-current="true" href="../en/" hreflang="en" lang="en">EN</a><a href="../ar/" hreflang="ar" lang="ar">AR</a></nav><button aria-label="Close menu" class="tool" data-close="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-close"></use></svg></button></div>
+<div class="sheet__top"><img alt="" height="179" src="../img/logo.webp" width="373"/><details class="lang" translate="no"><summary aria-label="Dil · Language · اللغة">EN<svg aria-hidden="true" class="icon chev"><use href="../img/icons.svg#i-chev"></use></svg></summary><nav aria-label="Dil · Language · اللغة" class="lang__menu"><a href="../" hreflang="tr" lang="tr"><b>TR</b><span>Türkçe</span></a><a aria-current="true" href="../en/" hreflang="en" lang="en"><b>EN</b><span>English</span></a><a href="../ar/" hreflang="ar" lang="ar"><b>AR</b><span>العربية</span></a></nav></details><button aria-label="Close menu" class="tool" data-close="" type="button"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-close"></use></svg></button></div>
 <div class="sheet__body">
 <nav aria-label="Menu" class="sheet__nav"><a href="../en/our-medical-units/">Departments<svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a><a href="../en/our-doctors/">Our Doctors<svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a><a href="../en/patient-guide/">Patient Guide<svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a><a href="../en/about-us/">About Us<svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a><a href="../en/contact-us/">Contact<svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-arrow"></use></svg></a></nav>
 <div class="sheet__quick">
@@ -671,9 +203,9 @@
 <a class="dock__main" href="../en/appointment/"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-calendar"></use></svg>Book an Appointment</a>
 <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon"><use href="../img/icons.svg#i-route"></use></svg>Directions</a>
 </nav>
-<script defer="" src="../js/data.en.js?v=7"></script>
-<script defer="" src="../js/app.js?v=7"></script>
-<script defer="" src="../js/motion.js?v=7"></script>
-<script defer="" src="../js/live.js?v=7"></script>
+<script defer="" src="../js/data.en.js?v=8"></script>
+<script defer="" src="../js/app.js?v=8"></script>
+<script defer="" src="../js/motion.js?v=8"></script>
+<script defer="" src="../js/live.js?v=8"></script>
 </body>
 </html>
