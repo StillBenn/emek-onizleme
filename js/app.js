@@ -333,6 +333,12 @@
       });
     });
   });
+  $$("[data-docpick]").forEach(function (pick) {
+    var sel = "#" + pick.dataset.docpick, L = list(sel); if (!L) return;
+    function on() { L.dept = pick.value; pick.closest(".pick").classList.toggle("is-on", pick.value !== "all"); narrow(sel); }
+    pick.addEventListener("change", on);
+    if (pick.value !== "all") on();          // a value the browser kept from before (back button)
+  });
 
   /* ---- a long page's contents: the heading on screen is marked ---- */
   var toc = $$(".toc a");

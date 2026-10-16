@@ -215,12 +215,10 @@
 .person b { font: 450 1.2rem/1.3 var(--f-display); color: var(--ink); }
 .hub--in { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
 .hub--in .hubc h3 { font: 450 1.12rem/1.25 var(--f-display); color: var(--ink); }
-.hubc .link { margin-top: auto; }
 .hubc--ext { background: var(--teal-900); box-shadow: none; }
 .hubc--ext h2 { color: var(--white); }
 .hubc--ext p { color: rgba(230, 242, 239, 0.72); }
 .hubc--ext .dept__i { background: rgba(255, 255, 255, 0.1); color: #8fd6cd; }
-.hubc--ext .link { color: #8fd6cd; }
 .mv { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
 .mv__i { padding: 1.5rem; border-radius: var(--r-lg); background: var(--mint); display: grid; gap: 0.8rem; align-content: start; }
 .mv__t { font: 400 clamp(1.15rem, 1rem + 0.5vw, 1.4rem)/1.4 var(--f-display); color: var(--teal-900); }
@@ -305,3 +303,37 @@ fieldset.is-bad legend { color: var(--red); }
 .formdone { display: grid; gap: 0.6rem; justify-items: start; padding: 1.2rem 1.3rem; border-radius: var(--r-md); background: var(--mint); color: var(--teal-900); }
 .formdone b { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; }
 .formdone a { color: var(--teal-700); text-decoration: underline; }
+
+/* ==== 17.10: the inner pages, quieter (the same brief as the home page: one thing at a time) ======= */
+/* the doctors' page: the search and one department menu */
+.filterbar--pick { grid-template-columns: minmax(0, 22rem) minmax(0, 16rem) minmax(0, 1fr); }
+.pick { position: relative; display: block; }
+.pick select { width: 100%; height: 3.8rem; padding-block: 0; padding-inline: 1.3rem 2.9rem; border: 0; border-radius: 999px; background: var(--white); -webkit-appearance: none; appearance: none;
+  box-shadow: 0 0 0 1.5px var(--line); font: 600 0.98rem/1 var(--f-body); color: var(--ink); cursor: pointer; transition: box-shadow var(--d-base) var(--e-out); }
+.pick select:hover { box-shadow: 0 0 0 1.5px var(--ink-3); }
+.pick select:focus-visible { outline: 0; box-shadow: 0 0 0 2px var(--teal); }
+.pick.is-on select { box-shadow: 0 0 0 2px var(--teal); color: var(--teal-800); }
+.pick .chev { position: absolute; top: 50%; inset-inline-end: 1.2rem; width: 1rem; height: 1rem; margin-top: -0.5rem; color: var(--ink-3); pointer-events: none; }
+@media (max-width: 860px) { .filterbar--pick { grid-template-columns: 1fr; } }
+
+/* the patient guide's and the corporate pages' cards: the card is the link, its arrow sits in the corner */
+.hubc { position: relative; }
+.hubc .go { position: absolute; top: 1.5rem; inset-inline-end: 1.4rem; width: 1.1rem; height: 1.1rem; color: var(--ink-3); transition: transform var(--d-base) var(--e-out), color var(--d-base); }
+.hubc:hover .go { transform: translateX(3px); color: var(--teal-700); }
+.hubc--ext .go, .hubc--ext:hover .go { color: #8fd6cd; }
+html[dir="rtl"] .hubc .go { transform: scaleX(-1); }
+html[dir="rtl"] .hubc:hover .go { transform: translateX(-3px) scaleX(-1); }
+
+/* a department's doctors, straight under its name */
+.section--team .head { margin-bottom: clamp(1.4rem, 1rem + 1.5vw, 2.2rem); }
+
+/* a long list on a doctor's page: five lines, the rest on request */
+.prose ul + .more { margin-top: 1em; }
+.prose ul + .more[open] { margin-top: 0.55em; }
+.more > summary { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.05rem; border-radius: 999px; list-style: none; cursor: pointer; box-shadow: inset 0 0 0 1.5px var(--line);
+  font: 650 0.9rem/1 var(--f-body); color: var(--teal-700); transition: background var(--d-fast), box-shadow var(--d-fast); }
+.more > summary::-webkit-details-marker { display: none; }
+.more > summary small { font-weight: 600; color: var(--ink-3); }
+.more > summary .chev { width: 0.9rem; height: 0.9rem; }
+.more > summary:hover { background: var(--mint); box-shadow: inset 0 0 0 1.5px transparent; }
+.more[open] > summary { display: none; }

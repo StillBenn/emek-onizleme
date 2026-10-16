@@ -20,12 +20,12 @@
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <link rel="preload" href="../fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../css/main.css?v=8">
-<link rel="stylesheet" href="../css/parts.css?v=8">
-<link rel="stylesheet" href="../css/home.css?v=8">
-<link rel="stylesheet" href="../css/pages.css?v=8">
-<link rel="stylesheet" href="../css/motion.css?v=8">
-<link rel="stylesheet" href="../css/i18n.css?v=8">
+<link rel="stylesheet" href="../css/main.css?v=9">
+<link rel="stylesheet" href="../css/parts.css?v=9">
+<link rel="stylesheet" href="../css/home.css?v=9">
+<link rel="stylesheet" href="../css/pages.css?v=9">
+<link rel="stylesheet" href="../css/motion.css?v=9">
+<link rel="stylesheet" href="../css/i18n.css?v=9">
 <script>try{var d=document.documentElement,s=localStorage.getItem("emek-size"),c=localStorage.getItem("emek-contrast"),m=localStorage.getItem("emek-motion");if(s)d.setAttribute("data-size",s);if(c==="high")d.setAttribute("data-contrast","high");if(m==="reduced")d.setAttribute("data-motion","reduced")}catch(e){}</script>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": "https://larisel.com/emek-onizleme/"}, {"@type": "ListItem", "position": 2, "name": "Doktorlarımız", "item": "https://larisel.com/emek-onizleme/"}]}</script>
@@ -78,136 +78,136 @@
 <section class="phead"><div class="wrap"><div class="phead__in"><ol class="crumbs" aria-label="Konumunuz"><li><a href="../">Ana Sayfa</a></li><li aria-current="page">Doktorlarımız</li></ol><h1>Doktor<em>larımız</em></h1><p class="lead">25 hekimimizi adına ya da bölümüne göre bulun; profilinden eğitimini ve ilgi alanlarını inceleyin, doğrudan randevu talep edin.</p></div></div></section>
 <section class="section section--tight section--first">
   <div class="wrap">
-    <div class="filterbar">
+    <div class="filterbar filterbar--pick">
       <label class="ask__field"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-search"/></svg><span class="sr-only">Doktor ara</span><input type="search" placeholder="Doktor ya da bölüm adı" data-filter="#doctors" autocomplete="off"></label>
+      <label class="pick"><span class="sr-only">Bölüme göre</span><select data-docpick="doctors"><option value="all">Tüm bölümler</option><option value="acil-tip">Acil Tıp</option><option value="anestezi-ve-reanimasyon">Anestezi ve Reanimasyon</option><option value="cocuk-sagligi-ve-hastaliklari">Çocuk Sağlığı ve Hastalıkları</option><option value="dahiliye">Dahiliye</option><option value="dermatoloji">Dermatoloji</option><option value="diyet-ve-beslenme">Diyet ve Beslenme</option><option value="genel-cerrahi">Genel Cerrahi</option><option value="goz-hastaliklari">Göz Hastalıkları</option><option value="kadin-hastaliklari-ve-dogum">Kadın Hastalıkları ve Doğum</option><option value="kardiyoloji">Kardiyoloji</option><option value="kbb-kulak-burun-bogaz-hastaliklari">Kulak Burun Boğaz (KBB)</option><option value="noroloji">Nöroloji</option><option value="ortopedi-ve-travmatoloji">Ortopedi ve Travmatoloji</option><option value="psikiyatri">Psikiyatri</option><option value="radyoloji">Radyoloji</option><option value="uroloji">Üroloji</option></select><svg class="icon chev" aria-hidden="true"><use href="../img/icons.svg#i-chev"/></svg></label>
       <p class="count" data-count="#doctors" aria-live="polite">25 hekim</p>
     </div>
-    <div class="docs-bar" data-docfilter="doctors" role="group" aria-label="Bölüme göre"><button type="button" data-f="all" aria-pressed="true">Tümü</button><button type="button" data-f="acil-tip" aria-pressed="false">Acil Tıp</button><button type="button" data-f="anestezi-ve-reanimasyon" aria-pressed="false">Anestezi ve Reanimasyon</button><button type="button" data-f="cocuk-sagligi-ve-hastaliklari" aria-pressed="false">Çocuk Sağlığı ve Hastalıkları</button><button type="button" data-f="dahiliye" aria-pressed="false">Dahiliye</button><button type="button" data-f="dermatoloji" aria-pressed="false">Dermatoloji</button><button type="button" data-f="diyet-ve-beslenme" aria-pressed="false">Diyet ve Beslenme</button><button type="button" data-f="genel-cerrahi" aria-pressed="false">Genel Cerrahi</button><button type="button" data-f="goz-hastaliklari" aria-pressed="false">Göz Hastalıkları</button><button type="button" data-f="kadin-hastaliklari-ve-dogum" aria-pressed="false">Kadın Hastalıkları ve Doğum</button><button type="button" data-f="kardiyoloji" aria-pressed="false">Kardiyoloji</button><button type="button" data-f="kbb-kulak-burun-bogaz-hastaliklari" aria-pressed="false">Kulak Burun Boğaz (KBB)</button><button type="button" data-f="noroloji" aria-pressed="false">Nöroloji</button><button type="button" data-f="ortopedi-ve-travmatoloji" aria-pressed="false">Ortopedi ve Travmatoloji</button><button type="button" data-f="psikiyatri" aria-pressed="false">Psikiyatri</button><button type="button" data-f="radyoloji" aria-pressed="false">Radyoloji</button><button type="button" data-f="uroloji" aria-pressed="false">Üroloji</button></div>
     <div class="doctors" id="doctors"><article class="doc" data-doc="mahmut-metin-yildiz" data-dept="acil-tip" data-name="dr. mahmut metin yildiz acil tip">
   <a class="doc__pic" href="../doktorlarimiz/mahmut-metin-yildiz/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/mahmut-metin-yildiz.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-mahmut-metin-yildiz"><span class="doc__tag">Başhekim</span></a>
   <h2 class="doc__name"><small>Dr.</small><a href="../doktorlarimiz/mahmut-metin-yildiz/">Mahmut Metin Yıldız</a></h2>
   <p class="doc__dept">Acil Tıp</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=mahmut-metin-yildiz"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/mahmut-metin-yildiz/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=mahmut-metin-yildiz"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="berkant-may" data-dept="acil-tip" data-name="dr. berkant may acil tip">
   <a class="doc__pic" href="../doktorlarimiz/berkant-may/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/berkant-may.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-berkant-may"></a>
   <h2 class="doc__name"><small>Dr.</small><a href="../doktorlarimiz/berkant-may/">Berkant May</a></h2>
   <p class="doc__dept">Acil Tıp</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=berkant-may"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/berkant-may/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=berkant-may"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="bilaldemiroglu" data-dept="acil-tip" data-name="dr. bilal demiroglu acil tip">
   <a class="doc__pic" href="../doktorlarimiz/bilaldemiroglu/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/bilaldemiroglu.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-bilaldemiroglu"></a>
   <h2 class="doc__name"><small>Dr.</small><a href="../doktorlarimiz/bilaldemiroglu/">Bilal Demiroğlu</a></h2>
   <p class="doc__dept">Acil Tıp</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=bilaldemiroglu"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/bilaldemiroglu/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=bilaldemiroglu"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="erdogan-demiroglu" data-dept="acil-tip" data-name="dr. erdogan demiroglu acil tip">
   <a class="doc__pic" href="../doktorlarimiz/erdogan-demiroglu/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/erdogan-demiroglu.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-erdogan-demiroglu"></a>
   <h2 class="doc__name"><small>Dr.</small><a href="../doktorlarimiz/erdogan-demiroglu/">Erdoğan Demiroğlu</a></h2>
   <p class="doc__dept">Acil Tıp</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=erdogan-demiroglu"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/erdogan-demiroglu/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=erdogan-demiroglu"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="mehmet-sinan-mitil" data-dept="acil-tip" data-name="dr. mehmet sinan mitil acil tip">
   <a class="doc__pic" href="../doktorlarimiz/mehmet-sinan-mitil/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/mehmet-sinan-mitil.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-mehmet-sinan-mitil"></a>
   <h2 class="doc__name"><small>Dr.</small><a href="../doktorlarimiz/mehmet-sinan-mitil/">Mehmet Sinan Mitil</a></h2>
   <p class="doc__dept">Acil Tıp</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=mehmet-sinan-mitil"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/mehmet-sinan-mitil/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=mehmet-sinan-mitil"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="ahmet-sukru-denker" data-dept="anestezi-ve-reanimasyon" data-name="uz. dr. ahmet sukru denker anestezi ve reanimasyon">
   <a class="doc__pic" href="../doktorlarimiz/ahmet-sukru-denker/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/ahmet-sukru-denker.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-ahmet-sukru-denker"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/ahmet-sukru-denker/">Ahmet Şükrü Denker</a></h2>
   <p class="doc__dept">Anestezi ve Reanimasyon</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=ahmet-sukru-denker"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/ahmet-sukru-denker/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=ahmet-sukru-denker"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="rifat-kilic" data-dept="anestezi-ve-reanimasyon" data-name="uz. dr. rifat kilic anestezi ve reanimasyon">
   <a class="doc__pic" href="../doktorlarimiz/rifat-kilic/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/rifat-kilic.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-rifat-kilic"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/rifat-kilic/">Rıfat Kılıç</a></h2>
   <p class="doc__dept">Anestezi ve Reanimasyon</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=rifat-kilic"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/rifat-kilic/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=rifat-kilic"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="beyhan-sarikaya" data-dept="cocuk-sagligi-ve-hastaliklari" data-name="uz. dr. beyhan sarikaya cocuk sagligi ve hastaliklari">
   <a class="doc__pic" href="../doktorlarimiz/beyhan-sarikaya/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/beyhan-sarikaya.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-beyhan-sarikaya"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/beyhan-sarikaya/">Beyhan Sarıkaya</a></h2>
   <p class="doc__dept">Çocuk Sağlığı ve Hastalıkları</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=beyhan-sarikaya"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/beyhan-sarikaya/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=beyhan-sarikaya"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="ceyda-dogancay" data-dept="cocuk-sagligi-ve-hastaliklari" data-name="uz. dr. ceyda dogancay karahan cocuk sagligi ve hastaliklari">
   <a class="doc__pic" href="../doktorlarimiz/ceyda-dogancay/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/ceyda-dogancay.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-ceyda-dogancay"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/ceyda-dogancay/">Ceyda Doğançay Karahan</a></h2>
   <p class="doc__dept">Çocuk Sağlığı ve Hastalıkları</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=ceyda-dogancay"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/ceyda-dogancay/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=ceyda-dogancay"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="mehmet-ali-bulgur" data-dept="cocuk-sagligi-ve-hastaliklari" data-name="uz. dr. mehmet ali bulgur cocuk sagligi ve hastaliklari">
   <a class="doc__pic" href="../doktorlarimiz/mehmet-ali-bulgur/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/mehmet-ali-bulgur.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-mehmet-ali-bulgur"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/mehmet-ali-bulgur/">Mehmet Ali Bulgur</a></h2>
   <p class="doc__dept">Çocuk Sağlığı ve Hastalıkları</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=mehmet-ali-bulgur"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/mehmet-ali-bulgur/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=mehmet-ali-bulgur"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="akif-dogantekin" data-dept="dahiliye" data-name="doc. dr. akif dogantekin dahiliye">
   <a class="doc__pic" href="../doktorlarimiz/akif-dogantekin/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/akif-dogantekin.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-akif-dogantekin"></a>
   <h2 class="doc__name"><small>Doç. Dr.</small><a href="../doktorlarimiz/akif-dogantekin/">Akif Doğantekin</a></h2>
   <p class="doc__dept">Dahiliye</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=akif-dogantekin"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/akif-dogantekin/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=akif-dogantekin"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="sevgi-bilmez-altay" data-dept="dahiliye" data-name="uz. dr. sevgi bilmez altay dahiliye">
   <a class="doc__pic" href="../doktorlarimiz/sevgi-bilmez-altay/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/sevgi-bilmez-altay.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-sevgi-bilmez-altay"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/sevgi-bilmez-altay/">Sevgi Bilmez Altay</a></h2>
   <p class="doc__dept">Dahiliye</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=sevgi-bilmez-altay"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/sevgi-bilmez-altay/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=sevgi-bilmez-altay"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="m-caglar-soysal" data-dept="dermatoloji" data-name="uz. dr. m. caglar soysal dermatoloji">
   <a class="doc__pic" href="../doktorlarimiz/m-caglar-soysal/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/m-caglar-soysal.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-m-caglar-soysal"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/m-caglar-soysal/">M. Çağlar Soysal</a></h2>
   <p class="doc__dept">Dermatoloji</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=m-caglar-soysal"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/m-caglar-soysal/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=m-caglar-soysal"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="behice-yediler" data-dept="diyet-ve-beslenme" data-name="dyt. behice yediler diyet ve beslenme">
   <a class="doc__pic" href="../doktorlarimiz/behice-yediler/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/behice-yediler.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-behice-yediler"></a>
   <h2 class="doc__name"><small>Dyt.</small><a href="../doktorlarimiz/behice-yediler/">Behice Yediler</a></h2>
   <p class="doc__dept">Diyet ve Beslenme</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=behice-yediler"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/behice-yediler/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=behice-yediler"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="mehmet-yavuz-capan" data-dept="genel-cerrahi" data-name="op. dr. mehmet yavuz capan genel cerrahi">
   <a class="doc__pic" href="../doktorlarimiz/mehmet-yavuz-capan/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/mehmet-yavuz-capan.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-mehmet-yavuz-capan"></a>
   <h2 class="doc__name"><small>Op. Dr.</small><a href="../doktorlarimiz/mehmet-yavuz-capan/">Mehmet Yavuz Çapan</a></h2>
   <p class="doc__dept">Genel Cerrahi</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=mehmet-yavuz-capan"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/mehmet-yavuz-capan/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=mehmet-yavuz-capan"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="tayyar-karadag" data-dept="goz-hastaliklari" data-name="op. dr. tayyar karadag goz hastaliklari">
   <a class="doc__pic" href="../doktorlarimiz/tayyar-karadag/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/tayyar-karadag.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-tayyar-karadag"></a>
   <h2 class="doc__name"><small>Op. Dr.</small><a href="../doktorlarimiz/tayyar-karadag/">Tayyar Karadağ</a></h2>
   <p class="doc__dept">Göz Hastalıkları</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=tayyar-karadag"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/tayyar-karadag/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=tayyar-karadag"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="kevser-kibar" data-dept="kadin-hastaliklari-ve-dogum" data-name="op. dr. elif kevser kibar kadin hastaliklari ve dogum">
   <a class="doc__pic" href="../doktorlarimiz/kevser-kibar/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/kevser-kibar.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-kevser-kibar"></a>
   <h2 class="doc__name"><small>Op. Dr.</small><a href="../doktorlarimiz/kevser-kibar/">Elif Kevser Kibar</a></h2>
   <p class="doc__dept">Kadın Hastalıkları ve Doğum</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=kevser-kibar"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/kevser-kibar/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=kevser-kibar"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="mehmet-yildirim-arpacioglu" data-dept="kadin-hastaliklari-ve-dogum" data-name="op. dr. mehmet yildirim arpacioglu kadin hastaliklari ve dogum">
   <a class="doc__pic" href="../doktorlarimiz/mehmet-yildirim-arpacioglu/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/mehmet-yildirim-arpacioglu.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-mehmet-yildirim-arpacioglu"></a>
   <h2 class="doc__name"><small>Op. Dr.</small><a href="../doktorlarimiz/mehmet-yildirim-arpacioglu/">Mehmet Yıldırım Arpacıoğlu</a></h2>
   <p class="doc__dept">Kadın Hastalıkları ve Doğum</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=mehmet-yildirim-arpacioglu"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/mehmet-yildirim-arpacioglu/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=mehmet-yildirim-arpacioglu"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="gokhan-altunbas" data-dept="kardiyoloji" data-name="uz. dr. gokhan altunbas kardiyoloji">
   <a class="doc__pic" href="../doktorlarimiz/gokhan-altunbas/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/gokhan-altunbas.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-gokhan-altunbas"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/gokhan-altunbas/">Gökhan Altunbaş</a></h2>
   <p class="doc__dept">Kardiyoloji</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=gokhan-altunbas"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/gokhan-altunbas/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=gokhan-altunbas"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="hasan-gorur" data-dept="kbb-kulak-burun-bogaz-hastaliklari" data-name="op. dr. hasan gorur kulak burun bogaz (kbb)">
   <a class="doc__pic" href="../doktorlarimiz/hasan-gorur/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/hasan-gorur.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-hasan-gorur"></a>
   <h2 class="doc__name"><small>Op. Dr.</small><a href="../doktorlarimiz/hasan-gorur/">Hasan Görür</a></h2>
   <p class="doc__dept">Kulak Burun Boğaz (KBB)</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=hasan-gorur"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/hasan-gorur/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=hasan-gorur"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="abdulkadir-gogus" data-dept="noroloji" data-name="uz. dr. abdulkadir gogus noroloji">
   <a class="doc__pic" href="../doktorlarimiz/abdulkadir-gogus/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/abdulkadir-gogus.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-abdulkadir-gogus"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/abdulkadir-gogus/">Abdulkadir Göğüş</a></h2>
   <p class="doc__dept">Nöroloji</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=abdulkadir-gogus"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/abdulkadir-gogus/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=abdulkadir-gogus"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="bekir-erbey" data-dept="ortopedi-ve-travmatoloji" data-name="op. dr. bekir erbey ortopedi ve travmatoloji">
   <a class="doc__pic" href="../doktorlarimiz/bekir-erbey/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/bekir-erbey.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-bekir-erbey"></a>
   <h2 class="doc__name"><small>Op. Dr.</small><a href="../doktorlarimiz/bekir-erbey/">Bekir Erbey</a></h2>
   <p class="doc__dept">Ortopedi ve Travmatoloji</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=bekir-erbey"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/bekir-erbey/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=bekir-erbey"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="neslihan-sahin" data-dept="psikiyatri" data-name="uz. dr. neslihan sahin psikiyatri">
   <a class="doc__pic" href="../doktorlarimiz/neslihan-sahin/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/neslihan-sahin.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-neslihan-sahin"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/neslihan-sahin/">Neslihan Şahin</a></h2>
   <p class="doc__dept">Psikiyatri</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=neslihan-sahin"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/neslihan-sahin/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=neslihan-sahin"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="huseyin-bicer" data-dept="radyoloji" data-name="uz. dr. huseyin bicer radyoloji">
   <a class="doc__pic" href="../doktorlarimiz/huseyin-bicer/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/huseyin-bicer.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-huseyin-bicer"></a>
   <h2 class="doc__name"><small>Uz. Dr.</small><a href="../doktorlarimiz/huseyin-bicer/">Hüseyin Biçer</a></h2>
   <p class="doc__dept">Radyoloji</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=huseyin-bicer"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/huseyin-bicer/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=huseyin-bicer"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article><article class="doc" data-doc="ibrahim-duzgun" data-dept="uroloji" data-name="op. dr. ibrahim duzgun uroloji">
   <a class="doc__pic" href="../doktorlarimiz/ibrahim-duzgun/" tabindex="-1" aria-hidden="true"><img src="../img/doktor/ibrahim-duzgun.webp" alt="" width="800" height="920" loading="lazy" decoding="async" draggable="false" style="view-transition-name: doc-ibrahim-duzgun"></a>
   <h2 class="doc__name"><small>Op. Dr.</small><a href="../doktorlarimiz/ibrahim-duzgun/">İbrahim Düzgün</a></h2>
   <p class="doc__dept">Üroloji</p>
-  <div class="doc__acts"><a class="btn btn--sm" href="../randevu/?doktor=ibrahim-duzgun"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu</a><a class="btn btn--sm btn--ghost" href="../doktorlarimiz/ibrahim-duzgun/">Profil</a></div>
+  <a class="doc__appt" href="../randevu/?doktor=ibrahim-duzgun"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-calendar"/></svg>Randevu al</a>
 </article></div>
     <p class="empty" data-empty="#doctors" hidden>Aramanıza uyan hekim bulamadık.</p>
   </div>
@@ -263,8 +263,8 @@
   <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" target="_blank" rel="noopener"><svg class="icon " aria-hidden="true"><use href="../img/icons.svg#i-route"/></svg>Yol Tarifi</a>
 </nav>
 <script src="../js/data.js?v=8" defer></script>
-<script src="../js/app.js?v=8" defer></script>
-<script src="../js/motion.js?v=8" defer></script>
-<script src="../js/live.js?v=8" defer></script>
+<script src="../js/app.js?v=9" defer></script>
+<script src="../js/motion.js?v=9" defer></script>
+<script src="../js/live.js?v=9" defer></script>
 </body>
 </html>
