@@ -9,11 +9,11 @@
    the tab. The first step understands complaints as well as department
    names ("diz ağrısı" → Ortopedi). On the hospital's own host the last
    step sends the request straight to the call centre's panel (/api/randevu)
-   and shows its number; where there is no server (the preview) — or the
-   sending fails — it hands the request to the hospital's other channels:
-   the call centre (the ticket to read out), an e-mail already written, the
-   e-Randevu system. Nothing typed here leaves the page unless the patient
-   sends it.
+   and thanks the patient, with the request's number. Only if the sending
+   fails is the patient handed the other ways in (the call centre, an e-mail
+   already written). The preview has no server: it shows the same thanks
+   without sending anything. Nothing typed here leaves the page unless the
+   patient sends it.
    ========================================================================== */
 (function () {
   "use strict";
@@ -278,7 +278,7 @@
   }
   next.addEventListener("click", function () {
     if (at === 3 && !formOk(false)) { var bad = $(".is-bad input", form); if (bad) bad.focus(); return; }
-    if (at === 3 && API) { submit(); return; }
+    if (at === 3) { submit(); return; }
     go(at + 1);
   });
 
@@ -306,6 +306,7 @@
     if (hand) hand.hidden = ok;
     if (er) { er.hidden = ok || !why; if (why) er.querySelector("span").textContent = why; }
     var r = $("[data-ref]"); if (r) r.textContent = ref || "";
+    var rc = $("[data-refcard]"); if (rc) rc.hidden = !ref;
     steps[4].setAttribute("aria-labelledby", ok ? "st5s" : "st5");
   }
   function submit() {
@@ -318,6 +319,7 @@
       name: w.name, phone: w.phone, pay: choiceKey("pay", PAYS_TR), insurer: insHit || w.insurer, first: choiceKey("first", VISITS_TR), note: w.note, consent: true,
       lang: html.lang || "tr", idem: idem, t: Date.now() - T0, website: form.elements.website ? form.elements.website.value : "" };
     var done = function () { sending = false; next.classList.remove("is-busy"); next.disabled = false; render(); };
+    if (!API) { setTimeout(function () { done(); sent = true; outcome(true, ""); go(4); }, 650); return; }   /* the preview */
     fetch(API + "randevu", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) })
       .then(function (res) { return res.json().catch(function () { return { ok: false }; }).then(function (j) { j.status = res.status; return j; }); })
       .then(function (j) {
@@ -406,7 +408,7 @@
     /* the bar under the step */
     bar.hidden = at === 4;
     back.style.visibility = at === 0 ? "hidden" : "";
-    if (!sending) next.querySelector("span").textContent = at === 3 ? (API ? T("Talebimi gönder") : T("Talebimi hazırla")) : T("Devam");
+    if (!sending) next.querySelector("span").textContent = at === 3 ? T("Talebimi gönder") : T("Devam");
     next.disabled = at < 3 ? !can(at + 1) : false;
     next.classList.toggle("is-ready", at < 3 && can(at + 1));
     mini.textContent = [st.dept && st.dept.name, st.doc ? st.doc.name : st.any ? T("Fark etmez") : "", st.day instanceof Date ? st.day.getDate() + " " + monShort(st.day) : st.day ? T("En erken") : "", st.slot]
@@ -418,11 +420,10 @@
   /* ---- the last step's tools ---- */
   var copy = $("[data-copyreq]");
   if (copy) copy.addEventListener("click", function () { if (navigator.clipboard) navigator.clipboard.writeText(text()).then(function () { toast(T("Randevu özeti kopyalandı")); }); });
-  var pr = $("[data-print]"); if (pr) pr.addEventListener("click", function () { var d = $(".reqbox"); if (d) d.open = true; print(); });
   var again = $("[data-restart]");
   if (again) again.addEventListener("click", function () {
     st = { dept: null, doc: null, any: false, day: null, slot: null };
-    sent = false; idem = newKey(); T0 = Date.now(); outcome(false, "", "");
+    sent = false; idem = newKey(); T0 = Date.now(); outcome(true, "", "");
     try { sessionStorage.removeItem(KEY); } catch (e) { /* fine */ }
     form.reset(); insField.hidden = true; insCheck(); counter.textContent = "0 / 300"; find.value = "";
     $$(".field, .check", form).forEach(function (f) { f.classList.remove("is-bad", "is-ok"); var em = f.querySelector("em"); if (em) em.textContent = ""; });
