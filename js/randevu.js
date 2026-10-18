@@ -71,15 +71,17 @@
     } catch (e) { /* private window */ }
   }
   var q = new URLSearchParams(location.search), restored = false;
+  /* who can be chosen: the chief physician takes no appointments (no card, no ?doktor= link) */
+  var bookable = (D.docs || []).filter(function (d) { return d.appt !== false; });
   if (q.get("bolum") || q.get("doktor")) {
-    st.doc = bySlug(D.docs || [], q.get("doktor"));
+    st.doc = bySlug(bookable, q.get("doktor"));
     st.dept = bySlug(depts, q.get("bolum")) || (st.doc && bySlug(depts, st.doc.deptSlug));
     if (st.doc && (!st.dept || st.doc.deptSlug !== st.dept.slug)) st.doc = null;
   } else {
     try {
       var s = JSON.parse(sessionStorage.getItem(KEY) || "null");
       if (s && s.dept) {
-        st.dept = bySlug(depts, s.dept); st.doc = st.dept ? bySlug(D.docs || [], s.doc) : null; st.any = !!s.any && !st.doc;
+        st.dept = bySlug(depts, s.dept); st.doc = st.dept ? bySlug(bookable, s.doc) : null; st.any = !!s.any && !st.doc;
         if (s.day === "earliest") st.day = "earliest";
         else if (s.day) { var d = fromKey(s.day); if (d >= FIRST && d <= LAST) st.day = d; }
         st.slot = s.slot || null; restored = !!st.dept;
@@ -191,7 +193,7 @@
   /* ---- 2 · the doctor (or whoever is free first) ---- */
   var docBox = $("[data-docs]");
   function drawDocs() {
-    var list = st.dept ? (D.docs || []).filter(function (d) { return d.deptSlug === st.dept.slug; }) : [];
+    var list = st.dept ? bookable.filter(function (d) { return d.deptSlug === st.dept.slug; }) : [];
     docBox.innerHTML = list.map(function (d) {
       return '<button class="pcard" type="button" data-doc="' + d.slug + '" aria-pressed="' + (st.doc === d) + '"><span class="pcard__pic">' +
         (d.pic ? '<img src="' + esc(BASE + d.pic) + '" alt="" width="800" height="920" loading="lazy">' : icon("i-doctor")) +
@@ -202,7 +204,7 @@
   }
   docBox.addEventListener("click", function (e) {
     var b = e.target.closest("[data-doc]"); if (!b) return;
-    st.doc = bySlug(D.docs || [], b.dataset.doc); st.any = !st.doc;
+    st.doc = bySlug(bookable, b.dataset.doc); st.any = !st.doc;
     drawDocs(); picked($('[data-doc="' + b.dataset.doc + '"]', docBox));
     render(); save();
     setTimeout(function () { go(2); }, reduced() ? 0 : 320);

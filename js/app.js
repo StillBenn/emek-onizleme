@@ -58,6 +58,14 @@
   panel($("[data-mega]"), $(".mega"));
   document.addEventListener("click", function () { panels.forEach(function (p) { p.set(false); }); });
 
+  /* ---- the language menu (a <details>): a tap anywhere outside it, Esc, or focus moving on closes it ---- */
+  $$("details.lang").forEach(function (dl) {
+    var shut = function () { if (dl.open) dl.open = false; };
+    document.addEventListener("pointerdown", function (e) { if (dl.open && !dl.contains(e.target)) shut(); });
+    dl.addEventListener("keydown", function (e) { if (e.key === "Escape" && dl.open) { e.preventDefault(); shut(); dl.querySelector("summary").focus(); } });
+    dl.addEventListener("focusout", function (e) { if (e.relatedTarget && !dl.contains(e.relatedTarget)) shut(); });
+  });
+
   /* ---- the menu sheet (narrow screens) ---- */
   var sheet = $(".sheet"), lastFocus = null;
   function sheetSet(on) {
