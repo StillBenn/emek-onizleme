@@ -325,4 +325,118 @@
     mega.addEventListener("mouseleave", function () { clearTimeout(wait); wait = setTimeout(function () { last = null; peek.hidden = true; plain.hidden = false; }, 160); });
     mega.addEventListener("mouseenter", function () { clearTimeout(wait); });
   }
+
+  /* ---- the hero's doctors turn (31.10.2026): one place every 3 s, a finger pushes either way ----
+     Every figure in the row is a doctor (the page writes them all); three stand in the slots 0, 1 (the tall
+     middle) and 2, the rest wait off the row (slot 3 on the right, -1 on the left), their portraits asked for
+     only one turn ahead. A step moves each visible doctor one slot; the one that leaves slides out and fades,
+     the one that comes in waits just off the edge it comes from. The turning rests while the pointer is over
+     the row, while a link in it has the focus, while the row is off screen or the tab hidden, and under
+     "reduce motion" (a swipe still turns it). A doctor the panel took off the site (live.js sets [hidden])
+     drops out of the turn. */
+  var crew = $("[data-crew]");
+  var figs = crew ? $$(".arch", crew) : [];
+  if (figs.length > 3) {
+    var N = figs.length, STEP = 3000;
+    var rtl = function () { return html.getAttribute("dir") === "rtl"; };
+    var alive = function (i) { return !figs[i].hidden; };
+    var next = function (i, d) { for (var k = 1; k <= N; k++) { var j = ((i + d * k) % N + N) % N; if (alive(j)) return j; } return i; };
+    var count = function () { return figs.filter(function (f) { return !f.hidden; }).length; };
+    var load = function (i) { var im = $("img", figs[i]); if (im && !im.getAttribute("src") && im.dataset.src) im.src = im.dataset.src; };
+    var place = function (f, pos, on) {
+      f.style.setProperty("--pos", pos);
+      f.classList.toggle("is-tall", pos === 1);
+      f.classList.toggle("is-in", on);
+      f.inert = !on;
+      if (on) f.removeAttribute("aria-hidden"); else f.setAttribute("aria-hidden", "true");
+    };
+    var win = [0, 1, 2];
+    /* lay the row out from scratch: the window's three in their slots, the rest off it (no movement) */
+    var layout = function () {
+      if (!alive(win[0])) win[0] = next(win[0], 1);
+      win = [win[0], next(win[0], 1), next(next(win[0], 1), 1)];
+      figs.forEach(function (f) { f.classList.add("is-jump"); });
+      figs.forEach(function (f, i) { var k = win.indexOf(i); place(f, k < 0 ? 3 : k, k >= 0); });
+      void crew.offsetWidth;
+      figs.forEach(function (f) { f.classList.remove("is-jump"); });
+      win.forEach(load); load(next(win[2], 1)); load(next(win[0], -1));
+    };
+    var step = function (d) {
+      if (count() < 4) return;
+      var inc = d > 0 ? next(win[2], 1) : next(win[0], -1);
+      var out = d > 0 ? win[0] : win[2];
+      load(inc);
+      var f = figs[inc];
+      f.classList.add("is-jump"); place(f, d > 0 ? 3 : -1, false); void f.offsetWidth; f.classList.remove("is-jump");
+      win = d > 0 ? [win[1], win[2], inc] : [inc, win[0], win[1]];
+      place(figs[out], d > 0 ? -1 : 3, false);
+      win.forEach(function (i, k) { place(figs[i], k, true); });
+      load(d > 0 ? next(inc, 1) : next(inc, -1));          /* the next one's portrait, a turn ahead */
+    };
+
+    crew.classList.add("is-live");
+    figs.forEach(function (f, i) { f.classList.add("is-jump"); place(f, i < 3 ? i : 3, false); });
+    void crew.offsetWidth;
+    figs.forEach(function (f) { f.classList.remove("is-jump"); });
+    requestAnimationFrame(function () { win.forEach(function (i, k) { place(figs[i], k, true); }); });      /* the three fade in, as before */
+    load(next(2, 1)); load(next(0, -1));
+
+    /* the turning, and what rests it */
+    var timer = 0, over = false, focused = false, seen = true, dragging = false;
+    var arm = function () {
+      clearTimeout(timer);
+      if (reduced() || over || focused || dragging || !seen || document.hidden || count() < 4) return;
+      timer = setTimeout(function () { step(1); arm(); }, STEP);
+    };
+    if (fine) {
+      crew.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { over = true; arm(); } });
+      crew.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { over = false; arm(); } });
+    }
+    crew.addEventListener("focusin", function () { focused = true; arm(); });
+    crew.addEventListener("focusout", function (e) { if (!crew.contains(e.relatedTarget)) { focused = false; arm(); } });
+    document.addEventListener("visibilitychange", arm);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; arm(); }, { threshold: 0.25 }).observe(crew);
+    /* a doctor the panel took off the site leaves the turn at once */
+    if ("MutationObserver" in window) new MutationObserver(function () { layout(); arm(); }).observe(crew, { attributes: true, attributeFilter: ["hidden"], subtree: true });
+
+    /* a finger (or the mouse) pushes the row: it follows a little, and past a short way it turns */
+    var id = null, sx = 0, sy = 0, dx = 0, moved = false;
+    crew.addEventListener("pointerdown", function (e) { if (e.button > 0) return; id = e.pointerId; sx = e.clientX; sy = e.clientY; dx = 0; moved = false; });
+    crew.addEventListener("pointermove", function (e) {
+      if (e.pointerId !== id) return;
+      var x = e.clientX - sx, y = e.clientY - sy;
+      if (!dragging) {
+        if (Math.abs(y) > 12 && Math.abs(y) > Math.abs(x)) { id = null; return; }           /* the page is being scrolled */
+        if (Math.abs(x) < 8) return;
+        dragging = moved = true; crew.classList.add("is-dragging");
+        try { crew.setPointerCapture(id); } catch (er) { /* the move still arrives */ }
+        arm();
+      }
+      dx = x;
+      var lim = crew.clientWidth / 6;
+      crew.style.setProperty("--drag", (dx / (1 + Math.abs(dx) / lim)).toFixed(1) + "px");      /* follows, with a little give */
+    });
+    var end = function (e) {
+      if (e.pointerId !== id) return;
+      id = null;
+      if (!dragging) return;
+      dragging = false; crew.classList.remove("is-dragging");
+      crew.style.setProperty("--drag", "0px");
+      if (Math.abs(dx) > Math.min(56, crew.clientWidth / 10)) step((dx < 0) !== rtl() ? 1 : -1);
+      arm();
+    };
+    crew.addEventListener("pointerup", end);
+    crew.addEventListener("pointercancel", end);
+    crew.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);      /* a push is not a click */
+    crew.addEventListener("dragstart", function (e) { e.preventDefault(); });
+    /* the keyboard turns it too, from a link inside it */
+    crew.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault();
+      step((e.key === "ArrowRight") !== rtl() ? 1 : -1);
+      var a = $(".arch__a", figs[win[1]]);
+      if (a) a.focus({ preventScroll: true });
+    });
+    arm();
+  }
 })();

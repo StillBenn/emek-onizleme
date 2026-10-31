@@ -20,11 +20,11 @@
 <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">
 <link rel="preload" href="./fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="./css/main.css?v=13">
-<link rel="stylesheet" href="./css/parts.css?v=13">
-<link rel="stylesheet" href="./css/home.css?v=13">
-<link rel="stylesheet" href="./css/motion.css?v=13">
-<link rel="stylesheet" href="./css/i18n.css?v=13">
+<link rel="stylesheet" href="./css/main.css?v=14">
+<link rel="stylesheet" href="./css/parts.css?v=14">
+<link rel="stylesheet" href="./css/home.css?v=14">
+<link rel="stylesheet" href="./css/motion.css?v=14">
+<link rel="stylesheet" href="./css/i18n.css?v=14">
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Hospital", "name": "Özel Gaziantep Emek Hastanesi", "url": "https://larisel.com/emek-onizleme/", "telephone": "+903423200202", "email": "info@emekhastanesi.com", "logo": "https://larisel.com/emek-onizleme/img/logo.webp", "image": "https://larisel.com/emek-onizleme/img/og.jpg", "address": {"@type": "PostalAddress", "streetAddress": "Emek Mah. Ali Nadi Ünler Bulvarı, Şakir Sabri Cad. No:13", "addressLocality": "Şehitkamil", "addressRegion": "Gaziantep", "addressCountry": "TR"}, "geo": {"@type": "GeoCoordinates", "latitude": 37.0741053, "longitude": 37.3505369}, "openingHours": "Mo-Su 00:00-23:59", "sameAs": ["https://www.facebook.com/emekhastanesi", "https://twitter.com/emekhastanesi", "https://www.instagram.com/emekhastanesi/"]}</script>
 <link rel="alternate" hreflang="tr" href="https://larisel.com/emek-onizleme/">
@@ -74,13 +74,41 @@
         <div class="ask__field"><svg class="icon " aria-hidden="true"><use href="./img/icons.svg#i-search"/></svg><input id="ask" type="search" name="q" data-ask placeholder="Şikâyet, bölüm ya da doktor adı" autocomplete="off"><button class="mic" type="button" data-voice hidden aria-label="Sesle arayın" data-tip="Sesle arayın"><svg class="icon " aria-hidden="true"><use href="./img/icons.svg#i-mic"/></svg></button><button class="btn" type="submit">Bul</button></div>
       </form>
     </div>
-    <div class="crew" aria-label="Hekimlerimizden"><figure class="arch"><a class="arch__a" href="./doktorlarimiz/sevgi-bilmez-altay/" aria-label="Uz. Dr. Sevgi Bilmez Altay — profil"></a>
-      <img src="./img/doktor/sevgi-bilmez-altay.webp?v=a453a1e5" alt="Uz. Dr. Sevgi Bilmez Altay" width="800" height="920" draggable="false">
-      <figcaption><b>Uz. Dr. Sevgi Bilmez Altay</b><small>Dahiliye</small></figcaption></figure><figure class="arch"><a class="arch__a" href="./doktorlarimiz/ibrahim-duzgun/" aria-label="Op. Dr. İbrahim Düzgün — profil"></a>
-      <img src="./img/doktor/ibrahim-duzgun.webp?v=328fcdf4" alt="Op. Dr. İbrahim Düzgün" width="800" height="920" fetchpriority="high" draggable="false">
-      <figcaption><b>Op. Dr. İbrahim Düzgün</b><small>Üroloji</small></figcaption></figure><figure class="arch"><a class="arch__a" href="./doktorlarimiz/ceyda-dogancay/" aria-label="Uz. Dr. Ceyda Doğançay Karahan — profil"></a>
-      <img src="./img/doktor/ceyda-dogancay.webp?v=fde7438b" alt="Uz. Dr. Ceyda Doğançay Karahan" width="800" height="920" draggable="false">
-      <figcaption><b>Uz. Dr. Ceyda Doğançay Karahan</b><small>Çocuk Sağlığı ve Hastalıkları</small></figcaption></figure></div>
+    <div class="crew" aria-label="Hekimlerimizden" data-crew><figure class="arch" data-doc="sevgi-bilmez-altay"><a class="arch__a" href="./doktorlarimiz/sevgi-bilmez-altay/" aria-label="Uz. Dr. Sevgi Bilmez Altay — profil"></a>
+      <img src="./img/doktor/sevgi-bilmez-altay.webp?v=a453a1e5" alt="Uz. Dr. Sevgi Bilmez Altay" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. Sevgi Bilmez Altay</b><small>Dahiliye</small></figcaption></figure><figure class="arch" data-doc="ibrahim-duzgun"><a class="arch__a" href="./doktorlarimiz/ibrahim-duzgun/" aria-label="Op. Dr. İbrahim Düzgün — profil"></a>
+      <img src="./img/doktor/ibrahim-duzgun.webp?v=328fcdf4" alt="Op. Dr. İbrahim Düzgün" width="800" height="920" fetchpriority="high" decoding="async" draggable="false">
+      <figcaption><b>Op. Dr. İbrahim Düzgün</b><small>Üroloji</small></figcaption></figure><figure class="arch" data-doc="ceyda-dogancay"><a class="arch__a" href="./doktorlarimiz/ceyda-dogancay/" aria-label="Uz. Dr. Ceyda Doğançay Karahan — profil"></a>
+      <img src="./img/doktor/ceyda-dogancay.webp?v=fde7438b" alt="Uz. Dr. Ceyda Doğançay Karahan" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. Ceyda Doğançay Karahan</b><small>Çocuk Sağlığı ve Hastalıkları</small></figcaption></figure><figure class="arch" data-doc="akif-dogantekin"><a class="arch__a" href="./doktorlarimiz/akif-dogantekin/" aria-label="Doç. Dr. Akif Doğantekin — profil"></a>
+      <img data-src="./img/doktor/akif-dogantekin.webp?v=40858d8a" alt="Doç. Dr. Akif Doğantekin" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Doç. Dr. Akif Doğantekin</b><small>Dahiliye</small></figcaption></figure><figure class="arch" data-doc="beyhan-sarikaya"><a class="arch__a" href="./doktorlarimiz/beyhan-sarikaya/" aria-label="Uz. Dr. Beyhan Sarıkaya — profil"></a>
+      <img data-src="./img/doktor/beyhan-sarikaya.webp?v=24cf9e16" alt="Uz. Dr. Beyhan Sarıkaya" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. Beyhan Sarıkaya</b><small>Çocuk Sağlığı ve Hastalıkları</small></figcaption></figure><figure class="arch" data-doc="m-caglar-soysal"><a class="arch__a" href="./doktorlarimiz/m-caglar-soysal/" aria-label="Uz. Dr. M. Çağlar Soysal — profil"></a>
+      <img data-src="./img/doktor/m-caglar-soysal.webp?v=cb1e60a1" alt="Uz. Dr. M. Çağlar Soysal" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. M. Çağlar Soysal</b><small>Dermatoloji</small></figcaption></figure><figure class="arch" data-doc="mehmet-ali-bulgur"><a class="arch__a" href="./doktorlarimiz/mehmet-ali-bulgur/" aria-label="Uz. Dr. Mehmet Ali Bulgur — profil"></a>
+      <img data-src="./img/doktor/mehmet-ali-bulgur.webp?v=5d1a5f13" alt="Uz. Dr. Mehmet Ali Bulgur" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. Mehmet Ali Bulgur</b><small>Çocuk Sağlığı ve Hastalıkları</small></figcaption></figure><figure class="arch" data-doc="behice-yediler"><a class="arch__a" href="./doktorlarimiz/behice-yediler/" aria-label="Dyt. Behice Yediler — profil"></a>
+      <img data-src="./img/doktor/behice-yediler.webp?v=64492639" alt="Dyt. Behice Yediler" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Dyt. Behice Yediler</b><small>Diyet ve Beslenme</small></figcaption></figure><figure class="arch" data-doc="mehmet-yavuz-capan"><a class="arch__a" href="./doktorlarimiz/mehmet-yavuz-capan/" aria-label="Op. Dr. Mehmet Yavuz Çapan — profil"></a>
+      <img data-src="./img/doktor/mehmet-yavuz-capan.webp?v=5f217050" alt="Op. Dr. Mehmet Yavuz Çapan" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Op. Dr. Mehmet Yavuz Çapan</b><small>Genel Cerrahi</small></figcaption></figure><figure class="arch" data-doc="tayyar-karadag"><a class="arch__a" href="./doktorlarimiz/tayyar-karadag/" aria-label="Op. Dr. Tayyar Karadağ — profil"></a>
+      <img data-src="./img/doktor/tayyar-karadag.webp?v=206fb979" alt="Op. Dr. Tayyar Karadağ" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Op. Dr. Tayyar Karadağ</b><small>Göz Hastalıkları</small></figcaption></figure><figure class="arch" data-doc="kevser-kibar"><a class="arch__a" href="./doktorlarimiz/kevser-kibar/" aria-label="Op. Dr. Elif Kevser Kibar — profil"></a>
+      <img data-src="./img/doktor/kevser-kibar.webp?v=50977f15" alt="Op. Dr. Elif Kevser Kibar" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Op. Dr. Elif Kevser Kibar</b><small>Kadın Hastalıkları ve Doğum</small></figcaption></figure><figure class="arch" data-doc="gokhan-altunbas"><a class="arch__a" href="./doktorlarimiz/gokhan-altunbas/" aria-label="Uz. Dr. Gökhan Altunbaş — profil"></a>
+      <img data-src="./img/doktor/gokhan-altunbas.webp?v=f6b3d8e1" alt="Uz. Dr. Gökhan Altunbaş" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. Gökhan Altunbaş</b><small>Kardiyoloji</small></figcaption></figure><figure class="arch" data-doc="mehmet-yildirim-arpacioglu"><a class="arch__a" href="./doktorlarimiz/mehmet-yildirim-arpacioglu/" aria-label="Op. Dr. Mehmet Yıldırım Arpacıoğlu — profil"></a>
+      <img data-src="./img/doktor/mehmet-yildirim-arpacioglu.webp?v=8d22bb29" alt="Op. Dr. Mehmet Yıldırım Arpacıoğlu" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Op. Dr. Mehmet Yıldırım Arpacıoğlu</b><small>Kadın Hastalıkları ve Doğum</small></figcaption></figure><figure class="arch" data-doc="hasan-gorur"><a class="arch__a" href="./doktorlarimiz/hasan-gorur/" aria-label="Op. Dr. Hasan Görür — profil"></a>
+      <img data-src="./img/doktor/hasan-gorur.webp?v=baf47fbe" alt="Op. Dr. Hasan Görür" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Op. Dr. Hasan Görür</b><small>Kulak Burun Boğaz (KBB)</small></figcaption></figure><figure class="arch" data-doc="abdulkadir-gogus"><a class="arch__a" href="./doktorlarimiz/abdulkadir-gogus/" aria-label="Uz. Dr. Abdulkadir Göğüş — profil"></a>
+      <img data-src="./img/doktor/abdulkadir-gogus.webp?v=4fcb07ba" alt="Uz. Dr. Abdulkadir Göğüş" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. Abdulkadir Göğüş</b><small>Nöroloji</small></figcaption></figure><figure class="arch" data-doc="bekir-erbey"><a class="arch__a" href="./doktorlarimiz/bekir-erbey/" aria-label="Op. Dr. Bekir Erbey — profil"></a>
+      <img data-src="./img/doktor/bekir-erbey.webp?v=3cc506bb" alt="Op. Dr. Bekir Erbey" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Op. Dr. Bekir Erbey</b><small>Ortopedi ve Travmatoloji</small></figcaption></figure><figure class="arch" data-doc="neslihan-sahin"><a class="arch__a" href="./doktorlarimiz/neslihan-sahin/" aria-label="Uz. Dr. Neslihan Şahin — profil"></a>
+      <img data-src="./img/doktor/neslihan-sahin.webp?v=13c5e9cb" alt="Uz. Dr. Neslihan Şahin" width="800" height="920" decoding="async" draggable="false">
+      <figcaption><b>Uz. Dr. Neslihan Şahin</b><small>Psikiyatri</small></figcaption></figure></div>
   </div>
 </section>
 
@@ -201,9 +229,9 @@
   <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C3%96zel+Emek+Hastanesi+Gaziantep" target="_blank" rel="noopener"><svg class="icon " aria-hidden="true"><use href="./img/icons.svg#i-route"/></svg>Yol Tarifi</a>
 </nav>
 <script src="./js/data.js?v=10" defer></script>
-<script src="./js/app.js?v=15" defer></script>
-<script src="./js/motion.js?v=15" defer></script>
-<script src="./js/scroll.js?v=15" defer></script>
-<script src="./js/live.js?v=15" defer></script>
+<script src="./js/app.js?v=16" defer></script>
+<script src="./js/motion.js?v=16" defer></script>
+<script src="./js/scroll.js?v=16" defer></script>
+<script src="./js/live.js?v=16" defer></script>
 </body>
 </html>

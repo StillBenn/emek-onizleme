@@ -467,3 +467,25 @@ html[dir="rtl"] .hero--calm::before { inset: 0 auto 0 -8%; }
 .hero--calm .arch { container-type: inline-size; }
 .hero--calm .arch figcaption b, .hero--calm .arch figcaption small { white-space: normal; text-wrap: balance; }
 @container (max-width: 150px) { .hero--calm .arch figcaption { display: none; } }
+
+/* the hero's doctors turn (31.10.2026; js/motion.js): every 3 s the row moves one place — the right one steps into
+   the tall middle arch, the middle one to the left, the left one slides out, a new one comes in from the right; a
+   finger (or the mouse) pushes it either way. The three slots keep the arches' sizes (width W from the row's own
+   width, 4.15:3 at the sides, 5.4:3 in the middle); the row clips what leaves it. Without JavaScript the first three
+   stand as they always did and the rest are not shown. */
+.crew > .arch:nth-child(n+4) { display: none; }
+.crew.is-live { display: block; container-type: inline-size; overflow: hidden; overflow: clip; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+.crew.is-live::before { content: ""; display: block; height: calc((100cqi - 2 * var(--crew-gap)) / 3 * 1.8); }
+.crew.is-live > .arch { --w: calc((100cqi - 2 * var(--crew-gap)) / 3); position: absolute; bottom: 0; inset-inline-start: 0; display: block; width: var(--w); height: calc(var(--w) * 1.3833);
+  aspect-ratio: auto; animation: none; opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translateX(calc(var(--pos, 3) * (var(--w) + var(--crew-gap)) * var(--dir, 1))); translate: var(--drag, 0px) 0;
+  transition: transform 1000ms var(--e-inout), height 1000ms var(--e-inout), opacity 700ms var(--e-out), translate 450ms var(--e-out), visibility 0s 1000ms; }
+.crew.is-live > .arch.is-in { opacity: 1; visibility: visible; pointer-events: auto;
+  transition: transform 1000ms var(--e-inout), height 1000ms var(--e-inout), opacity 700ms var(--e-out), translate 450ms var(--e-out), visibility 0s; }
+.crew.is-live > .arch.is-tall { height: calc(var(--w) * 1.8); }
+.crew.is-live > .arch[hidden] { display: none; }
+.crew.is-live > .arch.is-jump, .crew.is-live.is-dragging > .arch { transition: none; }
+html[dir="rtl"] .crew.is-live { --dir: -1; }
+@media (prefers-reduced-motion: reduce) {
+  .crew.is-live > .arch, .crew.is-live > .arch.is-in { transition: opacity 300ms, visibility 0s 300ms; }
+}
