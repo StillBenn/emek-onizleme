@@ -20,7 +20,7 @@
   box-shadow: 0 0 0 1.5px var(--line), 0 18px 40px -26px rgba(11, 57, 54, 0.5); transition: box-shadow var(--d-base) var(--e-out); cursor: text; }
 .ask__field:focus-within, .ask__field:hover { box-shadow: 0 0 0 2px var(--teal), 0 22px 46px -26px rgba(11, 57, 54, 0.55); }
 .ask__field .icon { width: 1.35rem; height: 1.35rem; color: var(--teal-700); }
-.ask__field input { flex: 1; min-width: 0; height: 2.9rem; border: 0; outline: 0; background: none; font: 500 1.02rem/1 var(--f-body); }
+.ask__field input { flex: 1; min-width: 0; height: 2.9rem; border: 0; outline: 0; background: none; font: 500 1.02rem/1 var(--f-body); text-overflow: ellipsis; }
 .ask__field input::placeholder { color: var(--ink-3); }
 .ask__chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; }
 .chip { display: inline-flex; align-items: center; gap: 0.4rem; height: 2.25rem; padding: 0 0.95rem; border-radius: 999px; background: rgba(16, 36, 34, 0.045); font: 600 0.86rem/1 var(--f-body); color: var(--ink-2);
@@ -456,38 +456,30 @@ html[dir="rtl"] .tile .go { transform: scaleX(-1); }
   background: radial-gradient(closest-side, rgba(0, 160, 152, 0.12), rgba(0, 160, 152, 0.04) 62%, transparent); }
 html[dir="rtl"] .hero--calm::before { inset: 0 auto 0 -8%; }
 
-/* the hero's doctors turn (31.10.2026; js/motion.js): every 3 s the row moves one place — the right one steps into
-   the tall middle arch, the middle one to the left, the left one slides out, a new one comes in from the right; a
-   finger (or the mouse) pushes it either way. The three slots keep the arches' sizes (width W from the row's own
-   width, 4.15:3 at the sides, 5.4:3 in the middle); the row clips what leaves it. Without JavaScript the first three
-   stand as they always did and the rest are not shown. */
+/* the hero's doctors (05.11.2026; js/motion.js): a row the finger holds. Every doctor stands in a box of the tall arch's
+   size, and the script draws its place, the arch's top edge (a clip) and the portrait's size from its distance to the
+   middle, on the compositor, so nothing is laid out while it moves. Without JavaScript the first three stand as they
+   always did and the rest are not shown. --w comes from the script (a third of the row). On a phone the row runs out
+   to the screen's own edges; beside the text it stops at its own. */
 .crew > .arch:nth-child(n+4) { display: none; }
-.crew.is-live { display: block; container-type: inline-size; overflow: hidden; overflow: clip; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
-.crew.is-live::before { content: ""; display: block; height: calc((100cqi - 2 * var(--crew-gap)) / 3 * 1.8 + var(--cap)); }
-.crew.is-live > .arch { --w: calc((100cqi - 2 * var(--crew-gap)) / 3); position: absolute; bottom: 0; inset-inline-start: 0; display: block; width: var(--w); height: calc(var(--w) * 1.3833 + var(--cap));
-  animation: none; opacity: 0; visibility: hidden; pointer-events: none;
-  transform: translateX(calc(var(--pos, 3) * (var(--w) + var(--crew-gap)) * var(--dir, 1))); translate: var(--drag, 0px) 0;
-  transition: transform 1000ms var(--e-inout), height 1000ms var(--e-inout), opacity 700ms var(--e-out), translate 450ms var(--e-out), visibility 0s 1000ms; }
-.crew.is-live > .arch.is-in { opacity: 1; visibility: visible; pointer-events: auto;
-  transition: transform 1000ms var(--e-inout), height 1000ms var(--e-inout), opacity 700ms var(--e-out), translate 450ms var(--e-out), visibility 0s; }
-.crew.is-live > .arch.is-tall { height: calc(var(--w) * 1.8 + var(--cap)); }
-.crew.is-live .arch__pic, .crew.is-live .arch:nth-child(2) .arch__pic { aspect-ratio: auto; height: calc(100% - var(--cap)); }
+.crew.is-live { display: block; overflow: hidden; overflow: clip; touch-action: pan-y; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; animation: fade-in 800ms var(--e-out) both; }
+.crew.is-live::before { content: ""; display: block; height: calc(var(--w) * 1.8 + var(--cap)); }
+.crew.is-live > .arch { position: absolute; bottom: 0; inset-inline-start: 0; display: block; width: var(--w); height: calc(var(--w) * 1.8 + var(--cap)); animation: none; will-change: transform, opacity; }
+.crew.is-live .arch__pic, .crew.is-live .arch:nth-child(2) .arch__pic { position: absolute; inset: 0 0 var(--cap) 0; aspect-ratio: auto; border-radius: 0; }
+.crew.is-live .arch img { inset: auto auto 0 -15.05%; width: 130.1%; max-width: none; height: 94%; transform-origin: 50% 100%; transition: none; will-change: transform; -webkit-user-drag: none; }
+.crew.is-live figcaption { position: absolute; inset: auto 0 0 0; }
 .crew.is-live > .arch[hidden] { display: none; }
-.crew.is-live > .arch.is-jump, .crew.is-live.is-dragging > .arch { transition: none; }
-html[dir="rtl"] .crew.is-live { --dir: -1; }
-@media (prefers-reduced-motion: reduce) {
-  .crew.is-live > .arch, .crew.is-live > .arch.is-in { transition: opacity 300ms, visibility 0s 300ms; }
-}
+@media (hover: hover) and (pointer: fine) { .crew.is-live { cursor: grab; } .crew.is-live.is-dragging, .crew.is-live.is-dragging .arch__a { cursor: grabbing; } }
+@media (max-width: 980px) { .crew.is-live { overflow: visible; } }
 
 /* the blog (05.11.2026): the hospital's short pieces on its operations, on the home page between the doctors and the
    green band, and at /blog/. A piece whose text is yet to come says so and leads nowhere */
 .posts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 0.6rem + 1.2vw, 1.6rem); }
 .post { display: flex; flex-direction: column; border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; color: inherit;
   transition: transform var(--d-base) var(--e-out), box-shadow var(--d-base) var(--e-out); }
-a.post:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1px var(--mint-2), 0 22px 40px -28px rgba(11, 57, 54, 0.5); }
+@media (hover: hover) { a.post:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1px var(--mint-2), 0 22px 40px -28px rgba(11, 57, 54, 0.5); } a.post:hover .post__pic img { transform: scale(1.03); } }
 .post__pic { display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden; background: linear-gradient(160deg, var(--mint), var(--mint-2)); }
 .post__pic img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--d-slow) var(--e-out); }
-a.post:hover .post__pic img { transform: scale(1.03); }
 .post__i { display: grid; place-items: center; width: 4.6rem; height: 4.6rem; border-radius: 50%; background: var(--white); color: var(--teal-700); }
 .post__i .icon { width: 2.3rem; height: 2.3rem; }
 .post__t { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; padding: 1.15rem 1.25rem 1.3rem; }

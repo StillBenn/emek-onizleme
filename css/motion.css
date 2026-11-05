@@ -14,17 +14,45 @@
 html { scrollbar-color: rgba(11, 102, 96, 0.42) transparent; }
 body { overflow-x: clip; }
 
-/* ---- one page to the next: the page fades up, the header stays, shared pictures fly ---- */
+/* ---- one page to the next: the old page dissolves into the paper, the new one rises out of it; the header and the
+   phone's bar stay put; only the picture of the card that was opened flies (js/motion.js sets its name at the click) ---- */
 @view-transition { navigation: auto; }
+html { background: var(--paper); -webkit-tap-highlight-color: transparent; }
+a, button, summary, label { touch-action: manipulation; }
 .hdr { view-transition-name: hdr; }
 .dock { view-transition-name: dock; }
-::view-transition-old(root) { animation: 260ms var(--e-out) both vt-out; }
-::view-transition-new(root) { animation: 640ms var(--e-out) 40ms both vt-in; }
-::view-transition-group(*) { animation-duration: 700ms; animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1); }
+html.has-sheet .hdr, html.has-sheet .dock { view-transition-name: none; }      /* the open menu covers them: it leaves as one */
+::view-transition { background: var(--paper); }
+::view-transition-old(root) { animation: 280ms cubic-bezier(0.4, 0, 0.7, 0.2) both vt-out; }
+::view-transition-new(root) { animation: 820ms cubic-bezier(0.16, 1, 0.3, 1) 150ms both vt-in; }
+::view-transition-group(*) { animation-duration: 760ms; animation-timing-function: cubic-bezier(0.22, 1, 0.3, 1); }
 ::view-transition-old(hdr), ::view-transition-new(hdr), ::view-transition-old(dock), ::view-transition-new(dock) { animation: none; }
 @keyframes vt-out { to { opacity: 0; transform: translateY(-6px); } }
-@keyframes vt-in { from { opacity: 0; transform: translateY(16px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(14px); } }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+/* a browser without page transitions: the same idea, by hand */
+@supports not selector(::view-transition) {
+  main { animation: vt-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+html.is-leaving main, html.is-leaving .site-foot { opacity: 0; transition: opacity 180ms cubic-bezier(0.4, 0, 1, 1); }
+
+/* ---- a picture that was still loading arrives softly ---- */
+img.lz { opacity: 0; transition: opacity 700ms var(--e-out); }
+img.lz.lz-in { opacity: 1; }
+
+/* ---- a finger on a card: it gives a little, and comes back softly (no grey flash) ---- */
+@media (hover: none) {
+  :is(.tile, .post, .person, .way, .dept, .hubc, .lrow, .arow, .mini, .guide__list a, .doc__pic, .gal__i) { transition: transform 460ms var(--e-out); }
+  :is(.tile, .post, .person, .way, .dept, .hubc, .lrow, .arow, .mini, .guide__list a, .doc__pic):active { transform: scale(0.98); transition-duration: 140ms; }
+}
+
+/* ---- small menus open, they do not just appear ---- */
+.lang[open] .lang__menu { animation: menu-in 340ms var(--e-out) both; transform-origin: 90% 0; }
+html[dir="rtl"] .lang[open] .lang__menu { transform-origin: 10% 0; }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-6px) scale(0.97); } }
+.more { interpolate-size: allow-keywords; }
+.more::details-content { height: 0; overflow: clip; transition: height 460ms var(--e-out), content-visibility 460ms allow-discrete; }
+.more[open]::details-content { height: auto; }
 
 /* ---- the header: a reading line, a lighter logo once the page moves, a pill that follows the pointer ---- */
 .hdr__line { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, var(--teal), #5fc9bd); transform-origin: 0 50%; transform: scaleX(var(--read, 0)); opacity: 0;
@@ -200,3 +228,8 @@ body { overflow-x: clip; }
 html[data-motion="reduced"] *, html[data-motion="reduced"] *::before, html[data-motion="reduced"] *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; }
 html[data-motion="reduced"] { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) { .js-split .w > span { transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .sheet, .sheet.is-open { clip-path: none; transition: opacity 200ms, visibility 0s linear 200ms; }
+  .sheet { opacity: 0; } .sheet.is-open { opacity: 1; transition-delay: 0s; }
+  .sheet__nav a, .sheet__quick > *, .sheet__foot > *, .sheet.is-open .sheet__nav a, .sheet.is-open .sheet__quick > *, .sheet.is-open .sheet__foot > * { opacity: 1; transform: none; transition: none; }
+}

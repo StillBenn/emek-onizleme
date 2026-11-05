@@ -326,68 +326,74 @@
     mega.addEventListener("mouseenter", function () { clearTimeout(wait); });
   }
 
-  /* ---- the hero's doctors turn (31.10.2026): one place every 3 s, a finger pushes either way ----
-     Every figure in the row is a doctor (the page writes them all); three stand in the slots 0, 1 (the tall
-     middle) and 2, the rest wait off the row (slot 3 on the right, -1 on the left), their portraits asked for
-     only one turn ahead. A step moves each visible doctor one slot; the one that leaves slides out and fades,
-     the one that comes in waits just off the edge it comes from. The turning rests while the pointer is over
-     the row, while a link in it has the focus, while the row is off screen or the tab hidden, and under
-     "reduce motion" (a swipe still turns it). A doctor the panel took off the site (live.js sets [hidden])
-     drops out of the turn. */
+  /* ---- the hero's doctors: a row the finger holds (05.11.2026) ----
+     One number says where the row stands: pos, which doctor (a fraction while moving) is in the tall middle. Every
+     frame draws from it alone, so nothing can jump: a doctor's place, how tall its arch is and how large its portrait
+     all follow from its distance to the middle. A finger moves pos one to one and the next doctor comes in with it;
+     let go, a spring carries on at the finger's own speed to the nearest place. Every 3 s the same spring takes one
+     step. Only transforms, a clip and opacity change, on the few doctors near the middle. It rests while the pointer
+     is over the row, while a link in it has the focus, off screen, with the tab hidden and under "reduce motion" (a
+     swipe still turns it, without the glide). A doctor the panel took off the site (live.js sets [hidden]) drops out. */
   var crew = $("[data-crew]");
   var figs = crew ? $$(".arch", crew) : [];
-  if (figs.length > 3) {
-    var N = figs.length, STEP = 3000;
-    var rtl = function () { return html.getAttribute("dir") === "rtl"; };
-    var alive = function (i) { return !figs[i].hidden; };
-    var next = function (i, d) { for (var k = 1; k <= N; k++) { var j = ((i + d * k) % N + N) % N; if (alive(j)) return j; } return i; };
-    var count = function () { return figs.filter(function (f) { return !f.hidden; }).length; };
-    var load = function (i) { var im = $("img", figs[i]); if (im && !im.getAttribute("src") && im.dataset.src) { im.src = im.dataset.src; if (im.decode) im.decode().catch(function () {}); } };
-    var place = function (f, pos, on) {
-      f.style.setProperty("--pos", pos);
-      f.classList.toggle("is-tall", pos === 1);
-      f.classList.toggle("is-in", on);
-      f.inert = !on;
-      if (on) f.removeAttribute("aria-hidden"); else f.setAttribute("aria-hidden", "true");
-    };
-    var win = [0, 1, 2];
-    /* lay the row out from scratch: the window's three in their slots, the rest off it (no movement) */
-    var layout = function () {
-      if (!alive(win[0])) win[0] = next(win[0], 1);
-      win = [win[0], next(win[0], 1), next(next(win[0], 1), 1)];
-      figs.forEach(function (f) { f.classList.add("is-jump"); });
-      figs.forEach(function (f, i) { var k = win.indexOf(i); place(f, k < 0 ? 3 : k, k >= 0); });
-      void crew.offsetWidth;
-      figs.forEach(function (f) { f.classList.remove("is-jump"); });
-      win.forEach(load); load(next(win[2], 1)); load(next(win[0], -1));
-    };
-    var step = function (d) {
-      if (count() < 4) return;
-      var inc = d > 0 ? next(win[2], 1) : next(win[0], -1);
-      var out = d > 0 ? win[0] : win[2];
-      load(inc);
-      var f = figs[inc];
-      f.classList.add("is-jump"); place(f, d > 0 ? 3 : -1, false); void f.offsetWidth; f.classList.remove("is-jump");
-      win = d > 0 ? [win[1], win[2], inc] : [inc, win[0], win[1]];
-      place(figs[out], d > 0 ? -1 : 3, false);
-      win.forEach(function (i, k) { place(figs[i], k, true); });
-      load(d > 0 ? next(inc, 1) : next(inc, -1));          /* the next one's portrait, a turn ahead */
-    };
-
-    crew.classList.add("is-live");
-    figs.forEach(function (f, i) { f.classList.add("is-jump"); place(f, i < 3 ? i : 3, false); });
-    void crew.offsetWidth;
-    figs.forEach(function (f) { f.classList.remove("is-jump"); });
-    requestAnimationFrame(function () { win.forEach(function (i, k) { place(figs[i], k, true); }); });      /* the three fade in, as before */
-    load(next(2, 1)); load(next(0, -1));
-
-    /* the turning, and what rests it */
+  if (figs.length > 3) (function () {
+    var STEP = 3000, SIDE = 1.3833 / 1.8;            /* a side arch's height, as a share of the tall one's */
+    var SOFT = { k: 34, c: 11.7 }, FIRM = { k: 72, c: 15.6 };
+    var list = [], pos = 1, goal = 1, vel = 0, spring = SOFT, raf = 0, last = 0, W = 0, GAP = 0, T = 0, CORNER = 24;
     var timer = 0, over = false, focused = false, seen = true, dragging = false;
+    var rtl = function () { return html.getAttribute("dir") === "rtl"; };
+    var at = function (p) { var n = list.length; return list[((Math.round(p) % n) + n) % n]; };
+    var wrap = function (d) { var n = list.length; d = ((d % n) + n) % n; return d > n / 2 ? d - n : d; };
+    var load = function (f) { var im = f.img; if (im && !im.getAttribute("src") && im.dataset.src) { im.src = im.dataset.src; if (im.decode) im.decode().catch(function () {}); } };
+    figs.forEach(function (f) { f.pic = $(".arch__pic", f); f.img = $("img", f); });
+    var measure = function () {
+      GAP = parseFloat(getComputedStyle(crew).columnGap) || 0;
+      W = (crew.clientWidth - 2 * GAP) / 3; T = W * 1.8;
+      crew.style.setProperty("--w", W + "px");
+    };
+    var paint = function () {
+      var sgn = rtl() ? -1 : 1;
+      list.forEach(function (f, i) {
+        var d = wrap(i - pos), a = Math.abs(d);
+        if (a < 3.2) load(f);
+        if (a > 2.1) { if (f.style.display !== "none") { f.style.display = "none"; f.on = null; } return; }
+        if (f.style.display === "none") f.style.display = "";
+        var t = a < 1 ? 1 - a : 0; t = t * t * (3 - 2 * t);
+        f.style.transform = "translate3d(" + ((d + 1) * (W + GAP) * sgn).toFixed(2) + "px,0,0)";
+        f.style.opacity = a <= 1.12 ? 1 : Math.max(0, 1 - (a - 1.12) / 0.7).toFixed(3);
+        f.pic.style.clipPath = "inset(" + ((1 - t) * T * (1 - SIDE)).toFixed(2) + "px 0 0 0 round " + (W / 2).toFixed(1) + "px " + (W / 2).toFixed(1) + "px " + CORNER + "px " + CORNER + "px)";
+        f.img.style.transform = "scale(" + (SIDE + (1 - SIDE) * t).toFixed(4) + ")";
+        var on = a < 1.5;
+        if (f.on !== on) { f.on = on; f.inert = !on; f.classList.toggle("is-in", on); if (on) f.removeAttribute("aria-hidden"); else f.setAttribute("aria-hidden", "true"); }
+        f.classList.toggle("is-tall", a < 0.5);
+      });
+    };
+    var tick = function (now) {
+      raf = 0;
+      var dt = Math.min((now - last) / 1000, 1 / 30); last = now;
+      if (!dragging) {
+        vel += (-spring.k * (pos - goal) - spring.c * vel) * dt;
+        pos += vel * dt;
+        if (Math.abs(pos - goal) < 0.0005 && Math.abs(vel) < 0.01) { pos = goal; vel = 0; paint(); return; }
+      }
+      paint();
+      raf = requestAnimationFrame(tick);
+    };
+    var run = function () {
+      if (reduced() && !dragging) { pos = goal; vel = 0; paint(); return; }
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+    };
+    var go = function (d) { goal = Math.round(goal) + d; spring = SOFT; run(); };
     var arm = function () {
       clearTimeout(timer);
-      if (reduced() || over || focused || dragging || !seen || document.hidden || count() < 4) return;
-      timer = setTimeout(function () { step(1); arm(); }, STEP);
+      if (reduced() || over || focused || dragging || !seen || document.hidden || list.length < 4) return;
+      timer = setTimeout(function () { go(1); arm(); }, STEP);
     };
+
+    list = figs.filter(function (f) { return !f.hidden; });
+    crew.classList.add("is-live");
+    measure(); paint();
+    if ("ResizeObserver" in window) new ResizeObserver(function () { measure(); paint(); }).observe(crew);
     if (fine) {
       crew.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { over = true; arm(); } });
       crew.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { over = false; arm(); } });
@@ -396,34 +402,47 @@
     crew.addEventListener("focusout", function (e) { if (!crew.contains(e.relatedTarget)) { focused = false; arm(); } });
     document.addEventListener("visibilitychange", arm);
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; arm(); }, { threshold: 0.25 }).observe(crew);
-    /* a doctor the panel took off the site leaves the turn at once */
-    if ("MutationObserver" in window) new MutationObserver(function () { layout(); arm(); }).observe(crew, { attributes: true, attributeFilter: ["hidden"], subtree: true });
+    /* a doctor the panel took off the site leaves the row at once; whoever stood in the middle stays there */
+    if ("MutationObserver" in window) new MutationObserver(function () {
+      var mid = at(goal);
+      list = figs.filter(function (f) { return !f.hidden; });
+      pos = goal = Math.max(0, list.indexOf(mid)); vel = 0;
+      paint(); arm();
+    }).observe(crew, { attributes: true, attributeFilter: ["hidden"], subtree: true });
 
-    /* a finger (or the mouse) pushes the row: it follows a little, and past a short way it turns */
-    var id = null, sx = 0, sy = 0, dx = 0, moved = false;
-    crew.addEventListener("pointerdown", function (e) { if (e.button > 0) return; id = e.pointerId; sx = e.clientX; sy = e.clientY; dx = 0; moved = false; });
+    /* the finger: the row is under it, one to one; a sideways start takes the row, an upward one leaves the page scrolling */
+    var id = null, sx = 0, sy = 0, lx = 0, lt = 0, p0 = 0, rate = 0, moved = false;
+    crew.addEventListener("pointerdown", function (e) {
+      if (e.button > 0 || list.length < 4) return;
+      id = e.pointerId; sx = lx = e.clientX; sy = e.clientY; lt = e.timeStamp; rate = 0; moved = false;
+    });
     crew.addEventListener("pointermove", function (e) {
       if (e.pointerId !== id) return;
       var x = e.clientX - sx, y = e.clientY - sy;
       if (!dragging) {
-        if (Math.abs(y) > 12 && Math.abs(y) > Math.abs(x)) { id = null; return; }           /* the page is being scrolled */
-        if (Math.abs(x) < 8) return;
+        if (Math.abs(y) > 10 && Math.abs(y) > Math.abs(x)) { id = null; return; }
+        if (Math.abs(x) < 6) return;
         dragging = moved = true; crew.classList.add("is-dragging");
         try { crew.setPointerCapture(id); } catch (er) { /* the move still arrives */ }
-        arm();
+        clearTimeout(timer);
+        p0 = pos; vel = 0; sx = lx = e.clientX; lt = e.timeStamp;
       }
-      dx = x;
-      var lim = crew.clientWidth / 6;
-      crew.style.setProperty("--drag", (dx / (1 + Math.abs(dx) / lim)).toFixed(1) + "px");      /* follows, with a little give */
+      var unit = (W + GAP) * (rtl() ? -1 : 1), dtm = e.timeStamp - lt;
+      if (dtm > 0) { rate = rate * 0.55 + (-(e.clientX - lx) / unit / (dtm / 1000)) * 0.45; lx = e.clientX; lt = e.timeStamp; }
+      pos = p0 - (e.clientX - sx) / unit;
+      if (reduced()) paint(); else run();
     });
     var end = function (e) {
       if (e.pointerId !== id) return;
       id = null;
       if (!dragging) return;
       dragging = false; crew.classList.remove("is-dragging");
-      crew.style.setProperty("--drag", "0px");
-      if (Math.abs(dx) > Math.min(56, crew.clientWidth / 10)) step((dx < 0) !== rtl() ? 1 : -1);
-      arm();
+      var v = e.type === "pointercancel" || e.timeStamp - lt > 90 ? 0 : Math.max(-7, Math.min(7, rate));    /* a finger that rested throws nothing */
+      var from = Math.round(p0), to = Math.round(pos + v * 0.22);
+      if (to === from && Math.abs(pos - p0) > 0.16) to = from + (pos > p0 ? 1 : -1);                          /* a short push still turns it */
+      goal = Math.max(from - 2, Math.min(from + 2, to));
+      vel = v; spring = FIRM;
+      run(); arm();
     };
     crew.addEventListener("pointerup", end);
     crew.addEventListener("pointercancel", end);
@@ -431,12 +450,62 @@
     crew.addEventListener("dragstart", function (e) { e.preventDefault(); });
     /* the keyboard turns it too, from a link inside it */
     crew.addEventListener("keydown", function (e) {
-      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" || list.length < 4) return;
       e.preventDefault();
-      step((e.key === "ArrowRight") !== rtl() ? 1 : -1);
-      var a = $(".arch__a", figs[win[1]]);
+      go((e.key === "ArrowRight") !== rtl() ? 1 : -1);
+      var a = $(".arch__a", at(goal));
       if (a) a.focus({ preventScroll: true });
     });
     arm();
+  })();
+
+  /* ---- one page to the next ----
+     Only the picture of the card that was opened flies to the next page (every card flying at once read as clutter):
+     the card's data-vt becomes its view-transition name at the moment of the click. The page a finger or the pointer
+     is about to open is asked for ahead, so it is ready when the transition starts. A browser without page transitions
+     lets the page fade out before it goes. The name stays on while the patient is away, so that coming back the portrait
+     flies home to its card; once it has landed the card is plain again. */
+  var landed = function () { $$("[data-vt]").forEach(function (n) { n.style.viewTransitionName = ""; }); };
+  addEventListener("pagereveal", function (e) { if (e.viewTransition) e.viewTransition.finished.then(landed, landed); else landed(); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;
+    if (a.target || a.hasAttribute("download") || a.origin !== location.origin || (a.pathname === location.pathname && a.hash)) return;
+    var card = !a.classList.contains("doc__appt") && a.closest(".doc, .person, .dept");
+    var vt = card && $("[data-vt]", card);
+    landed();
+    if (vt) vt.style.viewTransitionName = vt.dataset.vt;
+    if (!("CSSViewTransitionRule" in window) && !reduced()) {
+      e.preventDefault();
+      html.classList.add("is-leaving");
+      setTimeout(function () { location.href = a.href; }, 190);
+    }
+  });
+  addEventListener("pageshow", function () { html.classList.remove("is-leaving"); });
+  var conn = navigator.connection;
+  if (!(conn && conn.saveData)) {
+    var asked = {}, soon = 0;
+    var ask = function (a) {
+      if (!a || !a.href || asked[a.href] || a.target || a.origin !== location.origin || a.pathname === location.pathname || /\.[a-z0-9]+$/i.test(a.pathname)) return;
+      asked[a.href] = 1;
+      var l = document.createElement("link"); l.rel = "prefetch"; l.as = "document"; l.href = a.href;
+      document.head.appendChild(l);
+    };
+    document.addEventListener("touchstart", function (e) { ask(e.target.closest && e.target.closest("a[href]")); }, { passive: true });
+    if (fine) {
+      document.addEventListener("pointerover", function (e) {
+        var a = e.target.closest && e.target.closest("a[href]");
+        clearTimeout(soon);
+        if (a) soon = setTimeout(function () { ask(a); }, 70);
+      });
+    }
   }
+
+  /* ---- pictures that were still loading arrive softly instead of popping in ---- */
+  $$("img[loading=lazy]").forEach(function (im) {
+    if (im.complete || reduced()) return;
+    im.classList.add("lz");
+    var show = function () { im.classList.add("lz-in"); };
+    im.addEventListener("load", show); im.addEventListener("error", show);
+  });
 })();

@@ -48,8 +48,12 @@
 .er:hover .pulse { background: var(--white); }
 .burger { display: none; }
 @media (max-width: 1240px) { .tool--kbd span, .tool--kbd kbd { display: none; } .tool--kbd { width: 2.6rem; padding: 0; justify-content: center; } .er small { display: none; } }
-@media (max-width: 1240px) { .nav, .tools .lang, .tools .btn--appt { display: none; } .burger { display: inline-grid; } }
+/* the departments panel goes with the menu it opens from: hidden but still laid out, its 20rem column made every page wider than a 360 px phone */
+@media (max-width: 1240px) { .nav, .tools .lang, .tools .btn--appt, .mega { display: none; } .burger { display: inline-grid; } }
 @media (max-width: 760px) { .tools { gap: 0.35rem; } .er { height: 2.4rem; padding: 0 0.75rem 0 0.65rem; gap: 0.45rem; font-size: 0.82rem; } }
+@media (max-width: 372px) { .er { padding: 0 0.6rem 0 0.5rem; gap: 0.35rem; font-size: 0.78rem; } }
+/* the other languages' emergency label is longer than the Turkish one: on the narrowest phones search gives up its place in the header; it is also in the menu */
+@media (max-width: 358px) { html:not([lang="tr"]) .tools > [data-finder] { display: none; } }
 
 /* ---- the departments menu (a panel under the header) ---- */
 .mega { position: absolute; left: 0; right: 0; top: var(--hdr); background: var(--paper); box-shadow: inset 0 1px 0 var(--line), 0 40px 60px -40px rgba(11, 57, 54, 0.4);
@@ -99,11 +103,18 @@
 .finder__note { margin: 0.4rem 0.8rem 0; padding: 0.8rem 1rem; border-radius: 14px; background: var(--red-soft); color: #8c2426; font-size: 0.86rem; }
 
 /* ---- the menu sheet (narrow screens) ---- */
-.sheet { position: fixed; inset: 0; z-index: 110; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--paper); transform: translateY(-2%); opacity: 0; visibility: hidden;
-  transition: opacity var(--d-base) var(--e-out), transform var(--d-slow) var(--e-out), visibility 0s linear var(--d-base); }
-.sheet.is-open { opacity: 1; transform: none; visibility: visible; transition-delay: 0s; }
+.sheet { position: fixed; inset: 0; z-index: 110; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--paper); visibility: hidden;
+  clip-path: inset(0 0 100% 0 round 0 0 36px 36px); transition: clip-path 460ms cubic-bezier(0.5, 0, 0.2, 1), visibility 0s linear 460ms; }
+.sheet.is-open { visibility: visible; clip-path: inset(0 0 0 0 round 0 0 0 0); transition: clip-path 780ms cubic-bezier(0.22, 1, 0.3, 1), visibility 0s; }
+/* what is inside rises after the sheet, one line after another; leaving, it simply goes first */
+.sheet__nav a, .sheet__quick > *, .sheet__foot > * { opacity: 0; transform: translateY(20px); transition: opacity 200ms ease-in, transform 260ms ease-in; }
+.sheet.is-open :is(.sheet__nav a, .sheet__quick > *, .sheet__foot > *) { opacity: 1; transform: none;
+  transition: opacity 620ms var(--e-out) calc(130ms + var(--i, 0) * 48ms), transform 860ms cubic-bezier(0.22, 1, 0.3, 1) calc(130ms + var(--i, 0) * 48ms); }
+.sheet [data-close] { rotate: -90deg; opacity: 0; transition: rotate 300ms ease-in, opacity 200ms; }
+.sheet.is-open [data-close] { rotate: 0deg; opacity: 1; transition: rotate 760ms cubic-bezier(0.22, 1, 0.3, 1) 120ms, opacity 400ms 120ms; }
+.sheet__nav a:active { color: var(--teal-700); }
 .sheet__top { height: var(--hdr); display: flex; align-items: center; justify-content: space-between; padding-inline: var(--pad); box-shadow: inset 0 -1px 0 var(--line); }
-.sheet__top img { height: 44px; width: auto; }
+.sheet__top img { height: clamp(50px, 44px + 0.9vw, 66px); width: auto; }
 .sheet__body { overflow: auto; padding: 1.2rem var(--pad) 2rem; display: grid; gap: 1.4rem; align-content: start; }
 .sheet__nav { display: grid; }
 .sheet__nav a { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; font: 450 1.55rem/1.1 var(--f-display); box-shadow: inset 0 -1px 0 var(--line); }
@@ -163,7 +174,8 @@
 .finder__field .mic { margin-inline-end: 0.2rem; }
 
 /* ---- what the panel puts on the site (js/live.js) ------------------------ */
-.hp { position: absolute !important; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+/* hidden by clipping, not by moving it far off to the left: in Arabic the page scrolls towards the left, and a field 10000 px out made a phone lay the whole page out 10000 px wide */
+.hp { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .annbar { position: relative; z-index: 61; background: var(--teal-900); color: rgba(255, 255, 255, 0.86); font-size: 0.92rem; animation: annbar-in 420ms var(--e-out); }
 .annbar.is-out { opacity: 0; transform: translateY(-100%); transition: opacity 300ms, transform 300ms var(--e-out); }
 @keyframes annbar-in { from { opacity: 0; transform: translateY(-100%); } }

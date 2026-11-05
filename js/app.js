@@ -72,13 +72,19 @@
     if (!sheet) return;
     sheet.classList.toggle("is-open", on);
     sheet.setAttribute("aria-hidden", String(!on));
+    html.classList.toggle("has-sheet", on);
     html.style.overflow = on ? "hidden" : "";
     $$("body > :not(.sheet):not(script)").forEach(function (n) { n.inert = on; });
     if (on) { lastFocus = document.activeElement; setTimeout(function () { var c = $(".sheet [data-close]"); if (c) c.focus(); }, 60); }
     else if (lastFocus) lastFocus.focus();
   }
   $$("[data-menu]").forEach(function (b) { b.addEventListener("click", function () { sheetSet(true); }); });
-  if (sheet) $$("[data-close], .sheet__nav a", sheet).forEach(function (b) { b.addEventListener("click", function () { sheetSet(false); }); });
+  if (sheet) {
+    $$("[data-close]", sheet).forEach(function (b) { b.addEventListener("click", function () { sheetSet(false); }); });
+    /* a link in the sheet leaves the sheet open: the next page dissolves in from it; back on this page, it is closed */
+    $$(".sheet__nav a, .sheet__quick > *, .sheet__foot > *", sheet).forEach(function (n, i) { n.style.setProperty("--i", i); });
+    addEventListener("pageshow", function (e) { if (e.persisted && sheet.classList.contains("is-open")) sheetSet(false); });
+  }
 
   /* ---- the phone's action bar: after the first screen, out of the way of the footer's own links ---- */
   var dock = $(".dock"), foot = $(".site-foot");

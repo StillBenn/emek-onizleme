@@ -18,7 +18,7 @@
 /* ---- an article with a sticky side ---- */
 .split { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start; }
 .side { position: sticky; top: calc(var(--hdr) + 1.2rem); display: grid; gap: 1rem; }
-@media (max-width: 1000px) { .split { grid-template-columns: 1fr; } .side { position: static; } }
+@media (max-width: 1000px) { .split { grid-template-columns: minmax(0, 1fr); } .side { position: static; } }
 .card { padding: 1.4rem; border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 0.9rem; }
 .card--night { background: var(--teal-900); color: #e6f2ef; box-shadow: none; }
 .card--night p { color: rgba(230, 242, 239, 0.74); }
@@ -31,7 +31,7 @@
 .mini small { color: var(--ink-3); font-size: 0.82rem; }
 
 /* prose: the hospital's own words, set to be read */
-.prose { font-size: 1.07rem; line-height: 1.75; color: var(--ink-2); max-width: 44rem; }
+.prose { font-size: 1.07rem; line-height: 1.75; color: var(--ink-2); max-width: 44rem; overflow-wrap: anywhere; }
 .prose > * + * { margin-top: 1.1em; }
 .prose h2 { margin-top: 2.2em; font: 450 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.2 var(--f-display); font-variation-settings: "opsz" 72; letter-spacing: -0.015em; color: var(--ink); }
 .prose h3 { margin-top: 1.8em; font: 650 1.12rem/1.35 var(--f-body); color: var(--ink); }
@@ -378,7 +378,7 @@ html[dir="rtl"] .hubc:hover .go { transform: translateX(-3px) scaleX(-1); }
 /* one card of the site's own: its heading, then the system's fields alone (js/sonuc.js picks the system's layout for
    the card's width and frames only its fields: --iw frame width, --x0/--crop the part cut off left/top, --w/--v the
    part shown, --k its scale; the defaults are the system's 700 px layout), then the note */
-.lab { display: grid; gap: 1.4rem; padding: clamp(1.3rem, 0.9rem + 1.6vw, 2.2rem); border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-2); }
+.lab { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.4rem; padding: clamp(1.3rem, 0.9rem + 1.6vw, 2.2rem); border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-2); }
 .lab__head { display: flex; align-items: flex-start; gap: 1rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--line); }
 .lab__ic { flex: none; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 14px; background: var(--mint); color: var(--teal-700); }
 .lab__ic .icon { width: 1.35rem; height: 1.35rem; }
@@ -415,6 +415,6 @@ html[dir="rtl"] .card--link .go { transform: scaleX(-1); }
 .gal__i:first-child { grid-column: span 2; grid-row: span 2; }
 .gal__i:nth-child(n+6) { grid-column: span 2; }
 .gal__i img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform var(--d-slow) var(--e-out); }
-.gal__i:hover img { transform: scale(1.03); }
+@media (hover: hover) { .gal__i:hover img { transform: scale(1.03); } }
 .gal__i figcaption { position: absolute; inset-inline-start: 0.6rem; bottom: 0.6rem; padding: 0.32rem 0.65rem; border-radius: 999px; background: rgba(255, 255, 255, 0.92); font: 600 0.78rem/1.2 var(--f-body); color: var(--ink); }
 @media (max-width: 860px) { .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
