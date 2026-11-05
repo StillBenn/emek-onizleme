@@ -50,16 +50,13 @@ img.lz.lz-in { opacity: 1; }
 .lang[open] .lang__menu { animation: menu-in 340ms var(--e-out) both; transform-origin: 90% 0; }
 html[dir="rtl"] .lang[open] .lang__menu { transform-origin: 10% 0; }
 @keyframes menu-in { from { opacity: 0; transform: translateY(-6px) scale(0.97); } }
-.more { interpolate-size: allow-keywords; }
-.more::details-content { height: 0; overflow: clip; transition: height 460ms var(--e-out), content-visibility 460ms allow-discrete; }
-.more[open]::details-content { height: auto; }
 
 /* ---- the header: a reading line, a lighter logo once the page moves, a pill that follows the pointer ---- */
 .hdr__line { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, var(--teal), #5fc9bd); transform-origin: 0 50%; transform: scaleX(var(--read, 0)); opacity: 0;
   transition: opacity var(--d-base); pointer-events: none; }
 .hdr.is-stuck .hdr__line { opacity: 1; }
 .brand img { transition: height var(--d-slow) var(--e-out); }
-.hdr.is-stuck .brand img { height: clamp(46px, 41px + 0.6vw, 54px); }
+.hdr.is-stuck .brand img { height: clamp(58px, 51px + 0.75vw, 68px); }
 .nav { position: relative; }
 .nav__pill { position: absolute; top: 50%; left: 0; height: 2.6rem; width: 0; margin-top: -1.3rem; border-radius: 999px; background: rgba(16, 36, 34, 0.06); opacity: 0; pointer-events: none;
   transition: transform 420ms var(--e-out), width 420ms var(--e-out), opacity 220ms; }

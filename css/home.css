@@ -371,7 +371,7 @@
    screen's height as well as its width (vh), so a 1366x768 laptop sees the four cards like a 1920x1080
    monitor does; on very short screens it stops shrinking and simply scrolls. --stage is the height of
    the tallest arch; the three arches take their width from it. */
-.hero--calm { --stage: clamp(15rem, 100vh - 32rem, 25rem); padding: clamp(1rem, 10vh - 2.7rem, 4.5rem) 0 clamp(0.4rem, 3vh - 1rem, 2rem); }
+.hero--calm { --stage: clamp(15rem, 100vh - 32rem, 25rem); padding: clamp(0.5rem, 10vh - 3.2rem, 4rem) 0 clamp(0.4rem, 3vh - 1rem, 2rem); }
 .hero--calm .hero__in { gap: clamp(2rem, 1rem + 3vw, 4.5rem); }
 .hero--calm .hero__text { gap: clamp(0.85rem, 3vh - 0.6rem, 1.5rem); }
 .hero--calm .hero__title { font-size: min(var(--t-hero), max(2.7rem, 9vh)); }

@@ -9,7 +9,7 @@
 .hdr.is-stuck { box-shadow: inset 0 -1px 0 var(--line), 0 12px 30px -24px rgba(16, 36, 34, 0.4); }
 .hdr__in { height: 100%; display: flex; align-items: center; gap: clamp(1rem, 0.4rem + 1.6vw, 2.4rem); padding-inline: var(--pad); }
 .brand { display: flex; align-items: center; flex: none; margin-inline-end: auto; }
-.brand img { height: clamp(50px, 44px + 0.9vw, 66px); width: auto; }
+.brand img { height: clamp(62px, 55px + 1.125vw, 82px); width: auto; }
 .nav { display: flex; align-items: center; gap: clamp(0.2rem, 0.1rem + 0.5vw, 0.8rem); }
 .nav__a { position: relative; display: inline-flex; align-items: center; gap: 0.3rem; height: 2.6rem; padding: 0 0.7rem; border-radius: 999px; font: 600 0.94rem/1 var(--f-body); color: var(--ink-2);
   transition: color var(--d-fast) var(--e-out), background var(--d-fast) var(--e-out); }
@@ -54,6 +54,9 @@
 @media (max-width: 372px) { .er { padding: 0 0.6rem 0 0.5rem; gap: 0.35rem; font-size: 0.78rem; } }
 /* the other languages' emergency label is longer than the Turkish one: on the narrowest phones search gives up its place in the header; it is also in the menu */
 @media (max-width: 358px) { html:not([lang="tr"]) .tools > [data-finder] { display: none; } }
+@media (max-width: 400px) { html[lang="en"] .tools > [data-finder] { display: none; } }
+@media (max-width: 340px) { .tools > [data-finder] { display: none; } }
+@media (max-width: 340px) { html[lang="en"] .er .pulse { display: none; } }
 
 /* ---- the departments menu (a panel under the header) ---- */
 .mega { position: absolute; left: 0; right: 0; top: var(--hdr); background: var(--paper); box-shadow: inset 0 1px 0 var(--line), 0 40px 60px -40px rgba(11, 57, 54, 0.4);
@@ -114,7 +117,7 @@
 .sheet.is-open [data-close] { rotate: 0deg; opacity: 1; transition: rotate 760ms cubic-bezier(0.22, 1, 0.3, 1) 120ms, opacity 400ms 120ms; }
 .sheet__nav a:active { color: var(--teal-700); }
 .sheet__top { height: var(--hdr); display: flex; align-items: center; justify-content: space-between; padding-inline: var(--pad); box-shadow: inset 0 -1px 0 var(--line); }
-.sheet__top img { height: clamp(50px, 44px + 0.9vw, 66px); width: auto; }
+.sheet__top img { height: clamp(62px, 55px + 1.125vw, 82px); width: auto; }
 .sheet__body { overflow: auto; padding: 1.2rem var(--pad) 2rem; display: grid; gap: 1.4rem; align-content: start; }
 .sheet__nav { display: grid; }
 .sheet__nav a { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; font: 450 1.55rem/1.1 var(--f-display); box-shadow: inset 0 -1px 0 var(--line); }
@@ -140,7 +143,20 @@
 .site-foot { background: var(--teal-900); color: rgba(232, 244, 241, 0.84); padding: clamp(3.5rem, 2.5rem + 4vw, 6rem) 0 2rem; }
 .foot__top { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr)); gap: 2.4rem clamp(1.5rem, 1rem + 2vw, 3.5rem); }
 .foot__brand { display: grid; gap: 1.1rem; align-content: start; }
-.foot__brand img { width: 10.5rem; height: auto; padding: 0.7rem 0.95rem; border-radius: 18px; background: var(--white); box-sizing: content-box; }
+/* the logo in the footer: only its mark ("g") is white, and comes alive in its own colours under the pointer; the hospital's name
+   below it never changes. One picture, cut at the empty rows between the two (61% of its height) */
+.foot__logo { position: relative; justify-self: start; display: block; width: 13.1rem; }
+.foot__logo img { display: block; width: 100%; height: auto; }
+.foot__logo-n { clip-path: inset(61% 0 0 0); filter: brightness(1.5); }   /* the logo's own grey, lifted: unchanged it is 2.4:1 on this green, 4.9:1 now */
+.foot__logo-w, .foot__logo-c { position: absolute; inset: 0; clip-path: inset(0 0 39% 0); transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.foot__logo-c { opacity: 0; }
+.foot__logo:focus-visible .foot__logo-c { opacity: 1; transform: translateY(-2px); }
+.foot__logo:focus-visible .foot__logo-w { opacity: 0; transform: translateY(-2px); }
+@media (hover: hover) {
+  .foot__logo:hover .foot__logo-c { opacity: 1; transform: translateY(-2px); }
+  .foot__logo:hover .foot__logo-w { opacity: 0; transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) { .foot__logo-w, .foot__logo-c { transition: none; } .foot__logo:hover :is(.foot__logo-w, .foot__logo-c), .foot__logo:focus-visible :is(.foot__logo-w, .foot__logo-c) { transform: none; } }
 .foot__brand p { font: 400 1.35rem/1.3 var(--f-display); color: var(--white); max-width: 18rem; }
 .foot__col h3 { margin-bottom: 1rem; font: 700 0.72rem/1 var(--f-body); letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232, 244, 241, 0.68); }
 .foot__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
