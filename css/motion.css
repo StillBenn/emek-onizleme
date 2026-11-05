@@ -130,7 +130,7 @@ html[dir="rtl"] .lang[open] .lang__menu { transform-origin: 10% 0; }
   :is(.dept, .hubc, .arow, .lrow, .way, .guide__list a, .opt):hover :is(.dept__i, .lrow__i, .gi, .di) { background: var(--teal-700); color: var(--white); rotate: -8deg; scale: 1.06; }
   .qa:hover .qa__i { background: var(--teal-700); color: var(--white); rotate: -8deg; scale: 1.06; }
   .qa--er:hover .qa__i { background: var(--red); }
-  .dept--all:hover .dept__i, .way--main:hover .di, .hubc--ext:hover .dept__i { background: var(--teal); color: var(--white); }
+  .dept--all:hover .dept__i, .way--main:hover .di { background: var(--teal); color: var(--white); }
   .dept:hover .faces img { translate: 0 -3px; }
 }
 :is(.dept__i, .lrow__i, .gi, .di, .qa__i) { transition: background-color 450ms var(--e-out), color 450ms var(--e-out), rotate 700ms var(--glide), scale 700ms var(--glide); }

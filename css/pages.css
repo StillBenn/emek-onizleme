@@ -13,6 +13,10 @@
 .phead__in { position: relative; display: grid; gap: 1.2rem; max-width: 52rem; }
 .phead h1 { font: 350 clamp(2.4rem, 1.4rem + 3.6vw, 4.4rem)/1.02 var(--f-display); font-variation-settings: "opsz" 144; letter-spacing: -0.03em; text-wrap: balance; }
 .phead h1 em { font-style: italic; color: var(--teal-600); }
+/* an article's title is a whole sentence: it reads as a title, not as a poster */
+.phead--post .phead__in { max-width: 60rem; }
+.phead--post h1 { font-size: clamp(2rem, 1.35rem + 2.3vw, 3.3rem); line-height: 1.08; letter-spacing: -0.025em; }
+.phead--post h1 em { display: block; }
 .phead__acts { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
 
 /* ---- an article with a sticky side ---- */
@@ -33,6 +37,18 @@
 /* prose: the hospital's own words, set to be read */
 .prose { font-size: 1.07rem; line-height: 1.75; color: var(--ink-2); max-width: 44rem; overflow-wrap: anywhere; }
 .prose > * + * { margin-top: 1.1em; }
+/* a blog article: the hospital's picture, its numbered points, its questions, its closing note */
+.prose .post-cover { margin: 0 0 1.9em; }
+.post-cover img { display: block; width: 100%; height: auto; border-radius: var(--r-lg); background: var(--mint); box-shadow: 0 34px 60px -44px rgba(11, 57, 54, 0.6); }
+.prose h2 { counter-reset: point; }
+.prose h3.num { counter-increment: point; display: flex; align-items: flex-start; gap: 0.7rem; }
+.prose h3.num::before { content: counter(point); flex: none; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; margin-top: -0.12rem; border-radius: 50%; background: var(--mint); color: var(--teal-700); font: 700 0.84rem/1 var(--f-body); }
+.prose .pq { padding: 1.05rem 1.25rem 1.15rem; border-radius: var(--r-lg); background: var(--white); box-shadow: inset 0 0 0 1px var(--line); }
+.prose .pq h3 { margin-top: 0; }
+.prose .pq p { margin-top: 0.45em; }
+.prose h2 + .pq { margin-top: 1.4em; }
+.prose .pq + .pq { margin-top: 0.75rem; }
+.prose .post-note { margin-top: 2em; padding-top: 1.1em; border-top: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--ink-3); }
 .prose h2 { margin-top: 2.2em; font: 450 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.2 var(--f-display); font-variation-settings: "opsz" 72; letter-spacing: -0.015em; color: var(--ink); }
 .prose h3 { margin-top: 1.8em; font: 650 1.12rem/1.35 var(--f-body); color: var(--ink); }
 .prose ul { padding: 0; list-style: none; display: grid; gap: 0.55em; }
@@ -216,10 +232,6 @@
 .person b { font: 450 1.2rem/1.3 var(--f-display); color: var(--ink); }
 .hub--in { grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
 .hub--in .hubc h3 { font: 450 1.12rem/1.25 var(--f-display); color: var(--ink); }
-.hubc--ext { background: var(--teal-900); box-shadow: none; }
-.hubc--ext h2 { color: var(--white); }
-.hubc--ext p { color: rgba(230, 242, 239, 0.72); }
-.hubc--ext .dept__i { background: rgba(255, 255, 255, 0.1); color: #8fd6cd; }
 .mv { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
 .mv__i { padding: 1.5rem; border-radius: var(--r-lg); background: var(--mint); display: grid; gap: 0.8rem; align-content: start; }
 .mv__t { font: 400 clamp(1.15rem, 1rem + 0.5vw, 1.4rem)/1.4 var(--f-display); color: var(--teal-900); }
@@ -355,7 +367,6 @@ fieldset.is-bad legend { color: var(--red); }
 .hubc { position: relative; }
 .hubc .go { position: absolute; top: 1.5rem; inset-inline-end: 1.4rem; width: 1.1rem; height: 1.1rem; color: var(--ink-3); transition: transform var(--d-base) var(--e-out), color var(--d-base); }
 .hubc:hover .go { transform: translateX(3px); color: var(--teal-700); }
-.hubc--ext .go, .hubc--ext:hover .go { color: #8fd6cd; }
 html[dir="rtl"] .hubc .go { transform: scaleX(-1); }
 html[dir="rtl"] .hubc:hover .go { transform: translateX(-3px) scaleX(-1); }
 
@@ -375,6 +386,73 @@ html[dir="rtl"] .hubc:hover .go { transform: translateX(-3px) scaleX(-1); }
 
 /* my results: the hospital's results system framed inside the page, without its own logo and step bar */
 .results { align-items: start; }
+/* the job application: the hospital's paper form, section by section (js/basvuru.js) */
+.jobcta { display: grid; justify-items: start; gap: 0.9rem; }
+.jobcta .head { margin-bottom: 0; }
+.jobcta__t { font-size: 1.08rem; color: var(--ink-2); }
+.jobcta__a .icon:first-child { width: 1.2rem; height: 1.2rem; }
+.jobcta__a .icon:last-child { width: 1rem; height: 1rem; }
+html[dir="rtl"] .jobcta__a .icon:last-child { transform: scaleX(-1); }
+.jobmain, .jobf { min-width: 0; }
+.jobf { display: grid; gap: 1rem; }
+.jobs { gap: 1.1rem; padding: clamp(1.2rem, 0.9rem + 1vw, 1.8rem); scroll-margin-top: calc(var(--hdr) + 1rem); }
+.card.jobs > h2 { display: grid; gap: 0.25rem; font-size: clamp(1.3rem, 1.15rem + 0.5vw, 1.55rem); }
+.jobs > h2 small { font: 500 0.88rem/1.4 var(--f-body); color: var(--ink-3); }
+.jobs fieldset { min-width: 0; border: 0; margin: 0; padding: 0; }
+.jobs__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem 1rem; align-items: start; }
+.jobs__grid--one { grid-template-columns: minmax(0, 1fr); }
+.jobs .wide { grid-column: 1 / -1; }
+.jobs .is-off { display: none; }
+.jobs .field > span { line-height: 1.35; }
+.jobs .choice legend { margin-bottom: 0.45rem; font: 650 0.86rem/1.35 var(--f-body); color: var(--ink-2); }
+.jobs .field input[readonly] { background: var(--paper-2); color: var(--ink-2); }
+.jobs .field textarea { min-height: 5.2rem; }
+.jobs .field em:empty { display: none; }
+.jobs .field.is-bad textarea { box-shadow: inset 0 0 0 2px var(--red); }
+.jobhead { display: grid; grid-template-columns: minmax(0, 1fr) 9.5rem; gap: 1.2rem; align-items: start; }
+.jphoto-wrap { display: grid; gap: 0.4rem; justify-items: center; }
+.jphoto { position: relative; display: block; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--line-2); cursor: pointer; transition: box-shadow var(--d-fast); }
+.jphoto:hover, .jphoto:focus-within { box-shadow: inset 0 0 0 2px var(--teal); }
+.jphoto input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.jphoto img { display: none; width: 100%; height: 100%; object-fit: cover; }
+.jphoto.has-photo img { display: block; }
+.jphoto.has-photo .jphoto__empty { display: none; }
+.jphoto__empty { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0.3rem; padding: 0.6rem; text-align: center; pointer-events: none; color: var(--ink-2); }
+.jphoto__empty .icon { width: 1.5rem; height: 1.5rem; color: var(--teal-700); }
+.jphoto__empty b { font: 650 0.82rem/1.25 var(--f-body); }
+.jphoto__empty small { font-size: 0.74rem; color: var(--ink-3); }
+.jphoto__clear { font: 600 0.8rem/1.2 var(--f-body); color: var(--teal-700); text-decoration: underline; }
+.jphoto__err { font-style: normal; font-size: 0.78rem; line-height: 1.35; color: var(--red); text-align: center; }
+.jphoto__err:empty { display: none; }
+.jtable { display: grid; gap: 0.5rem; }
+.jtable__row { display: grid; grid-template-columns: var(--cols); gap: 0.6rem; align-items: center; }
+.jtable__head { font: 650 0.8rem/1.25 var(--f-body); color: var(--ink-2); align-items: end; }
+.jtable__row > b { font: 600 0.9rem/1.25 var(--f-body); color: var(--ink); }
+.jtable .field { gap: 0; }
+.jtable .field > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.jtable .field input { min-height: 2.8rem; padding: 0.6rem 0.8rem; border-radius: 12px; }
+.jlangs { display: grid; gap: 0.8rem; }
+.jlang { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.8rem 1rem; align-items: end; }
+.jlang legend { margin-bottom: 0.45rem; font: 650 0.86rem/1 var(--f-body); color: var(--ink-2); }
+.jobs--end { gap: 1rem; }
+.jobs--end .navrow { align-items: center; flex-wrap: wrap; }
+.form__note i, .jobs .field > span i { font-style: normal; color: var(--red); }
+.jobs .btn.is-busy { opacity: 0.6; pointer-events: none; }
+.jobsent { justify-items: start; gap: 0.8rem; padding: clamp(1.6rem, 1.2rem + 1.4vw, 2.6rem); }
+.jobsent:focus { outline: none; }
+.jobsent .formsent__mark { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: var(--mint); color: var(--teal-700); }
+.card.jobsent > h2 { font-size: clamp(1.7rem, 1.4rem + 1vw, 2.3rem); }
+.jobsent__note { padding: 0.8rem 1rem; border-radius: 12px; background: var(--paper-2); font-size: 0.92rem; color: var(--ink-2); }
+@media (max-width: 760px) {
+  .jobs__grid { grid-template-columns: minmax(0, 1fr); }
+  .jtable__head { display: none; }
+  .jtable__row { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; padding: 0.9rem; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+  .jtable .field { gap: 0.4rem; }
+  .jtable .field > span { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; }
+  .jlang { grid-template-columns: minmax(0, 1fr); padding: 0.9rem; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+}
+@media (max-width: 480px) { .jobhead { grid-template-columns: minmax(0, 1fr) 6.6rem; gap: 0.8rem; } .jphoto__empty small { display: none; } }
+
 /* one card of the site's own: its heading, then the system's fields alone (js/sonuc.js picks the system's layout for
    the card's width and frames only its fields: --iw frame width, --x0/--crop the part cut off left/top, --w/--v the
    part shown, --k its scale; the defaults are the system's 700 px layout), then the note */

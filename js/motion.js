@@ -471,7 +471,7 @@
     var a = e.target.closest && e.target.closest("a[href]");
     if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;
     if (a.target || a.hasAttribute("download") || a.origin !== location.origin || (a.pathname === location.pathname && a.hash)) return;
-    var card = !a.classList.contains("doc__appt") && a.closest(".doc, .person, .dept");
+    var card = !a.classList.contains("doc__appt") && a.closest(".doc, .person, .dept, .post");
     var vt = card && $("[data-vt]", card);
     landed();
     if (vt) vt.style.viewTransitionName = vt.dataset.vt;
