@@ -408,3 +408,13 @@ html[dir="rtl"] .lab__scale { left: 0; right: auto; }
 .card--link:hover .go { transform: translateX(3px); color: var(--teal-700); }
 html[dir="rtl"] .card--link .go { transform: scaleX(-1); }
 @media (max-width: 1000px) { .results .side { order: 2; } }
+
+/* the hospital from inside (/hakkimizda/hastane-ici-gorseller/): the first picture large, the rest beside and under it */
+.gal { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.7rem, 0.4rem + 0.9vw, 1.2rem); }
+.gal__i { position: relative; margin: 0; overflow: hidden; border-radius: var(--r-lg); background: var(--mint); }
+.gal__i:first-child { grid-column: span 2; grid-row: span 2; }
+.gal__i:nth-child(n+6) { grid-column: span 2; }
+.gal__i img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform var(--d-slow) var(--e-out); }
+.gal__i:hover img { transform: scale(1.03); }
+.gal__i figcaption { position: absolute; inset-inline-start: 0.6rem; bottom: 0.6rem; padding: 0.32rem 0.65rem; border-radius: 999px; background: rgba(255, 255, 255, 0.92); font: 600 0.78rem/1.2 var(--f-body); color: var(--ink); }
+@media (max-width: 860px) { .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

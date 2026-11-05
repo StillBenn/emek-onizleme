@@ -212,7 +212,7 @@
     var listen = function (btn) {
       if (listening) { listening.stop(); return; }
       if (!finder.classList.contains("is-open")) finderSet(true, "");
-      var r = new Rec(); r.lang = { en: "en-GB", ar: "ar-SA" }[html.lang] || "tr-TR"; r.interimResults = true; r.maxAlternatives = 1;
+      var r = new Rec(); r.lang = { en: "en-GB", de: "de-DE", ar: "ar-SA" }[html.lang] || "tr-TR"; r.interimResults = true; r.maxAlternatives = 1;
       listening = r; $$("[data-voice]").forEach(function (x) { x.classList.add("is-on"); });
       var was = fin.placeholder; fin.placeholder = T("Dinliyorum… şikâyetinizi söyleyin");
       r.onresult = function (e) { var t = ""; for (var i = 0; i < e.results.length; i++) t += e.results[i][0].transcript; fin.value = t; draw(t); };

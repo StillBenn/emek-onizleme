@@ -39,7 +39,7 @@
   var toast = function (m, i) { if (window.EMEKtoast) window.EMEKtoast(m, i); };
   var EASE = "cubic-bezier(.22,1,.36,1)";
   /* dates in the page's own language, from the browser (Arabic with the digits on the phone's keypad) */
-  var LOC = { en: "en-GB", ar: "ar-u-nu-latn" }[html.lang] || "tr-TR";
+  var LOC = { en: "en-GB", de: "de-DE", ar: "ar-u-nu-latn" }[html.lang] || "tr-TR";
   var fmt = function (o) { try { return new Intl.DateTimeFormat(LOC, o); } catch (e) { return new Intl.DateTimeFormat("tr-TR", o); } };
   var fLong = fmt({ weekday: "long", day: "numeric", month: "long" }), fMonth = fmt({ month: "long" }), fMon = fmt({ month: "short" }), fWeek = fmt({ weekday: "short" });
   var monthName = function (d) { return fMonth.format(d); }, monShort = function (d) { return fMon.format(d).replace(".", ""); };
