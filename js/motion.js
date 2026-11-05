@@ -342,7 +342,7 @@
     var alive = function (i) { return !figs[i].hidden; };
     var next = function (i, d) { for (var k = 1; k <= N; k++) { var j = ((i + d * k) % N + N) % N; if (alive(j)) return j; } return i; };
     var count = function () { return figs.filter(function (f) { return !f.hidden; }).length; };
-    var load = function (i) { var im = $("img", figs[i]); if (im && !im.getAttribute("src") && im.dataset.src) im.src = im.dataset.src; };
+    var load = function (i) { var im = $("img", figs[i]); if (im && !im.getAttribute("src") && im.dataset.src) { im.src = im.dataset.src; if (im.decode) im.decode().catch(function () {}); } };
     var place = function (f, pos, on) {
       f.style.setProperty("--pos", pos);
       f.classList.toggle("is-tall", pos === 1);
